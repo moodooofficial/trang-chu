@@ -1,36 +1,67 @@
 import { Link } from "react-router-dom";
+import MoodooLogo from "@/components/MoodooLogo";
 
 export default function Footer() {
   return (
-    <footer className="bg-moodoo-orange text-white py-12 font-display">
-      <div className="max-w-6xl mx-auto px-4 text-center">
-        {/* Mascot placeholder */}
-        <div className="text-6xl mb-4">🦔</div>
+    <footer className="bg-moodoo-orange dark:bg-card text-white dark:text-foreground py-12 font-display relative overflow-hidden">
+      {/* Fun top border */}
+      <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-moodoo-rose via-moodoo-yellow to-moodoo-green" />
 
-        <h2 className="text-4xl font-bold text-moodoo-rose tracking-widest mb-4" style={{ textShadow: "2px 2px 0 white" }}>
-          MOODOO
-        </h2>
+      <div className="max-w-6xl mx-auto px-4">
+        {/* Center: Logo + Social */}
+        <div className="text-center mb-8">
+          <MoodooLogo size="md" className="justify-center mb-2" />
+          <p className="font-bold text-lg mb-4 opacity-90">TRUE EMOTIONS FOR YOU</p>
 
-        <div className="text-2xl tracking-[0.5em] mb-6">✨ ✨ ✨ ✨ ✨</div>
-
-        <div className="border-t border-dashed border-white/50 pt-6 mt-4 flex flex-col md:flex-row justify-between items-start text-left gap-6">
-          <div className="font-body">
-            <p className="font-bold text-lg mb-1">MOODOO - TRUE EMOTIONS FOR YOU</p>
-            <p className="opacity-90">Bộ học liệu giáo dục cảm xúc hàng đầu tại Việt Nam</p>
-            <p className="mt-2">🏠 18 Lê Thúc Hoạch, Phường Phú Thọ Hòa, TP.HCM</p>
-            <p>✉ moodoo.official.vn@gmail.com</p>
-          </div>
-          <div className="flex flex-col items-end gap-2">
-            <div className="flex gap-4 font-bold">
-              <Link to="/" className="hover:underline">Trang chủ</Link>
-              <Link to="/gioi-thieu" className="hover:underline">Giới thiệu</Link>
-              <Link to="/cua-tiem" className="hover:underline">Cửa tiệm</Link>
-            </div>
-            <div className="text-2xl mt-2">🔴 🔵 🟡</div>
+          {/* Social Media */}
+          <div className="flex justify-center gap-4 mb-4">
+            <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer"
+              className="w-10 h-10 bg-white/20 dark:bg-white/10 rounded-full flex items-center justify-center hover:bg-white/40 hover:scale-110 transition-all text-xl">
+              📘
+            </a>
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"
+              className="w-10 h-10 bg-white/20 dark:bg-white/10 rounded-full flex items-center justify-center hover:bg-white/40 hover:scale-110 transition-all text-xl">
+              📸
+            </a>
+            <a href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer"
+              className="w-10 h-10 bg-white/20 dark:bg-white/10 rounded-full flex items-center justify-center hover:bg-white/40 hover:scale-110 transition-all text-xl">
+              🎵
+            </a>
+            <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer"
+              className="w-10 h-10 bg-white/20 dark:bg-white/10 rounded-full flex items-center justify-center hover:bg-white/40 hover:scale-110 transition-all text-xl">
+              ▶️
+            </a>
+            <a href="mailto:moodoo.official.vn@gmail.com"
+              className="w-10 h-10 bg-white/20 dark:bg-white/10 rounded-full flex items-center justify-center hover:bg-white/40 hover:scale-110 transition-all text-xl">
+              ✉️
+            </a>
           </div>
         </div>
 
-        <p className="mt-6 text-sm opacity-70 font-body">© 2026 Moodoo. All rights reserved.</p>
+        <div className="border-t border-dashed border-white/40 dark:border-border pt-6 flex flex-col md:flex-row justify-between items-start gap-6">
+          {/* Left: Quick Links */}
+          <div className="font-body">
+            <p className="font-bold text-lg mb-3">🔗 Liên kết nhanh</p>
+            <div className="flex flex-col gap-2">
+              <Link to="/" className="hover:underline hover:translate-x-1 transition-transform inline-block opacity-90">🏠 Trang chủ</Link>
+              <Link to="/gioi-thieu" className="hover:underline hover:translate-x-1 transition-transform inline-block opacity-90">💡 Giới thiệu</Link>
+              <Link to="/thu-vien" className="hover:underline hover:translate-x-1 transition-transform inline-block opacity-90">📚 Thư viện</Link>
+              <Link to="/cua-tiem" className="hover:underline hover:translate-x-1 transition-transform inline-block opacity-90">🛍️ Cửa tiệm</Link>
+              <Link to="/hang-dong-nho" className="hover:underline hover:translate-x-1 transition-transform inline-block opacity-90">🕳️ Hang động nhỏ</Link>
+              <Link to="/blog" className="hover:underline hover:translate-x-1 transition-transform inline-block opacity-90">📝 Blog</Link>
+            </div>
+          </div>
+
+          {/* Right: Contact */}
+          <div className="font-body text-right">
+            <p className="font-bold text-lg mb-3">📍 Liên hệ</p>
+            <p className="opacity-90">Bộ học liệu giáo dục cảm xúc hàng đầu tại Việt Nam</p>
+            <p className="mt-2 opacity-90">🏠 18 Lê Thúc Hoạch, P. Phú Thọ Hòa, TP.HCM</p>
+            <p className="opacity-90">✉️ moodoo.official.vn@gmail.com</p>
+          </div>
+        </div>
+
+        <p className="mt-8 text-sm opacity-60 font-body text-center">© 2026 Moodoo. All rights reserved. Made with 💖 for kids.</p>
       </div>
     </footer>
   );

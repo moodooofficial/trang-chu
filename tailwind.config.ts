@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ["Fredoka", "sans-serif"],
-        body: ["Nunito Sans", "sans-serif"],
+        display: ["Baloo 2", "cursive"],
+        body: ["Nunito", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -64,6 +64,7 @@ export default {
           purple: "hsl(var(--moodoo-purple))",
           teal: "hsl(var(--moodoo-teal))",
           cream: "hsl(var(--moodoo-cream))",
+          red: "hsl(var(--moodoo-red))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",

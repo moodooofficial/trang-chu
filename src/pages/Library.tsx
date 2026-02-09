@@ -48,7 +48,7 @@ export default function Library() {
           <div className="max-w-6xl mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-display font-bold text-moodoo-sky uppercase">🎬 Góc Video Moodoo</h2>
-              <p className="font-body text-muted-foreground mt-2">Cùng xem và nhảy múa với Moodoo nào!</p>
+              <p className="font-body text-muted-foreground mt-2">Cùng xem và học hỏi các cảm xúc nhé</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {videos.map((v, i) => (

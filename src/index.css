@@ -4,53 +4,54 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 20 10% 20%;
+    --background: 48 100% 97%;
+    --foreground: 20 10% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 20 10% 20%;
+    --card-foreground: 20 10% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 20 10% 20%;
+    --popover-foreground: 20 10% 15%;
 
-    /* Primary = Amber/Orange brand */
-    --primary: 36 100% 50%;
+    /* Primary = Vibrant Orange */
+    --primary: 28 100% 55%;
     --primary-foreground: 0 0% 100%;
 
-    /* Secondary = Green */
-    --secondary: 88 50% 53%;
+    /* Secondary = Bright Green */
+    --secondary: 130 65% 45%;
     --secondary-foreground: 0 0% 100%;
 
     /* Muted */
-    --muted: 40 60% 95%;
-    --muted-foreground: 20 10% 45%;
+    --muted: 40 50% 93%;
+    --muted-foreground: 20 10% 40%;
 
-    /* Accent = Pink */
-    --accent: 340 82% 52%;
+    /* Accent = Hot Pink */
+    --accent: 340 85% 55%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 40 30% 88%;
-    --input: 40 30% 88%;
-    --ring: 36 100% 50%;
+    --border: 40 30% 85%;
+    --input: 40 30% 85%;
+    --ring: 28 100% 55%;
 
     --radius: 1rem;
 
-    /* MOODOO custom palette */
-    --moodoo-yellow: 45 100% 51%;
-    --moodoo-amber: 33 100% 65%;
-    --moodoo-orange: 31 100% 48%;
-    --moodoo-deep-orange: 18 100% 45%;
-    --moodoo-green: 88 50% 53%;
-    --moodoo-blue: 207 68% 72%;
-    --moodoo-sky: 199 92% 56%;
-    --moodoo-pink: 340 82% 76%;
-    --moodoo-rose: 340 82% 52%;
-    --moodoo-purple: 270 76% 31%;
-    --moodoo-teal: 174 100% 27%;
-    --moodoo-cream: 48 100% 90%;
+    /* MOODOO vibrant palette */
+    --moodoo-yellow: 45 100% 55%;
+    --moodoo-amber: 33 100% 60%;
+    --moodoo-orange: 24 100% 52%;
+    --moodoo-deep-orange: 14 100% 48%;
+    --moodoo-green: 145 70% 42%;
+    --moodoo-blue: 210 80% 55%;
+    --moodoo-sky: 195 100% 50%;
+    --moodoo-pink: 330 85% 65%;
+    --moodoo-rose: 345 90% 55%;
+    --moodoo-purple: 270 70% 50%;
+    --moodoo-teal: 174 80% 35%;
+    --moodoo-cream: 45 100% 92%;
+    --moodoo-red: 0 80% 55%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -61,6 +62,59 @@
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
+
+  .dark {
+    --background: 240 10% 10%;
+    --foreground: 48 30% 92%;
+
+    --card: 240 10% 14%;
+    --card-foreground: 48 30% 92%;
+
+    --popover: 240 10% 14%;
+    --popover-foreground: 48 30% 92%;
+
+    --primary: 28 100% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 130 65% 45%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 240 10% 18%;
+    --muted-foreground: 48 20% 65%;
+
+    --accent: 340 85% 55%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 240 10% 22%;
+    --input: 240 10% 22%;
+    --ring: 28 100% 55%;
+
+    --moodoo-yellow: 45 100% 55%;
+    --moodoo-amber: 33 100% 60%;
+    --moodoo-orange: 24 100% 52%;
+    --moodoo-deep-orange: 14 100% 55%;
+    --moodoo-green: 145 70% 42%;
+    --moodoo-blue: 210 80% 55%;
+    --moodoo-sky: 195 100% 50%;
+    --moodoo-pink: 330 85% 65%;
+    --moodoo-rose: 345 90% 55%;
+    --moodoo-purple: 270 70% 60%;
+    --moodoo-teal: 174 80% 40%;
+    --moodoo-cream: 240 10% 16%;
+    --moodoo-red: 0 80% 55%;
+
+    --sidebar-background: 240 10% 12%;
+    --sidebar-foreground: 48 30% 92%;
+    --sidebar-primary: 48 30% 92%;
+    --sidebar-primary-foreground: 240 10% 10%;
+    --sidebar-accent: 240 10% 16%;
+    --sidebar-accent-foreground: 48 30% 92%;
+    --sidebar-border: 240 10% 18%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
 }
 
 @layer base {
@@ -69,10 +123,47 @@
   }
 
   body {
-    @apply bg-background text-foreground font-body;
+    @apply bg-background text-foreground font-body transition-colors duration-300;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Fredoka', sans-serif;
+    font-family: 'Baloo 2', cursive;
   }
+}
+
+/* Fun decorative patterns */
+.pattern-dots {
+  background-image: radial-gradient(circle, currentColor 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.pattern-zigzag {
+  background-image: linear-gradient(135deg, currentColor 25%, transparent 25%),
+    linear-gradient(225deg, currentColor 25%, transparent 25%);
+  background-size: 20px 20px;
+}
+
+/* Colorful MOODOO letters */
+.moodoo-letter-m { color: hsl(345 90% 55%); }
+.moodoo-letter-o1 { color: hsl(28 100% 55%); }
+.moodoo-letter-o2 { color: hsl(45 100% 55%); }
+.moodoo-letter-d { color: hsl(145 70% 42%); }
+.moodoo-letter-o3 { color: hsl(210 80% 55%); }
+.moodoo-letter-o4 { color: hsl(270 70% 50%); }
+
+/* Wavy section divider */
+.wave-divider {
+  position: relative;
+}
+.wave-divider::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  background: inherit;
+  clip-path: polygon(
+    0% 0%, 5% 60%, 10% 100%, 15% 60%, 20% 0%, 25% 60%, 30% 100%, 35% 60%, 40% 0%, 45% 60%, 50% 100%, 55% 60%, 60% 0%, 65% 60%, 70% 100%, 75% 60%, 80% 0%, 85% 60%, 90% 100%, 95% 60%, 100% 0%
+  );
 }
