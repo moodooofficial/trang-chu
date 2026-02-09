@@ -4,7 +4,7 @@ import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/hooks/use-toast";
 import { Input } from "@/components/ui/input";
 
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyeg43OFH3fF8ATO2O55t9yjSDdXkkPAFCunsFMqxKyQRBmB9jBnCHoOaCxYcz6T0co/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwLeJ1d4SvvdRUQoe38wntEbUde5pzG3pm0fBmH167jIttqcSxAgUZT_JyDSij2Jjw/exec";
 
 export default function Checkout() {
   const { cart, totalPrice, clearCart } = useCart();

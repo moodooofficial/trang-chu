@@ -3,8 +3,10 @@ export interface Product {
   name: string;
   description: string;
   price: number;
+  originalPrice?: number;
   category: "books" | "combos" | "cards";
   bgColor: string;
+  sale?: boolean;
 }
 
 export const products: Product[] = [
@@ -12,9 +14,11 @@ export const products: Product[] = [
     id: "book-1",
     name: "Vùng Đất Cảm Xúc I",
     description: "Vui vẻ - Buồn bã - Ngạc nhiên",
-    price: 175000,
+    price: 135000,
+    originalPrice: 175000,
     category: "books",
     bgColor: "bg-blue-100",
+    sale: true,
   },
   {
     id: "book-2",
