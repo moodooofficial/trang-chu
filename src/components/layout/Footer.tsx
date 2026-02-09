@@ -4,7 +4,6 @@ import MoodooLogo from "@/components/MoodooLogo";
 export default function Footer() {
   return (
     <footer className="bg-moodoo-orange dark:bg-card text-white dark:text-foreground py-12 font-display relative overflow-hidden">
-      {/* Fun top border */}
       <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-moodoo-rose via-moodoo-yellow to-moodoo-green" />
 
       <div className="max-w-6xl mx-auto px-4">
@@ -13,36 +12,28 @@ export default function Footer() {
           <MoodooLogo size="md" className="justify-center mb-2" />
           <p className="font-bold text-lg mb-4 opacity-90">TRUE EMOTIONS FOR YOU</p>
 
-          {/* Social Media */}
+          {/* Social Media - 3 only */}
           <div className="flex justify-center gap-4 mb-4">
-            <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer"
+            <a href="https://www.facebook.com/Facebook" target="_blank" rel="noopener noreferrer"
               className="w-10 h-10 bg-white/20 dark:bg-white/10 rounded-full flex items-center justify-center hover:bg-white/40 hover:scale-110 transition-all text-xl">
               📘
-            </a>
-            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"
-              className="w-10 h-10 bg-white/20 dark:bg-white/10 rounded-full flex items-center justify-center hover:bg-white/40 hover:scale-110 transition-all text-xl">
-              📸
             </a>
             <a href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer"
               className="w-10 h-10 bg-white/20 dark:bg-white/10 rounded-full flex items-center justify-center hover:bg-white/40 hover:scale-110 transition-all text-xl">
               🎵
             </a>
-            <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer"
+            <a href="https://youtube.com/@Moodoo-36" target="_blank" rel="noopener noreferrer"
               className="w-10 h-10 bg-white/20 dark:bg-white/10 rounded-full flex items-center justify-center hover:bg-white/40 hover:scale-110 transition-all text-xl">
               ▶️
-            </a>
-            <a href="mailto:moodoo.official.vn@gmail.com"
-              className="w-10 h-10 bg-white/20 dark:bg-white/10 rounded-full flex items-center justify-center hover:bg-white/40 hover:scale-110 transition-all text-xl">
-              ✉️
             </a>
           </div>
         </div>
 
         <div className="border-t border-dashed border-white/40 dark:border-border pt-6 flex flex-col md:flex-row justify-between items-start gap-6">
-          {/* Left: Quick Links */}
+          {/* Left: Quick Links - 2 rows x 3 columns */}
           <div className="font-body">
             <p className="font-bold text-lg mb-3">🔗 Liên kết nhanh</p>
-            <div className="flex flex-col gap-2">
+            <div className="grid grid-cols-3 gap-x-6 gap-y-2">
               <Link to="/" className="hover:underline hover:translate-x-1 transition-transform inline-block opacity-90">🏠 Trang chủ</Link>
               <Link to="/gioi-thieu" className="hover:underline hover:translate-x-1 transition-transform inline-block opacity-90">💡 Giới thiệu</Link>
               <Link to="/thu-vien" className="hover:underline hover:translate-x-1 transition-transform inline-block opacity-90">📚 Thư viện</Link>
