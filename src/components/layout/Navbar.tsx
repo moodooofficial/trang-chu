@@ -35,16 +35,23 @@ export default function Navbar() {
         <ul className="hidden lg:flex items-center gap-1">
           {navLinks.map((link) => (
             <li key={link.to}>
-              <Link to={link.to}
-                className={`px-3 py-2 rounded-full text-sm font-bold transition-all duration-300 ${
-                  location.pathname === link.to
-                    ? "bg-moodoo-orange text-white shadow-md scale-105"
-                    : "text-foreground hover:bg-moodoo-yellow/30 hover:scale-105"
-                }`}>
-                <span className="mr-1">{link.emoji}</span>
-                {link.label}
-                {link.locked && !isLoggedIn && " 🔒"}
-              </Link>
+              {link.external ? (
+                <a href={link.to} target="_blank" rel="noopener noreferrer"
+                  className="px-3 py-2 rounded-full text-sm font-bold transition-all duration-300 text-foreground hover:bg-moodoo-yellow/30 hover:scale-105">
+                  <span className="mr-1">{link.emoji}</span>{link.label}
+                </a>
+              ) : (
+                <Link to={link.to}
+                  className={`px-3 py-2 rounded-full text-sm font-bold transition-all duration-300 ${
+                    location.pathname === link.to
+                      ? "bg-moodoo-orange text-white shadow-md scale-105"
+                      : "text-foreground hover:bg-moodoo-yellow/30 hover:scale-105"
+                  }`}>
+                  <span className="mr-1">{link.emoji}</span>
+                  {link.label}
+                  {link.locked && !isLoggedIn && " 🔒"}
+                </Link>
+              )}
             </li>
           ))}
         </ul>
