@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import GatedContent from "@/components/GatedContent";
 import FloatingEmojis from "@/components/FloatingEmojis";
+import { useAuth } from "@/contexts/AuthContext";
 import cxVui from "@/assets/cx-vui.jpg";
 import cxBuon from "@/assets/cx-buon.jpg";
 import cxGian from "@/assets/cx-gian.jpg";
