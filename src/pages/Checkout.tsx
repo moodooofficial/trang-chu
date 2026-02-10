@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/hooks/use-toast";
 import { Input } from "@/components/ui/input";
+import qrCodeImage from "@/assets/qr-code.jpg";
 
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwLeJ1d4SvvdRUQoe38wntEbUde5pzG3pm0fBmH167jIttqcSxAgUZT_JyDSij2Jjw/exec";
 
@@ -90,38 +91,49 @@ export default function Checkout() {
             <Input value={note} onChange={(e) => setNote(e.target.value)} placeholder="Ví dụ: Giao giờ hành chính" className="rounded-xl" />
           </div>
 
-          {/* Order Summary */}
-          <div className="bg-white p-8 rounded-3xl shadow-lg">
-            <h2 className="text-xl font-display font-bold text-moodoo-deep-orange mb-6">Giỏ hàng của bạn</h2>
+          {/* Order Summary + QR */}
+          <div className="space-y-6">
+            <div className="bg-white p-8 rounded-3xl shadow-lg">
+              <h2 className="text-xl font-display font-bold text-moodoo-deep-orange mb-6">Giỏ hàng của bạn</h2>
 
-            {cart.length === 0 ? (
-              <p className="font-body text-muted-foreground py-4">
-                Giỏ hàng đang trống. <Link to="/cua-tiem" className="text-moodoo-rose font-bold hover:underline">Quay lại mua hàng nè!</Link>
-              </p>
-            ) : (
-              <div className="space-y-3">
-                {cart.map((item, idx) => (
-                  <div key={`${item.id}-${idx}`} className="flex justify-between items-center py-3 border-b border-muted">
-                    <span className="font-body text-sm">{item.name}</span>
-                    <span className="font-display font-bold text-moodoo-rose">{item.price.toLocaleString()}đ</span>
-                  </div>
-                ))}
+              {cart.length === 0 ? (
+                <p className="font-body text-muted-foreground py-4">
+                  Giỏ hàng đang trống. <Link to="/cua-tiem" className="text-moodoo-rose font-bold hover:underline">Quay lại mua hàng nè!</Link>
+                </p>
+              ) : (
+                <div className="space-y-3">
+                  {cart.map((item, idx) => (
+                    <div key={`${item.id}-${idx}`} className="flex justify-between items-center py-3 border-b border-muted">
+                      <span className="font-body text-sm">{item.name}</span>
+                      <span className="font-display font-bold text-moodoo-rose">{item.price.toLocaleString()}đ</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              <div className="mt-6 pt-4 border-t-2 border-dashed border-muted text-right">
+                <span className="text-2xl font-display font-bold text-moodoo-rose">
+                  Tổng: {totalPrice.toLocaleString()}đ
+                </span>
               </div>
-            )}
 
-            <div className="mt-6 pt-4 border-t-2 border-dashed border-muted text-right">
-              <span className="text-2xl font-display font-bold text-moodoo-rose">
-                Tổng: {totalPrice.toLocaleString()}đ
-              </span>
+              <button
+                onClick={handleSubmit}
+                disabled={loading || cart.length === 0}
+                className="w-full mt-6 py-4 bg-moodoo-green text-white font-display font-bold text-lg rounded-full shadow-[0_4px_0_hsl(88,50%,40%)] active:translate-y-1 active:shadow-none transition-all disabled:opacity-50"
+              >
+                {loading ? "ĐANG XỬ LÝ..." : "XÁC NHẬN ĐẶT HÀNG"}
+              </button>
             </div>
 
-            <button
-              onClick={handleSubmit}
-              disabled={loading || cart.length === 0}
-              className="w-full mt-6 py-4 bg-moodoo-green text-white font-display font-bold text-lg rounded-full shadow-[0_4px_0_hsl(88,50%,40%)] active:translate-y-1 active:shadow-none transition-all disabled:opacity-50"
-            >
-              {loading ? "ĐANG XỬ LÝ..." : "XÁC NHẬN ĐẶT HÀNG"}
-            </button>
+            {/* QR Code Section */}
+            <div className="bg-white p-6 rounded-3xl shadow-lg text-center">
+              <h3 className="font-display font-bold text-lg text-moodoo-deep-orange mb-2">💳 Chuyển khoản nhanh</h3>
+              <p className="font-body text-sm text-muted-foreground mb-1">NGUYEN THI BICH TRAM</p>
+              <p className="font-display font-bold text-xl text-foreground mb-3">0931486612</p>
+              <img src={qrCodeImage} alt="QR Code chuyển khoản" className="w-56 h-56 mx-auto rounded-2xl border-2 border-moodoo-cream object-contain" />
+              <p className="font-body text-xs text-muted-foreground mt-3">Quét mã QR để chuyển khoản nhanh hơn</p>
+            </div>
           </div>
         </div>
       </div>

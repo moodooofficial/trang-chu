@@ -14,6 +14,7 @@ const navLinks = [
   { to: "/cua-tiem", label: "Cửa tiệm", emoji: "🛍️" },
   { to: "/hang-dong-nho", label: "Hang động nhỏ", locked: true, emoji: "🕳️" },
   { to: "/blog", label: "Blog", locked: true, emoji: "📝" },
+  { to: "https://moodoo-lemon.vercel.app/", label: "App", emoji: "📱", external: true },
 ];
 
 export default function Navbar() {

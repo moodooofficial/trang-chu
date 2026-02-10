@@ -24,7 +24,7 @@ export const blogPosts: BlogPost[] = [
   },
   {
     id: "3",
-    title: "Review bộ sách \"Vùng Đất Cảm Xúc\"",
+    title: "Hướng dẫn sử dụng bộ học liệu MOODOO",
     excerpt: "Phụ huynh nói gì về bộ sách tương tác đầu tay của nhà Moodoo? Cùng xem nhé!",
     date: "10 Tháng 02, 2026",
   },
