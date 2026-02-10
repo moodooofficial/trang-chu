@@ -14,6 +14,7 @@ const navLinks = [
   { to: "/cua-tiem", label: "Cửa tiệm", emoji: "🛍️" },
   { to: "/hang-dong-nho", label: "Hang động nhỏ", locked: true, emoji: "🕳️" },
   { to: "/blog", label: "Blog", locked: true, emoji: "📝" },
+  { to: "https://moodoo-lemon.vercel.app/", label: "App", emoji: "📱", external: true },
 ];
 
 export default function Navbar() {
@@ -34,16 +35,23 @@ export default function Navbar() {
         <ul className="hidden lg:flex items-center gap-1">
           {navLinks.map((link) => (
             <li key={link.to}>
-              <Link to={link.to}
-                className={`px-3 py-2 rounded-full text-sm font-bold transition-all duration-300 ${
-                  location.pathname === link.to
-                    ? "bg-moodoo-orange text-white shadow-md scale-105"
-                    : "text-foreground hover:bg-moodoo-yellow/30 hover:scale-105"
-                }`}>
-                <span className="mr-1">{link.emoji}</span>
-                {link.label}
-                {link.locked && !isLoggedIn && " 🔒"}
-              </Link>
+              {link.external ? (
+                <a href={link.to} target="_blank" rel="noopener noreferrer"
+                  className="px-3 py-2 rounded-full text-sm font-bold transition-all duration-300 text-foreground hover:bg-moodoo-yellow/30 hover:scale-105">
+                  <span className="mr-1">{link.emoji}</span>{link.label}
+                </a>
+              ) : (
+                <Link to={link.to}
+                  className={`px-3 py-2 rounded-full text-sm font-bold transition-all duration-300 ${
+                    location.pathname === link.to
+                      ? "bg-moodoo-orange text-white shadow-md scale-105"
+                      : "text-foreground hover:bg-moodoo-yellow/30 hover:scale-105"
+                  }`}>
+                  <span className="mr-1">{link.emoji}</span>
+                  {link.label}
+                  {link.locked && !isLoggedIn && " 🔒"}
+                </Link>
+              )}
             </li>
           ))}
         </ul>
@@ -80,12 +88,19 @@ export default function Navbar() {
           <ul className="flex flex-col p-4 gap-1">
             {navLinks.map((link) => (
               <li key={link.to}>
-                <Link to={link.to} onClick={() => setIsMenuOpen(false)}
-                  className={`block px-4 py-3 rounded-xl text-sm font-bold transition-all ${
-                    location.pathname === link.to ? "bg-moodoo-orange text-white" : "text-foreground hover:bg-moodoo-yellow/20"
-                  }`}>
-                  <span className="mr-2">{link.emoji}</span>{link.label}{link.locked && !isLoggedIn && " 🔒"}
-                </Link>
+                {link.external ? (
+                  <a href={link.to} target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}
+                    className="block px-4 py-3 rounded-xl text-sm font-bold transition-all text-foreground hover:bg-moodoo-yellow/20">
+                    <span className="mr-2">{link.emoji}</span>{link.label}
+                  </a>
+                ) : (
+                  <Link to={link.to} onClick={() => setIsMenuOpen(false)}
+                    className={`block px-4 py-3 rounded-xl text-sm font-bold transition-all ${
+                      location.pathname === link.to ? "bg-moodoo-orange text-white" : "text-foreground hover:bg-moodoo-yellow/20"
+                    }`}>
+                    <span className="mr-2">{link.emoji}</span>{link.label}{link.locked && !isLoggedIn && " 🔒"}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>
