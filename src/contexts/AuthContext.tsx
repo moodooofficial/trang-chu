@@ -2,6 +2,7 @@ import { createContext, useContext, useState, useEffect, ReactNode, useCallback 
 
 interface AuthContextType {
   user: string | null;
+  access: string | null;
   isLoggedIn: boolean;
   isAuthModalOpen: boolean;
   login: (email: string, password: string) => Promise<void>;
@@ -19,12 +20,25 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx1Yj0cZy8Td36LwN7Nk
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<string | null>(null);
+  const [access, setAccess] = useState<string | null>(null);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authMode, setAuthMode] = useState<"login" | "register">("login");
 
   useEffect(() => {
     const saved = localStorage.getItem("moodoo_user");
-    if (saved) setUser(saved);
+    const savedAccess = localStorage.getItem("moodoo_access");
+    if (saved) {
+      setUser(saved);
+      setAccess(savedAccess);
+    }
+  }, []);
+
+  const loginSuccess = useCallback((email: string, accessLevel: string | null) => {
+    setUser(email);
+    setAccess(accessLevel);
+    localStorage.setItem("moodoo_user", email);
+    localStorage.setItem("moodoo_access", accessLevel || "");
+    setIsAuthModalOpen(false);
   }, []);
 
   const login = useCallback(async (email: string, password: string) => {
@@ -34,13 +48,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     });
     const data = await res.json();
     if (data.result === "success") {
-      setUser(email);
-      localStorage.setItem("moodoo_user", email);
-      setIsAuthModalOpen(false);
+      loginSuccess(email, data.access || null);
     } else {
       throw new Error(data.message || "Đăng nhập thất bại");
     }
-  }, []);
+  }, [loginSuccess]);
 
   const register = useCallback(async (bookCode: string, email: string, password: string) => {
     const res = await fetch(SCRIPT_URL, {
@@ -49,17 +61,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     });
     const data = await res.json();
     if (data.result === "success") {
-      setUser(email);
-      localStorage.setItem("moodoo_user", email);
-      setIsAuthModalOpen(false);
+      loginSuccess(email, data.access || null);
     } else {
       throw new Error(data.message || "Đăng ký thất bại");
     }
-  }, []);
+  }, [loginSuccess]);
 
   const logout = useCallback(() => {
     setUser(null);
+    setAccess(null);
     localStorage.removeItem("moodoo_user");
+    localStorage.removeItem("moodoo_access");
   }, []);
 
   const openAuthModal = useCallback((mode: "login" | "register" = "login") => {
@@ -70,7 +82,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const closeAuthModal = useCallback(() => setIsAuthModalOpen(false), []);
 
   return (
-    <AuthContext.Provider value={{ user, isLoggedIn: !!user, isAuthModalOpen, login, register, logout, openAuthModal, closeAuthModal, authMode, setAuthMode }}>
+    <AuthContext.Provider value={{ user, access, isLoggedIn: !!user, isAuthModalOpen, login, register, logout, openAuthModal, closeAuthModal, authMode, setAuthMode }}>
       {children}
     </AuthContext.Provider>
   );
