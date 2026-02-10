@@ -11,6 +11,7 @@ import cxYeu from "@/assets/cx-yeu.jpg";
 
 const bookSections = [
   {
+    id: "VDCX1",
     title: "Vùng Đất Cảm Xúc 1",
     color: "text-moodoo-sky",
     borderColor: "border-moodoo-sky",
@@ -25,6 +26,7 @@ const bookSections = [
     ],
   },
   {
+    id: "VDCX2",
     title: "Vùng Đất Cảm Xúc 2",
     color: "text-moodoo-rose",
     borderColor: "border-moodoo-rose",
