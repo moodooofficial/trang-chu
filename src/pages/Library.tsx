@@ -77,43 +77,60 @@ export default function Library() {
         buttonText="MỞ KHÓA NGAY">
 
         {/* Book Sections */}
-        {bookSections.map((section, sIdx) => (
-          <section key={sIdx} className={`${section.bgColor} py-16 relative overflow-hidden`}>
-            <FloatingEmojis variant="library" count={6} />
-            <div className="max-w-6xl mx-auto px-4 relative z-10">
-              <div className="text-center mb-10">
-                <h2 className={`text-3xl font-display font-bold ${section.color} uppercase`}>📖 {section.title}</h2>
-                <p className="font-body text-muted-foreground mt-2">Cùng xem và học hỏi các cảm xúc nhé</p>
-              </div>
+        {bookSections.map((section, sIdx) => {
+          const unlocked = canAccessSection(section.id);
+          return (
+            <section key={sIdx} className={`${section.bgColor} py-16 relative overflow-hidden`}>
+              <FloatingEmojis variant="library" count={6} />
+              <div className="max-w-6xl mx-auto px-4 relative z-10">
+                <div className="text-center mb-10">
+                  <h2 className={`text-3xl font-display font-bold ${section.color} uppercase`}>
+                    {unlocked ? "📖" : "🔒"} {section.title}
+                  </h2>
+                  <p className="font-body text-muted-foreground mt-2">
+                    {unlocked ? "Cùng xem và học hỏi các cảm xúc nhé" : "Bạn chưa mở khoá nội dung này"}
+                  </p>
+                </div>
 
-              {/* Videos */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-                {section.videos.map((v, i) => (
-                  <motion.div key={i} className="bg-white dark:bg-card rounded-2xl p-4 shadow-lg hover:-translate-y-1 transition-transform"
-                    initial="hidden" whileInView="visible" viewport={{ once: true }}
-                    variants={{ ...fadeInUp, visible: { ...fadeInUp.visible, transition: { duration: 0.5, delay: i * 0.1 } } }}>
-                    <div className="relative pb-[56.25%] bg-foreground rounded-xl overflow-hidden">
-                      <iframe src={v.url} allowFullScreen className="absolute inset-0 w-full h-full border-none" />
+                {unlocked ? (
+                  <>
+                    {/* Videos */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+                      {section.videos.map((v, i) => (
+                        <motion.div key={i} className="bg-white dark:bg-card rounded-2xl p-4 shadow-lg hover:-translate-y-1 transition-transform"
+                          initial="hidden" whileInView="visible" viewport={{ once: true }}
+                          variants={{ ...fadeInUp, visible: { ...fadeInUp.visible, transition: { duration: 0.5, delay: i * 0.1 } } }}>
+                          <div className="relative pb-[56.25%] bg-foreground rounded-xl overflow-hidden">
+                            <iframe src={v.url} allowFullScreen className="absolute inset-0 w-full h-full border-none" />
+                          </div>
+                          <p className="mt-4 text-center font-display font-bold">{v.title}</p>
+                        </motion.div>
+                      ))}
                     </div>
-                    <p className="mt-4 text-center font-display font-bold">{v.title}</p>
-                  </motion.div>
-                ))}
-              </div>
 
-              {/* Resources */}
-              <div className="flex flex-col md:flex-row justify-center gap-8">
-                {section.resources.map((r, i) => (
-                  <a key={i} href={r.url} target="_blank" rel="noopener noreferrer"
-                    className={`block w-56 mx-auto bg-white dark:bg-card rounded-2xl p-8 border-4 ${section.borderColor} shadow-lg hover:translate-y-1 transition-all text-center hover:shadow-xl`}>
-                    <span className="text-5xl block mb-3">{r.icon}</span>
-                    <h3 className={`font-display font-black text-xl ${section.color}`}>{r.title}</h3>
-                    <p className="font-body text-sm text-muted-foreground mt-1">{r.desc}</p>
-                  </a>
-                ))}
+                    {/* Resources */}
+                    <div className="flex flex-col md:flex-row justify-center gap-8">
+                      {section.resources.map((r, i) => (
+                        <a key={i} href={r.url} target="_blank" rel="noopener noreferrer"
+                          className={`block w-56 mx-auto bg-white dark:bg-card rounded-2xl p-8 border-4 ${section.borderColor} shadow-lg hover:translate-y-1 transition-all text-center hover:shadow-xl`}>
+                          <span className="text-5xl block mb-3">{r.icon}</span>
+                          <h3 className={`font-display font-black text-xl ${section.color}`}>{r.title}</h3>
+                          <p className="font-body text-sm text-muted-foreground mt-1">{r.desc}</p>
+                        </a>
+                      ))}
+                    </div>
+                  </>
+                ) : (
+                  <div className="text-center py-10">
+                    <div className="text-6xl mb-4">🔐</div>
+                    <p className="font-display font-bold text-lg text-foreground mb-2">Nội dung bị khoá</p>
+                    <p className="font-body text-muted-foreground mb-4">Bạn cần mã sách tương ứng để mở khoá {section.title}</p>
+                  </div>
+                )}
               </div>
-            </div>
-          </section>
-        ))}
+            </section>
+          );
+        })}
 
         {/* Emotions */}
         <section className="bg-moodoo-cream py-16 relative overflow-hidden">
