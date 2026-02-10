@@ -88,12 +88,19 @@ export default function Navbar() {
           <ul className="flex flex-col p-4 gap-1">
             {navLinks.map((link) => (
               <li key={link.to}>
-                <Link to={link.to} onClick={() => setIsMenuOpen(false)}
-                  className={`block px-4 py-3 rounded-xl text-sm font-bold transition-all ${
-                    location.pathname === link.to ? "bg-moodoo-orange text-white" : "text-foreground hover:bg-moodoo-yellow/20"
-                  }`}>
-                  <span className="mr-2">{link.emoji}</span>{link.label}{link.locked && !isLoggedIn && " 🔒"}
-                </Link>
+                {link.external ? (
+                  <a href={link.to} target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}
+                    className="block px-4 py-3 rounded-xl text-sm font-bold transition-all text-foreground hover:bg-moodoo-yellow/20">
+                    <span className="mr-2">{link.emoji}</span>{link.label}
+                  </a>
+                ) : (
+                  <Link to={link.to} onClick={() => setIsMenuOpen(false)}
+                    className={`block px-4 py-3 rounded-xl text-sm font-bold transition-all ${
+                      location.pathname === link.to ? "bg-moodoo-orange text-white" : "text-foreground hover:bg-moodoo-yellow/20"
+                    }`}>
+                    <span className="mr-2">{link.emoji}</span>{link.label}{link.locked && !isLoggedIn && " 🔒"}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>
