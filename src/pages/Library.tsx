@@ -57,6 +57,12 @@ const fadeInUp = {
 };
 
 export default function Library() {
+  const { access } = useAuth();
+
+  const canAccessSection = (sectionId: string) => {
+    return access === "ALL" || access === sectionId;
+  };
+
   return (
     <div>
       <div className="bg-moodoo-green text-white py-12 text-center border-t-4 border-white relative overflow-hidden">
