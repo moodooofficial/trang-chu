@@ -30,16 +30,8 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-dashed border-white/40 dark:border-border pt-6 flex flex-col md:flex-row justify-between items-start gap-6">
-          {/* Left: Contact */}
+          {/* Left: Quick Links - 2 rows x 3 columns */}
           <div className="font-body">
-            <p className="font-bold text-lg mb-3">📍 Liên hệ</p>
-            <p className="opacity-90">Bộ học liệu giáo dục cảm xúc hàng đầu tại Việt Nam</p>
-            <p className="mt-2 opacity-90">🏠 18 Lê Thúc Hoạch, P. Phú Thọ Hòa, TP.HCM</p>
-            <p className="opacity-90">✉️ moodoo.official.vn@gmail.com</p>
-          </div>
-
-          {/* Right: Quick Links - 2 rows x 3 columns */}
-          <div className="font-body text-right">
             <p className="font-bold text-lg mb-3">🔗 Liên kết nhanh</p>
             <div className="grid grid-cols-3 gap-x-6 gap-y-2">
               <Link to="/" className="hover:underline hover:translate-x-1 transition-transform inline-block opacity-90">🏠 Trang chủ</Link>
@@ -50,6 +42,14 @@ export default function Footer() {
               <Link to="/blog" className="hover:underline hover:translate-x-1 transition-transform inline-block opacity-90">📝 Blog</Link>
               <a href="https://moodoo-lemon.vercel.app/" target="_blank" rel="noopener noreferrer" className="hover:underline hover:translate-x-1 transition-transform inline-block opacity-90">📱 App</a>
             </div>
+          </div>
+
+          {/* Right: Contact */}
+          <div className="font-body text-right">
+            <p className="font-bold text-lg mb-3">📍 Liên hệ</p>
+            <p className="opacity-90">Bộ học liệu giáo dục cảm xúc hàng đầu tại Việt Nam</p>
+            <p className="mt-2 opacity-90">🏠 18 Lê Thúc Hoạch, P. Phú Thọ Hòa, TP.HCM</p>
+            <p className="opacity-90">✉️ moodoo.official.vn@gmail.com</p>
           </div>
         </div>
 
