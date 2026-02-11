@@ -3,6 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { CartProvider } from "@/contexts/CartContext";
 import Layout from "@/components/layout/Layout";
@@ -16,30 +17,33 @@ import Checkout from "./pages/Checkout";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
+const GOOGLE_CLIENT_ID = "210550814392-hj9ogi2ovmlt5vuukpqeiuf3knddgbbb.apps.googleusercontent.com";
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <AuthProvider>
-        <CartProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Layout><Index /></Layout>} />
-              <Route path="/gioi-thieu" element={<Layout><About /></Layout>} />
-              <Route path="/thu-vien" element={<Layout><Library /></Layout>} />
-              <Route path="/cua-tiem" element={<Layout><Shop /></Layout>} />
-              <Route path="/hang-dong-nho" element={<Layout><Cave /></Layout>} />
-              <Route path="/blog" element={<Layout><Blog /></Layout>} />
-              <Route path="/thanh-toan" element={<Checkout />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </BrowserRouter>
-        </CartProvider>
-      </AuthProvider>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <AuthProvider>
+          <CartProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Layout><Index /></Layout>} />
+                <Route path="/gioi-thieu" element={<Layout><About /></Layout>} />
+                <Route path="/thu-vien" element={<Layout><Library /></Layout>} />
+                <Route path="/cua-tiem" element={<Layout><Shop /></Layout>} />
+                <Route path="/hang-dong-nho" element={<Layout><Cave /></Layout>} />
+                <Route path="/blog" element={<Layout><Blog /></Layout>} />
+                <Route path="/thanh-toan" element={<Checkout />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </BrowserRouter>
+          </CartProvider>
+        </AuthProvider>
+      </TooltipProvider>
+    </QueryClientProvider>
+  </GoogleOAuthProvider>
 );
 
 export default App;
