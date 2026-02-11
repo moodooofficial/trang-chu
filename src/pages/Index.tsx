@@ -9,6 +9,8 @@ import moodooKids from "@/assets/moodoo-kids.jpg";
 import moodooReading from "@/assets/moodoo-reading.jpg";
 import moodooPlaying from "@/assets/moodoo-playing.jpg";
 import moodooFamily from "@/assets/moodoo-family.jpg";
+import s1Img from "@/assets/s1.jpg";
+import s2Img from "@/assets/s2.jpg";
 
 const whyCards = [
   { icon: "🐶", title: "Gắn kết tự nhiên", desc: "Hình ảnh minh họa lấy cảm hứng từ thiên nhiên, gần gũi với trẻ.", bg: "bg-amber-50 dark:bg-amber-950/30" },
@@ -44,7 +46,6 @@ const staggerContainer = {
 
 export default function Index() {
   const [ctaIndex, setCtaIndex] = useState(0);
-  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const interval = setInterval(() => setCtaIndex((i) => (i + 1) % ctaImages.length), 3500);
@@ -125,19 +126,19 @@ export default function Index() {
         </div>
       </section>
 
-      {/* BOOKS */}
+      {/* BOOKS - with real images */}
       <section className="bg-moodoo-cream py-16">
         <div className="max-w-6xl mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-display font-extrabold mb-12">BỘ SÁCH <MoodooLogo size="md" /></h2>
           <div className="flex flex-col md:flex-row justify-center gap-12">
             {[
-              { title: "VÙNG ĐẤT CẢM XÚC I", sub: "VUI - BUỒN - NGẠC NHIÊN", bg: "bg-moodoo-blue", emoji: "📘" },
-              { title: "VÙNG ĐẤT CẢM XÚC II", sub: "GIẬN - SỢ - YÊU THƯƠNG", bg: "bg-moodoo-rose", emoji: "📙" },
+              { title: "VÙNG ĐẤT CẢM XÚC I", sub: "VUI - BUỒN - NGẠC NHIÊN", image: s1Img },
+              { title: "VÙNG ĐẤT CẢM XÚC II", sub: "GIẬN - SỢ - YÊU THƯƠNG", image: s2Img },
             ].map((book, i) => (
               <motion.div key={i} className="text-center" initial="hidden" whileInView="visible" viewport={{ once: true }}
                 variants={{ ...fadeInUp, visible: { ...fadeInUp.visible, transition: { duration: 0.6, delay: i * 0.2 } } }}>
-                <div className={`w-64 h-72 ${book.bg} rounded-3xl flex items-center justify-center mx-auto shadow-2xl hover:scale-105 hover:-rotate-2 transition-all duration-500 border-4 border-white`}>
-                  <span className="text-8xl drop-shadow-lg">{book.emoji}</span>
+                <div className="w-64 h-72 rounded-3xl mx-auto shadow-2xl hover:scale-105 hover:-rotate-2 transition-all duration-500 border-4 border-white overflow-hidden">
+                  <img src={book.image} alt={book.title} className="w-full h-full object-cover" />
                 </div>
                 <p className="font-display font-extrabold text-moodoo-orange text-xl mt-5">{book.title}</p>
                 <p className="font-display font-bold text-foreground">{book.sub}</p>
@@ -196,7 +197,7 @@ export default function Index() {
         </div>
       </section>
 
-      {/* TEAM */}
+      {/* TEAM - with real photos */}
       <section className="bg-moodoo-blue py-16">
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-center text-3xl md:text-4xl font-display font-extrabold text-white uppercase tracking-widest mb-12">🎯 OUR TEAM</h2>
@@ -204,8 +205,12 @@ export default function Index() {
             {teamMembers.map((member, i) => (
               <motion.div key={i} className="text-center w-36" initial="hidden" whileInView="visible" viewport={{ once: true }}
                 variants={{ ...fadeInUp, visible: { ...fadeInUp.visible, transition: { duration: 0.5, delay: i * 0.1 } } }}>
-                <div className="w-28 h-28 bg-white rounded-full border-4 border-moodoo-yellow mx-auto mb-3 flex items-center justify-center text-4xl shadow-xl hover:scale-110 hover:rotate-6 transition-all duration-300">
-                  {member.emoji}
+                <div className="w-28 h-28 rounded-full border-4 border-moodoo-yellow mx-auto mb-3 shadow-xl hover:scale-110 hover:rotate-6 transition-all duration-300 overflow-hidden">
+                  {member.image ? (
+                    <img src={member.image} alt={member.name} className="w-full h-full object-cover" />
+                  ) : (
+                    <div className="w-full h-full bg-white flex items-center justify-center text-4xl">{member.emoji}</div>
+                  )}
                 </div>
                 <p className="font-display font-bold text-white">{member.name}</p>
                 <p className="font-body text-sm text-white/80 font-bold">{member.role}</p>
@@ -236,7 +241,6 @@ export default function Index() {
                   <img key={i} src={img} alt={`MOODOO ${i}`}
                     className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${i === ctaIndex ? "opacity-100" : "opacity-0"}`} />
                 ))}
-                {/* Dots */}
                 <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
                   {ctaImages.map((_, i) => (
                     <button key={i} onClick={() => setCtaIndex(i)}

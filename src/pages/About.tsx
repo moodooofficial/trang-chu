@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import FloatingEmojis from "@/components/FloatingEmojis";
-import moodooHouseLogo from "@/assets/moodoo-house-logo.jpg";
 import moodooMascot from "@/assets/moodoo-mascot.jpg";
 import moodooMascotPeek from "@/assets/moodoo-mascot-peek.jpg";
+import caselImg from "@/assets/casel.jpg";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -33,7 +33,7 @@ const sections = [
       "MOODOO được xây dựng dựa trên khung năng lực Giáo dục Cảm xúc – Xã hội (SEL) của CASEL, tập trung vào 6 cảm xúc cơ bản của trẻ: vui vẻ, buồn bã, tức giận, sợ hãi, yêu thương và ngạc nhiên.",
       "Dự án kết hợp giữa sách tương tác, hoạt động đa giác quan, trò chơi trải nghiệm và trợ lý ảo, giúp trẻ học cảm xúc không qua lý thuyết khô khan mà thông qua chơi, kể chuyện và đối thoại.",
     ],
-    image: moodooHouseLogo,
+    image: caselImg,
     reverse: true,
   },
   {

@@ -5,7 +5,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Input } from "@/components/ui/input";
 import qrCodeImage from "@/assets/qr-code.jpg";
 
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwLeJ1d4SvvdRUQoe38wntEbUde5pzG3pm0fBmH167jIttqcSxAgUZT_JyDSij2Jjw/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyzhnDs8yAWR-YhOsVU26YOfvs8lHxklyMTrmHy36qxg3FSZuQvAtlk3G4SoQl6kXhJ/exec";
 
 export default function Checkout() {
   const { cart, totalPrice, clearCart } = useCart();
@@ -61,10 +61,10 @@ export default function Checkout() {
         </Link>
       </nav>
 
-      <div className="max-w-5xl mx-auto px-4 py-8">
+      <div className="max-w-7xl mx-auto px-4 py-8">
         <h1 className="text-3xl font-display font-bold mb-8">Xác nhận đơn hàng</h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-[1.5fr_1fr] gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Form */}
           <div className="bg-white p-8 rounded-3xl shadow-lg">
             <h2 className="text-xl font-display font-bold text-moodoo-deep-orange mb-6">Thông tin giao hàng</h2>
@@ -91,49 +91,47 @@ export default function Checkout() {
             <Input value={note} onChange={(e) => setNote(e.target.value)} placeholder="Ví dụ: Giao giờ hành chính" className="rounded-xl" />
           </div>
 
-          {/* Order Summary + QR */}
-          <div className="space-y-6">
-            <div className="bg-white p-8 rounded-3xl shadow-lg">
-              <h2 className="text-xl font-display font-bold text-moodoo-deep-orange mb-6">Giỏ hàng của bạn</h2>
+          {/* Order Summary */}
+          <div className="bg-white p-8 rounded-3xl shadow-lg">
+            <h2 className="text-xl font-display font-bold text-moodoo-deep-orange mb-6">Giỏ hàng của bạn</h2>
 
-              {cart.length === 0 ? (
-                <p className="font-body text-muted-foreground py-4">
-                  Giỏ hàng đang trống. <Link to="/cua-tiem" className="text-moodoo-rose font-bold hover:underline">Quay lại mua hàng nè!</Link>
-                </p>
-              ) : (
-                <div className="space-y-3">
-                  {cart.map((item, idx) => (
-                    <div key={`${item.id}-${idx}`} className="flex justify-between items-center py-3 border-b border-muted">
-                      <span className="font-body text-sm">{item.name}</span>
-                      <span className="font-display font-bold text-moodoo-rose">{item.price.toLocaleString()}đ</span>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              <div className="mt-6 pt-4 border-t-2 border-dashed border-muted text-right">
-                <span className="text-2xl font-display font-bold text-moodoo-rose">
-                  Tổng: {totalPrice.toLocaleString()}đ
-                </span>
+            {cart.length === 0 ? (
+              <p className="font-body text-muted-foreground py-4">
+                Giỏ hàng đang trống. <Link to="/cua-tiem" className="text-moodoo-rose font-bold hover:underline">Quay lại mua hàng nè!</Link>
+              </p>
+            ) : (
+              <div className="space-y-3">
+                {cart.map((item, idx) => (
+                  <div key={`${item.id}-${idx}`} className="flex justify-between items-center py-3 border-b border-muted">
+                    <span className="font-body text-sm">{item.name}</span>
+                    <span className="font-display font-bold text-moodoo-rose">{item.price.toLocaleString()}đ</span>
+                  </div>
+                ))}
               </div>
+            )}
 
-              <button
-                onClick={handleSubmit}
-                disabled={loading || cart.length === 0}
-                className="w-full mt-6 py-4 bg-moodoo-green text-white font-display font-bold text-lg rounded-full shadow-[0_4px_0_hsl(88,50%,40%)] active:translate-y-1 active:shadow-none transition-all disabled:opacity-50"
-              >
-                {loading ? "ĐANG XỬ LÝ..." : "XÁC NHẬN ĐẶT HÀNG"}
-              </button>
+            <div className="mt-6 pt-4 border-t-2 border-dashed border-muted text-right">
+              <span className="text-2xl font-display font-bold text-moodoo-rose">
+                Tổng: {totalPrice.toLocaleString()}đ
+              </span>
             </div>
 
-            {/* QR Code Section */}
-            <div className="bg-white p-6 rounded-3xl shadow-lg text-center">
-              <h3 className="font-display font-bold text-lg text-moodoo-deep-orange mb-2">💳 Chuyển khoản nhanh</h3>
-              <p className="font-body text-sm text-muted-foreground mb-1">NGUYEN THI BICH TRAM</p>
-              <p className="font-display font-bold text-xl text-foreground mb-3">0931486612</p>
-              <img src={qrCodeImage} alt="QR Code chuyển khoản" className="w-56 h-56 mx-auto rounded-2xl border-2 border-moodoo-cream object-contain" />
-              <p className="font-body text-xs text-muted-foreground mt-3">Quét mã QR để chuyển khoản nhanh hơn</p>
-            </div>
+            <button
+              onClick={handleSubmit}
+              disabled={loading || cart.length === 0}
+              className="w-full mt-6 py-4 bg-moodoo-green text-white font-display font-bold text-lg rounded-full shadow-[0_4px_0_hsl(88,50%,40%)] active:translate-y-1 active:shadow-none transition-all disabled:opacity-50"
+            >
+              {loading ? "ĐANG XỬ LÝ..." : "XÁC NHẬN ĐẶT HÀNG"}
+            </button>
+          </div>
+
+          {/* QR Code Section */}
+          <div className="bg-white p-6 rounded-3xl shadow-lg text-center">
+            <h3 className="font-display font-bold text-lg text-moodoo-deep-orange mb-2">💳 Chuyển khoản nhanh</h3>
+            <p className="font-body text-sm text-muted-foreground mb-1">NGUYEN THI BICH TRAM</p>
+            <p className="font-display font-bold text-xl text-foreground mb-3">0931486612</p>
+            <img src={qrCodeImage} alt="QR Code chuyển khoản" className="w-56 h-56 mx-auto rounded-2xl border-2 border-moodoo-cream object-contain" />
+            <p className="font-body text-xs text-muted-foreground mt-3">Quét mã QR để chuyển khoản nhanh hơn</p>
           </div>
         </div>
       </div>

@@ -16,7 +16,7 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx1Yj0cZy8Td36LwN7NkSXahciNzvghP2wkqiF3Oh5dRqm451t1Rs107YC4pvCJjBit/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyzhnDs8yAWR-YhOsVU26YOfvs8lHxklyMTrmHy36qxg3FSZuQvAtlk3G4SoQl6kXhJ/exec";
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<string | null>(null);

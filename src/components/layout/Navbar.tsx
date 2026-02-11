@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ShoppingCart } from "lucide-react";
+import { Menu, X, ShoppingCart, Lock } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useCart } from "@/contexts/CartContext";
-import MoodooLogo from "@/components/MoodooLogo";
 import ThemeToggle from "@/components/ThemeToggle";
 import moodooHouseLogo from "@/assets/moodoo-house-logo.jpg";
 
@@ -14,7 +13,7 @@ const navLinks = [
   { to: "/cua-tiem", label: "Cửa tiệm", emoji: "🛍️" },
   { to: "/hang-dong-nho", label: "Hang động nhỏ", locked: true, emoji: "🕳️" },
   { to: "/blog", label: "Blog", locked: true, emoji: "📝" },
-  { to: "https://moodoo-lemon.vercel.app/", label: "App", emoji: "📱", external: true },
+  { to: "https://moodoo-lemon.vercel.app/", label: "App", emoji: "📱", external: true, requiresAuth: true },
 ];
 
 export default function Navbar() {
@@ -23,12 +22,18 @@ export default function Navbar() {
   const { isLoggedIn, user, logout, openAuthModal } = useAuth();
   const { totalItems, openCart } = useCart();
 
+  const handleAppClick = (e: React.MouseEvent) => {
+    if (!isLoggedIn) {
+      e.preventDefault();
+      openAuthModal("login");
+    }
+  };
+
   return (
     <nav className="sticky top-0 z-50 bg-card/95 backdrop-blur-md shadow-lg font-display border-b-4 border-moodoo-yellow">
       <div className="max-w-6xl mx-auto px-4 flex items-center justify-between h-16">
         <Link to="/" className="flex items-center gap-2">
           <img src={moodooHouseLogo} alt="MOODOO" className="w-10 h-10 object-contain" />
-          <MoodooLogo size="sm" />
         </Link>
 
         {/* Desktop nav */}
@@ -37,8 +42,14 @@ export default function Navbar() {
             <li key={link.to}>
               {link.external ? (
                 <a href={link.to} target="_blank" rel="noopener noreferrer"
-                  className="px-3 py-2 rounded-full text-sm font-bold transition-all duration-300 text-foreground hover:bg-moodoo-yellow/30 hover:scale-105">
+                  onClick={link.requiresAuth ? handleAppClick : undefined}
+                  className={`px-3 py-2 rounded-full text-sm font-bold transition-all duration-300 ${
+                    !isLoggedIn && link.requiresAuth
+                      ? "text-muted-foreground opacity-60 cursor-not-allowed"
+                      : "text-foreground hover:bg-moodoo-yellow/30 hover:scale-105"
+                  }`}>
                   <span className="mr-1">{link.emoji}</span>{link.label}
+                  {!isLoggedIn && link.requiresAuth && " 🔒"}
                 </a>
               ) : (
                 <Link to={link.to}
@@ -89,9 +100,20 @@ export default function Navbar() {
             {navLinks.map((link) => (
               <li key={link.to}>
                 {link.external ? (
-                  <a href={link.to} target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}
-                    className="block px-4 py-3 rounded-xl text-sm font-bold transition-all text-foreground hover:bg-moodoo-yellow/20">
-                    <span className="mr-2">{link.emoji}</span>{link.label}
+                  <a href={link.to} target="_blank" rel="noopener noreferrer"
+                    onClick={(e) => {
+                      if (link.requiresAuth && !isLoggedIn) {
+                        e.preventDefault();
+                        openAuthModal("login");
+                      }
+                      setIsMenuOpen(false);
+                    }}
+                    className={`block px-4 py-3 rounded-xl text-sm font-bold transition-all ${
+                      !isLoggedIn && link.requiresAuth
+                        ? "text-muted-foreground opacity-60"
+                        : "text-foreground hover:bg-moodoo-yellow/20"
+                    }`}>
+                    <span className="mr-2">{link.emoji}</span>{link.label}{!isLoggedIn && link.requiresAuth && " 🔒"}
                   </a>
                 ) : (
                   <Link to={link.to} onClick={() => setIsMenuOpen(false)}
