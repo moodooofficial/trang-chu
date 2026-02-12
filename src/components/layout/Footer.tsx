@@ -29,23 +29,25 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-dashed border-white/40 dark:border-border pt-6 flex flex-col md:flex-row justify-between items-start gap-6">
-          {/* Left: Quick Links - 2 rows x 3 columns */}
-          <div className="font-body">
+        <div className="border-t border-dashed border-white/40 dark:border-border pt-6 flex flex-col md:flex-row justify-between items-start gap-8">
+          {/* Left: Quick Links */}
+          <div className="font-body flex-1">
             <p className="font-bold text-lg mb-3">🔗 Liên kết nhanh</p>
-            <div className="grid grid-cols-3 gap-x-6 gap-y-2">
+            <div className="grid grid-cols-3 gap-x-8 gap-y-2 text-sm">
               <Link to="/" className="hover:underline hover:translate-x-1 transition-transform inline-block opacity-90">🏠 Trang chủ</Link>
               <Link to="/gioi-thieu" className="hover:underline hover:translate-x-1 transition-transform inline-block opacity-90">💡 Giới thiệu</Link>
               <Link to="/thu-vien" className="hover:underline hover:translate-x-1 transition-transform inline-block opacity-90">📚 Thư viện</Link>
               <Link to="/cua-tiem" className="hover:underline hover:translate-x-1 transition-transform inline-block opacity-90">🛍️ Cửa tiệm</Link>
               <Link to="/hang-dong-nho" className="hover:underline hover:translate-x-1 transition-transform inline-block opacity-90">🕳️ Hang động nhỏ</Link>
               <Link to="/blog" className="hover:underline hover:translate-x-1 transition-transform inline-block opacity-90">📝 Blog</Link>
+              <span></span>
+              <span></span>
               <a href="https://moodoo-lemon.vercel.app/" target="_blank" rel="noopener noreferrer" className="hover:underline hover:translate-x-1 transition-transform inline-block opacity-90">📱 App</a>
             </div>
           </div>
 
           {/* Right: Contact */}
-          <div className="font-body text-right">
+          <div className="font-body md:text-right text-sm flex-shrink-0">
             <p className="font-bold text-lg mb-3">📍 Liên hệ</p>
             <p className="opacity-90">Bộ học liệu giáo dục cảm xúc hàng đầu tại Việt Nam</p>
             <p className="mt-2 opacity-90">🏠 18 Lê Thúc Hoạch, P. Phú Thọ Hòa, TP.HCM</p>
