@@ -3,12 +3,22 @@ import { products } from "@/data/products";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/hooks/use-toast";
 import FloatingEmojis from "@/components/FloatingEmojis";
-import moodooBundle from "@/assets/moodoo-bundle.jpg";
+import shopBook1 from "@/assets/shop-book1.jpg";
+import shopBook2 from "@/assets/shop-book2.jpg";
+import shopCardTutin from "@/assets/shop-card-tutin.jpg";
+import shopCardTontrong from "@/assets/shop-card-tontrong.jpg";
+import shopComboDaotao from "@/assets/shop-combo-daotao.jpg";
+import shopComboHieubiet from "@/assets/shop-combo-hieubiet.jpg";
+import shopMoodooBonus from "@/assets/shop-moodoo-bonus.jpg";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
+
+const bookImages = [shopBook1, shopBook2];
+const cardImages = [shopCardTutin, shopCardTontrong];
+const comboImages = [shopComboDaotao, shopComboHieubiet];
 
 export default function Shop() {
   const { addToCart } = useCart();
@@ -48,8 +58,8 @@ export default function Shop() {
                   🔥 SALE
                 </div>
               )}
-              <div className={`${book.bgColor} rounded-2xl w-full md:w-64 h-56 flex items-center justify-center flex-shrink-0`}>
-                <span className="text-8xl">{i === 0 ? "📘" : "📙"}</span>
+              <div className="rounded-2xl w-full md:w-64 h-56 flex-shrink-0 overflow-hidden">
+                <img src={bookImages[i]} alt={book.name} className="w-full h-full object-cover rounded-2xl" />
               </div>
               <div className="flex-1">
                 <h3 className="font-display font-bold text-2xl mb-3 text-moodoo-orange">{book.name}</h3>
@@ -83,8 +93,8 @@ export default function Shop() {
                   className="bg-white dark:bg-card rounded-3xl p-6 shadow-lg text-center hover:-translate-y-2 transition-all duration-300"
                   initial="hidden" whileInView="visible" viewport={{ once: true }}
                   variants={{ ...fadeInUp, visible: { ...fadeInUp.visible, transition: { duration: 0.5, delay: i * 0.15 } } }}>
-                  <div className={`${card.bgColor} rounded-2xl h-40 flex items-center justify-center mb-4`}>
-                    <span className="text-7xl">{i === 0 ? "🃏" : "🎴"}</span>
+                  <div className="rounded-2xl h-40 flex items-center justify-center mb-4 overflow-hidden">
+                    <img src={cardImages[i]} alt={card.name} className="w-full h-full object-cover rounded-2xl" />
                   </div>
                   <h3 className="font-display font-bold text-xl mb-2">{card.name}</h3>
                   <p className="font-body text-sm text-muted-foreground mb-3">{card.description}</p>
@@ -107,8 +117,8 @@ export default function Shop() {
                   className="bg-white dark:bg-card rounded-3xl p-6 shadow-lg text-center hover:-translate-y-2 transition-all duration-300 border-2 border-moodoo-yellow/30"
                   initial="hidden" whileInView="visible" viewport={{ once: true }}
                   variants={{ ...fadeInUp, visible: { ...fadeInUp.visible, transition: { duration: 0.5, delay: i * 0.15 } } }}>
-                  <div className={`${combo.bgColor} rounded-2xl h-48 flex items-center justify-center mb-4`}>
-                    <span className="text-7xl">{i === 0 ? "📦" : "🎒"}</span>
+                  <div className="rounded-2xl h-48 flex items-center justify-center mb-4 overflow-hidden">
+                    <img src={comboImages[i]} alt={combo.name} className="w-full h-full object-cover rounded-2xl" />
                   </div>
                   <h3 className="font-display font-bold text-xl mb-2">{combo.name}</h3>
                   <p className="font-body text-sm text-muted-foreground mb-3">{combo.description}</p>
@@ -134,7 +144,7 @@ export default function Shop() {
           {/* Bundle Image + CTA */}
           <motion.div className="bg-white dark:bg-card rounded-3xl p-8 shadow-xl text-center" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
             <h2 className="text-xl md:text-2xl font-display font-bold text-moodoo-orange mb-4">Khi mua sách MOODOO, sẽ được tặng kèm!</h2>
-            <img src={moodooBundle} alt="Bộ sách MOODOO" className="w-full max-w-lg mx-auto rounded-2xl mb-4" />
+            <img src={shopMoodooBonus} alt="Bộ sách MOODOO" className="w-full max-w-lg mx-auto rounded-2xl mb-4" />
             <p className="font-body text-muted-foreground text-sm">📘 MOODOOBOOK · 🃏 Pack Cards · 📒 Sổ tay · 💻 Hang Động Nhỏ</p>
           </motion.div>
         </div>
