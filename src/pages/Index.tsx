@@ -85,7 +85,7 @@ export default function Index() {
 
         <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
           <motion.div initial={{ scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.8, type: "spring" }}>
-            <img alt="MOODOO Logo" className="w-40 h-40 md:w-52 md:h-52 mx-auto mb-4 object-contain drop-shadow-xl" src="/lovable-uploads/2bc5ff64-f310-4886-94b5-698e15916e79.jpg" />
+            
           </motion.div>
           <motion.div initial={{ scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.8, delay: 0.2, type: "spring" }}>
             <MoodooLogo size="xl" className="justify-center mb-4" />
