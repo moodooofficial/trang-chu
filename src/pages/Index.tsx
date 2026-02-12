@@ -114,7 +114,7 @@ export default function Index() {
         <div className="max-w-6xl mx-auto px-4">
           <motion.div className="flex flex-col md:flex-row items-center gap-12" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
             <div className="md:flex-1 text-center">
-              <img src={moodooBook1} alt="Sách MOODOO 1" className="w-72 h-72 object-cover rounded-3xl mx-auto border-4 border-white/30 shadow-2xl hover:rotate-3 transition-transform duration-500" />
+              <img alt="Sách MOODOO 1" className="w-72 h-72 object-cover rounded-3xl mx-auto border-4 border-white/30 shadow-2xl hover:rotate-3 transition-transform duration-500" src="/lovable-uploads/ebdaa4df-e9cb-4fe3-a5ad-13c1b59ae66b.jpg" />
             </div>
             <div className="md:flex-[1.5]">
               <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">Câu chuyện về <MoodooLogo size="md" /></h2>
