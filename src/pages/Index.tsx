@@ -200,7 +200,7 @@ export default function Index() {
       {/* TEAM - with real photos */}
       <section className="bg-moodoo-blue py-16">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-center text-3xl md:text-4xl font-display font-extrabold text-white uppercase tracking-widest mb-12">🎯 OUR TEAM</h2>
+          <h2 className="text-center text-3xl md:text-4xl font-display font-extrabold text-white uppercase tracking-widest mb-12">🎯 ĐỘI NGŨ</h2>
           <div className="flex flex-wrap justify-center gap-8">
             {teamMembers.map((member, i) =>
             <motion.div key={i} className="text-center w-36" initial="hidden" whileInView="visible" viewport={{ once: true }}

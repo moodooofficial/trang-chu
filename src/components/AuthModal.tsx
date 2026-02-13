@@ -12,7 +12,7 @@ interface GoogleJwtPayload {
   picture?: string;
 }
 
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwJsDLzdsDtoj9UXowa6I68dl7DtsBU_De8ErUNZue0rxZXxhE0n6T5_0RA9OFAkpAX/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwLeJ1d4SvvdRUQoe38wntEbUde5pzG3pm0fBmH167jIttqcSxAgUZT_JyDSij2Jjw/exec";
 
 export default function AuthModal() {
   const { isAuthModalOpen, closeAuthModal, authMode, setAuthMode, login, register } = useAuth();
