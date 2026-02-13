@@ -3,6 +3,7 @@ import FloatingEmojis from "@/components/FloatingEmojis";
 import moodooMascot from "@/assets/moodoo-mascot.jpg";
 import moodooMascotPeek from "@/assets/moodoo-mascot-peek.jpg";
 import caselImg from "@/assets/casel.jpg";
+import aboutValueImg from "@/assets/about-value.jpg";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -46,7 +47,7 @@ const sections = [
       "Thông qua mỗi trang sách, mỗi thẻ trò chơi và mỗi cuộc trò chuyện cùng MOODOO, trẻ được khuyến khích gọi tên và thấu hiểu cảm xúc của mình, từ đó thể hiện chúng một cách an toàn, tích cực.",
       "MOODOO không chỉ là một bộ sách hay một sản phẩm giáo dục, mà là tâm huyết của những người trẻ mong muốn góp phần xây dựng nền tảng tinh thần vững chắc cho thế hệ tương lai. Chúng mình tin rằng, khi trẻ được hiểu và tôn trọng cảm xúc ngay từ sớm, các em sẽ lớn lên với sự tự tin, khả năng thấu cảm và kết nối tích cực với bản thân, gia đình và cộng đồng.",
     ],
-    image: moodooMascotPeek,
+    image: aboutValueImg,
     reverse: false,
   },
 ];
