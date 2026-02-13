@@ -13,7 +13,7 @@ const navLinks = [
 { to: "/cua-tiem", label: "Cửa tiệm", emoji: "🛍️" },
 { to: "/hang-dong-nho", label: "Hang động nhỏ", locked: true, emoji: "🕳️" },
 { to: "/blog", label: "Blog", locked: true, emoji: "📝" },
-{ to: "https://moodoo-lemon.vercel.app/", label: "App", emoji: "📱", external: true, requiresAuth: true }];
+{ to: "https://moodoo-school.vercel.app/?zarsrc=410&utm_source=zalo&utm_medium=zalo&utm_campaign=zalo", label: "App", emoji: "📱", external: true, requiresAuth: true }];
 
 
 export default function Navbar() {

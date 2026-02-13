@@ -29,29 +29,27 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-dashed border-white/40 dark:border-border pt-6 flex flex-col md:flex-row justify-between items-start gap-8">
-          {/* Left: Quick Links */}
-          <div className="font-body flex-1">
+        <div className="border-t border-dashed border-white/40 dark:border-border pt-6 flex flex-col md:flex-row justify-between items-start gap-10">
+          {/* Left: Contact */}
+          <div className="font-body text-sm flex-shrink-0">
+            <p className="font-bold text-lg mb-3">📍 Liên hệ</p>
+            <p className="opacity-90">Bộ học liệu giáo dục cảm xúc hàng đầu tại Việt Nam</p>
+            <p className="mt-2 opacity-90">🏠 18 Lê Thúc Hoạch, P. Phú Thọ Hòa, TP.HCM</p>
+            <p className="opacity-90">✉️ moodoo.official.vn@gmail.com</p>
+          </div>
+
+          {/* Right: Quick Links */}
+          <div className="font-body md:text-right flex-1">
             <p className="font-bold text-lg mb-3">🔗 Liên kết nhanh</p>
-            <div className="grid grid-cols-3 gap-x-8 gap-y-2 text-sm">
+            <div className="flex flex-col gap-2 text-sm md:items-end">
               <Link to="/" className="hover:underline hover:translate-x-1 transition-transform inline-block opacity-90">🏠 Trang chủ</Link>
               <Link to="/gioi-thieu" className="hover:underline hover:translate-x-1 transition-transform inline-block opacity-90">💡 Giới thiệu</Link>
               <Link to="/thu-vien" className="hover:underline hover:translate-x-1 transition-transform inline-block opacity-90">📚 Thư viện</Link>
               <Link to="/cua-tiem" className="hover:underline hover:translate-x-1 transition-transform inline-block opacity-90">🛍️ Cửa tiệm</Link>
               <Link to="/hang-dong-nho" className="hover:underline hover:translate-x-1 transition-transform inline-block opacity-90">🕳️ Hang động nhỏ</Link>
               <Link to="/blog" className="hover:underline hover:translate-x-1 transition-transform inline-block opacity-90">📝 Blog</Link>
-              <span></span>
-              <span></span>
-              <a href="https://moodoo-lemon.vercel.app/" target="_blank" rel="noopener noreferrer" className="hover:underline hover:translate-x-1 transition-transform inline-block opacity-90">📱 App</a>
+              <a href="https://moodoo-school.vercel.app/?zarsrc=410&utm_source=zalo&utm_medium=zalo&utm_campaign=zalo" target="_blank" rel="noopener noreferrer" className="hover:underline hover:translate-x-1 transition-transform inline-block opacity-90">📱 App</a>
             </div>
-          </div>
-
-          {/* Right: Contact */}
-          <div className="font-body md:text-right text-sm flex-shrink-0">
-            <p className="font-bold text-lg mb-3">📍 Liên hệ</p>
-            <p className="opacity-90">Bộ học liệu giáo dục cảm xúc hàng đầu tại Việt Nam</p>
-            <p className="mt-2 opacity-90">🏠 18 Lê Thúc Hoạch, P. Phú Thọ Hòa, TP.HCM</p>
-            <p className="opacity-90">✉️ moodoo.official.vn@gmail.com</p>
           </div>
         </div>
 
