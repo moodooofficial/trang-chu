@@ -34,10 +34,7 @@ export default function AuthModal() {
 
   // Forgot password state
   const [forgotMode, setForgotMode] = useState(false);
-  const [forgotBookCode, setForgotBookCode] = useState("");
   const [forgotEmail, setForgotEmail] = useState("");
-  const [forgotNewPass, setForgotNewPass] = useState("");
-  const [forgotConfirmPass, setForgotConfirmPass] = useState("");
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -103,29 +100,23 @@ export default function AuthModal() {
 
   const handleForgotPassword = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (forgotNewPass !== forgotConfirmPass) {
-      toast({ title: "Lỗi", description: "Mật khẩu mới không khớp!", variant: "destructive" });
-      return;
-    }
     setLoading(true);
     try {
       const res = await fetch(SCRIPT_URL, {
         method: "POST",
         body: JSON.stringify({
-          action: "resetPassword",
-          bookCode: forgotBookCode,
+          action: "forgotPassword",
           email: forgotEmail,
-          newPass: forgotNewPass,
         }),
       });
       const data = await res.json();
       if (data.result === "success") {
-        toast({ title: "Đổi mật khẩu thành công! 🎉" });
+        toast({ title: "Yêu cầu đã được gửi! 🎉", description: data.message || "Vui lòng kiểm tra email." });
         setForgotMode(false);
-        setForgotBookCode(""); setForgotEmail(""); setForgotNewPass(""); setForgotConfirmPass("");
+        setForgotEmail("");
         setAuthMode("login");
       } else {
-        throw new Error(data.message || "Đổi mật khẩu thất bại");
+        throw new Error(data.message || "Gửi yêu cầu thất bại");
       }
     } catch (err: any) {
       toast({ title: "Lỗi", description: err.message, variant: "destructive" });
@@ -165,23 +156,17 @@ export default function AuthModal() {
               <div className="text-center mb-4">
                 <p className="text-3xl mb-2">🔑</p>
                 <p className="font-display font-bold text-lg text-foreground">Quên mật khẩu</p>
-                <p className="font-body text-xs text-muted-foreground">Nhập mã sách, email cũ và mật khẩu mới</p>
+                <p className="font-body text-xs text-muted-foreground">Nhập email của bạn, Moodoo sẽ kiểm tra và hỗ trợ cấp lại mật khẩu.</p>
               </div>
               <form onSubmit={handleForgotPassword} className="space-y-3">
-                <Input type="text" placeholder="Mã sách gần nhất (VD: VIP001)" value={forgotBookCode}
-                  onChange={e => setForgotBookCode(e.target.value)} required className="rounded-xl" />
-                <Input type="email" placeholder="Email đã đăng ký..." value={forgotEmail}
+                <Input type="email" placeholder="Email đã đăng ký" value={forgotEmail}
                   onChange={e => setForgotEmail(e.target.value)} required className="rounded-xl" />
-                <Input type="password" placeholder="Mật khẩu mới..." value={forgotNewPass}
-                  onChange={e => setForgotNewPass(e.target.value)} required className="rounded-xl" />
-                <Input type="password" placeholder="Nhập lại mật khẩu mới..." value={forgotConfirmPass}
-                  onChange={e => setForgotConfirmPass(e.target.value)} required className="rounded-xl" />
                 <button type="submit" disabled={loading}
-                  className="w-full py-3 bg-moodoo-sky text-white font-display font-bold text-lg rounded-xl hover:brightness-110 transition-colors disabled:opacity-50">
-                  {loading ? "Đang xử lý..." : "ĐỔI MẬT KHẨU"}
+                  className="w-full py-3 bg-muted-foreground text-white font-display font-bold text-lg rounded-xl hover:brightness-110 transition-colors disabled:opacity-50">
+                  {loading ? "Đang xử lý..." : "GỬI YÊU CẦU"}
                 </button>
                 <button type="button" onClick={() => setForgotMode(false)}
-                  className="w-full py-2 text-muted-foreground font-body text-sm hover:underline">← Quay lại đăng nhập</button>
+                  className="w-full py-2 text-primary font-body text-sm hover:underline">Quay lại Đăng nhập</button>
               </form>
             </div>
           ) : (
