@@ -6,7 +6,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { Input } from "@/components/ui/input";
 import qrCodeImage from "@/assets/qr-code.jpg";
 
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwLeJ1d4SvvdRUQoe38wntEbUde5pzG3pm0fBmH167jIttqcSxAgUZT_JyDSij2Jjw/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx1IxzHOpQlmYBHXyMCoRBUOem6-WJpnr7AMc1gl2BOTiCqmasnKICIGwfEHKNf8STy/exec";
 
 const texts = {
   vi: {
