@@ -5,6 +5,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useCart } from "@/contexts/CartContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ThemeToggle from "@/components/ThemeToggle";
+import moodooLogo from "@/assets/moodoo-logo-new.jpg";
 
 const texts = {
   vi: {
@@ -46,9 +47,9 @@ export default function Navbar() {
 
   return (
     <nav className="sticky top-0 z-50 bg-card/95 backdrop-blur-md shadow-lg font-display border-b-4 border-moodoo-yellow">
-      <div className="max-w-6xl mx-auto px-4 flex items-center justify-between h-16">
+      <div className="w-full px-4 flex items-center justify-between h-16">
         <Link to="/" className="flex items-center gap-2">
-          <img alt="MOODOO" className="w-10 h-10 object-contain" src="/lovable-uploads/0ea82f7c-4dda-491e-9181-a21224f32ea5.jpg" />
+          <img alt="MOODOO" className="w-10 h-10 object-contain" src={moodooLogo} />
         </Link>
 
         {/* Desktop nav */}

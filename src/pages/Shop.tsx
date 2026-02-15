@@ -167,7 +167,7 @@ export default function Shop() {
             <h2 className="text-center text-2xl md:text-3xl font-display font-bold text-moodoo-orange uppercase mb-8">{t.demo}</h2>
             <div className="rounded-2xl overflow-hidden shadow-lg border-2 border-moodoo-cream">
               <iframe allowFullScreen allow="clipboard-write" scrolling="no" className="w-full h-[400px] md:h-[500px]"
-                src="https://heyzine.com/flip-book/505caa7e1e.html" style={{ border: "1px solid #ddd" }} />
+                src="https://heyzine.com/flip-book/03405680f3.html" style={{ border: "1px solid #ddd" }} />
             </div>
           </div>
         </div>

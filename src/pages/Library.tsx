@@ -146,17 +146,6 @@ export default function Library() {
       </div>
 
       <GatedContent title={t.gateTitle} description={t.gateDesc} buttonText={t.gateBtn}>
-        {/* Demo MOODOO */}
-        <section className="bg-moodoo-cream py-12">
-          <div className="max-w-5xl mx-auto px-4">
-            <h2 className="text-center text-2xl md:text-3xl font-display font-bold text-moodoo-orange uppercase mb-8">{t.demoTitle}</h2>
-            <div className="rounded-2xl overflow-hidden shadow-lg border-2 border-moodoo-cream">
-              <iframe allowFullScreen allow="clipboard-write" scrolling="no" className="w-full h-[400px]"
-                src="https://heyzine.com/flip-book/03405680f3.html" style={{ border: "1px solid lightgray" }} />
-            </div>
-          </div>
-        </section>
-
         {/* Book Sections */}
         {bookSections.map((section, sIdx) => {
           const unlocked = canAccessSection(section.id);

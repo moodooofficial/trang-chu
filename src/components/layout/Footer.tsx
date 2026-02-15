@@ -41,7 +41,7 @@ export default function Footer() {
   const t = texts[lang];
 
   return (
-    <footer className="bg-[hsl(160,30%,15%)] text-white/90 py-12 font-body">
+    <footer className="bg-moodoo-orange text-white py-12 font-body">
       <div className="max-w-6xl mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
           {/* Logo + tagline */}
@@ -68,7 +68,7 @@ export default function Footer() {
               <li><a href="/gioi-thieu" className="hover:opacity-100 hover:underline transition-opacity">{t.intro}</a></li>
               <li><a href="/gioi-thieu" className="hover:opacity-100 hover:underline transition-opacity">{t.team}</a></li>
               <li><a href="/blog" className="hover:opacity-100 hover:underline transition-opacity">{t.blog}</a></li>
-              <li><a href="https://moodoo-school.vercel.app/?zarsrc=410&utm_source=zalo&utm_medium=zalo&utm_campaign=zalo" target="_blank" rel="noopener noreferrer" className="hover:opacity-100 hover:underline transition-opacity">{t.app}</a></li>
+              <li><span className="opacity-50 cursor-not-allowed">{t.app} 🔒</span></li>
             </ul>
           </div>
 
