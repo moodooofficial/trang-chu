@@ -20,6 +20,16 @@ const texts = {
   },
 };
 
+const navColors = [
+  "text-red-500 hover:bg-red-100 dark:hover:bg-red-900/30",
+  "text-blue-500 hover:bg-blue-100 dark:hover:bg-blue-900/30",
+  "text-green-500 hover:bg-green-100 dark:hover:bg-green-900/30",
+  "text-pink-500 hover:bg-pink-100 dark:hover:bg-pink-900/30",
+  "text-purple-500 hover:bg-purple-100 dark:hover:bg-purple-900/30",
+  "text-orange-500 hover:bg-orange-100 dark:hover:bg-orange-900/30",
+  "text-teal-500 hover:bg-teal-100 dark:hover:bg-teal-900/30",
+];
+
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
@@ -54,7 +64,7 @@ export default function Navbar() {
 
         {/* Desktop nav */}
         <ul className="hidden lg:flex items-center gap-1">
-          {navLinks.map((link) => (
+          {navLinks.map((link, idx) => (
             <li key={link.to}>
               {link.external ? (
                 <a href={link.to} target="_blank" rel="noopener noreferrer"
@@ -62,7 +72,7 @@ export default function Navbar() {
                   className={`px-3 py-2 rounded-full text-sm font-bold transition-all duration-300 ${
                     !isLoggedIn && link.requiresAuth
                       ? "text-muted-foreground opacity-60 cursor-not-allowed"
-                      : "text-foreground hover:bg-moodoo-yellow/30 hover:scale-105"
+                      : `${navColors[idx % navColors.length]} hover:scale-105`
                   }`}>
                   <span className="mr-1">{link.emoji}</span>{link.label}
                   {!isLoggedIn && link.requiresAuth && " 🔒"}
@@ -72,7 +82,7 @@ export default function Navbar() {
                   className={`px-3 py-2 rounded-full text-sm font-bold transition-all duration-300 ${
                     location.pathname === link.to
                       ? "bg-moodoo-orange text-white shadow-md scale-105"
-                      : "text-foreground hover:bg-moodoo-yellow/30 hover:scale-105"
+                      : `${navColors[idx % navColors.length]} hover:scale-105`
                   }`}>
                   <span className="mr-1">{link.emoji}</span>
                   {link.label}
@@ -85,7 +95,6 @@ export default function Navbar() {
 
         {/* Right side */}
         <div className="flex items-center gap-2">
-          {/* Language toggle */}
           <button
             onClick={toggleLanguage}
             className="px-2 py-1 rounded-full text-xs font-bold bg-moodoo-yellow/30 hover:bg-moodoo-yellow/50 transition-colors text-foreground"
@@ -121,7 +130,7 @@ export default function Navbar() {
       {isMenuOpen && (
         <div className="lg:hidden bg-card border-t-2 border-moodoo-yellow shadow-xl animate-fade-in-up">
           <ul className="flex flex-col p-4 gap-1">
-            {navLinks.map((link) => (
+            {navLinks.map((link, idx) => (
               <li key={link.to}>
                 {link.external ? (
                   <a href={link.to} target="_blank" rel="noopener noreferrer"
@@ -135,14 +144,14 @@ export default function Navbar() {
                     className={`block px-4 py-3 rounded-xl text-sm font-bold transition-all ${
                       !isLoggedIn && link.requiresAuth
                         ? "text-muted-foreground opacity-60"
-                        : "text-foreground hover:bg-moodoo-yellow/20"
+                        : `${navColors[idx % navColors.length]}`
                     }`}>
                     <span className="mr-2">{link.emoji}</span>{link.label}{!isLoggedIn && link.requiresAuth && " 🔒"}
                   </a>
                 ) : (
                   <Link to={link.to} onClick={() => setIsMenuOpen(false)}
                     className={`block px-4 py-3 rounded-xl text-sm font-bold transition-all ${
-                      location.pathname === link.to ? "bg-moodoo-orange text-white" : "text-foreground hover:bg-moodoo-yellow/20"
+                      location.pathname === link.to ? "bg-moodoo-orange text-white" : `${navColors[idx % navColors.length]}`
                     }`}>
                     <span className="mr-2">{link.emoji}</span>{link.label}{link.locked && !isLoggedIn && " 🔒"}
                   </Link>

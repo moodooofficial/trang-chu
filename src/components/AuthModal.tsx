@@ -13,7 +13,7 @@ interface GoogleJwtPayload {
   picture?: string;
 }
 
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwLeJ1d4SvvdRUQoe38wntEbUde5pzG3pm0fBmH167jIttqcSxAgUZT_JyDSij2Jjw/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx1IxzHOpQlmYBHXyMCoRBUOem6-WJpnr7AMc1gl2BOTiCqmasnKICIGwfEHKNf8STy/exec";
 
 const texts = {
   vi: {
@@ -23,18 +23,20 @@ const texts = {
     processing: "Đang xử lý...",
     forgotPass: "Quên mật khẩu?",
     forgotTitle: "Quên mật khẩu",
-    forgotDesc: "Nhập email của bạn, Moodoo sẽ kiểm tra và hỗ trợ cấp lại mật khẩu.",
+    forgotDesc: "Nhập đúng Email và Mã sách đã dùng để đặt mật khẩu mới.",
     forgotEmailPh: "Email đã đăng ký",
-    forgotBtn: "GỬI YÊU CẦU",
+    forgotCodePh: "Nhập mã sách (VDCX...)",
+    forgotNewPassPh: "Mật khẩu mới muốn đặt",
+    forgotBtn: "XÁC NHẬN ĐỔI MẬT KHẨU",
     forgotBack: "Quay lại Đăng nhập",
     googleHello: "Xin chào!",
     googleCodePrompt: "Nhập mã sách để hoàn tất đăng ký",
     googleBack: "← Quay lại",
     loginSuccess: "Đăng nhập thành công! 🎉",
     registerSuccess: "Kích hoạt thành công! 🎉",
-    forgotSuccess: "Yêu cầu đã được gửi! 🎉",
-    forgotSuccessDesc: "Vui lòng kiểm tra email.",
-    forgotFail: "Gửi yêu cầu thất bại",
+    forgotSuccess: "Đổi mật khẩu thành công! 🎉",
+    forgotSuccessDesc: "Bạn có thể đăng nhập với mật khẩu mới.",
+    forgotFail: "Đổi mật khẩu thất bại",
     error: "Lỗi",
     googleError: "Đăng nhập Google thất bại",
     googleWelcome: "Chào mừng",
@@ -47,18 +49,20 @@ const texts = {
     processing: "Processing...",
     forgotPass: "Forgot password?",
     forgotTitle: "Forgot Password",
-    forgotDesc: "Enter your email, Moodoo will check and help reset your password.",
+    forgotDesc: "Enter your registered email and book code to set a new password.",
     forgotEmailPh: "Registered email",
-    forgotBtn: "SEND REQUEST",
+    forgotCodePh: "Enter book code (VDCX...)",
+    forgotNewPassPh: "New password",
+    forgotBtn: "CONFIRM PASSWORD RESET",
     forgotBack: "Back to Sign In",
     googleHello: "Hello!",
     googleCodePrompt: "Enter book code to complete registration",
     googleBack: "← Back",
     loginSuccess: "Login successful! 🎉",
     registerSuccess: "Activation successful! 🎉",
-    forgotSuccess: "Request sent! 🎉",
-    forgotSuccessDesc: "Please check your email.",
-    forgotFail: "Request failed",
+    forgotSuccess: "Password changed! 🎉",
+    forgotSuccessDesc: "You can now sign in with your new password.",
+    forgotFail: "Password reset failed",
     error: "Error",
     googleError: "Google sign-in failed",
     googleWelcome: "Welcome",
@@ -81,6 +85,8 @@ export default function AuthModal() {
   const [googleBookCode, setGoogleBookCode] = useState("");
   const [forgotMode, setForgotMode] = useState(false);
   const [forgotEmail, setForgotEmail] = useState("");
+  const [forgotCode, setForgotCode] = useState("");
+  const [forgotNewPass, setForgotNewPass] = useState("");
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -141,12 +147,12 @@ export default function AuthModal() {
     try {
       const res = await fetch(SCRIPT_URL, {
         method: "POST",
-        body: JSON.stringify({ action: "forgotPassword", email: forgotEmail }),
+        body: JSON.stringify({ action: "reset_password_now", email: forgotEmail, bookCode: forgotCode, newPass: forgotNewPass }),
       });
       const data = await res.json();
       if (data.result === "success") {
         toast({ title: t.forgotSuccess, description: data.message || t.forgotSuccessDesc });
-        setForgotMode(false); setForgotEmail(""); setAuthMode("login");
+        setForgotMode(false); setForgotEmail(""); setForgotCode(""); setForgotNewPass(""); setAuthMode("login");
       } else {
         throw new Error(data.message || t.forgotFail);
       }
@@ -189,8 +195,12 @@ export default function AuthModal() {
               <form onSubmit={handleForgotPassword} className="space-y-3">
                 <Input type="email" placeholder={t.forgotEmailPh} value={forgotEmail}
                   onChange={e => setForgotEmail(e.target.value)} required className="rounded-xl" />
+                <Input type="text" placeholder={t.forgotCodePh} value={forgotCode}
+                  onChange={e => setForgotCode(e.target.value)} required className="rounded-xl" />
+                <Input type="password" placeholder={t.forgotNewPassPh} value={forgotNewPass}
+                  onChange={e => setForgotNewPass(e.target.value)} required className="rounded-xl" />
                 <button type="submit" disabled={loading}
-                  className="w-full py-3 bg-muted-foreground text-white font-display font-bold text-lg rounded-xl hover:brightness-110 transition-colors disabled:opacity-50">
+                  className="w-full py-3 bg-moodoo-green text-white font-display font-bold text-lg rounded-xl hover:brightness-110 transition-colors disabled:opacity-50">
                   {loading ? t.processing : t.forgotBtn}
                 </button>
                 <button type="button" onClick={() => setForgotMode(false)}

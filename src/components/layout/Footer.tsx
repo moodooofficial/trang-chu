@@ -66,7 +66,7 @@ export default function Footer() {
             <h3 className="font-display font-bold text-lg mb-4">{t.aboutUs}</h3>
             <ul className="space-y-2 text-sm opacity-80">
               <li><a href="/gioi-thieu" className="hover:opacity-100 hover:underline transition-opacity">{t.intro}</a></li>
-              <li><a href="/gioi-thieu" className="hover:opacity-100 hover:underline transition-opacity">{t.team}</a></li>
+              <li><a href="/#team" className="hover:opacity-100 hover:underline transition-opacity">{t.team}</a></li>
               <li><a href="/blog" className="hover:opacity-100 hover:underline transition-opacity">{t.blog}</a></li>
               <li><span className="opacity-50 cursor-not-allowed">{t.app} 🔒</span></li>
             </ul>

@@ -169,12 +169,18 @@ export default function Index() {
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.6 }}>
             {tx.heroSlogan}
           </motion.p>
-          <motion.div className="mt-8" initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.5, type: "spring", stiffness: 200 }}>
-            <img src={moodooMascot} alt="Moodoo mascot" className="w-48 h-48 md:w-64 md:h-64 mx-auto object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-500" />
-          </motion.div>
-          <motion.div className="mt-6 flex justify-center gap-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }}>
-            <span className="text-3xl">😄</span><span className="text-3xl">😢</span><span className="text-3xl">😡</span>
-            <span className="text-3xl">😨</span><span className="text-3xl">😲</span><span className="text-3xl">🥰</span>
+          {/* Mascot with overlaid emotion icons below */}
+          <motion.div className="mt-6 relative" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }}>
+            {/* Emotion icons overlaid around mascot */}
+            <div className="relative w-fit mx-auto">
+              <img src={moodooMascot} alt="Moodoo mascot" className="w-48 h-48 md:w-64 md:h-64 object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-500" />
+              <span className="absolute -top-2 -left-6 text-3xl md:text-4xl animate-bounce" style={{ animationDelay: "0s" }}>😄</span>
+              <span className="absolute -top-2 -right-6 text-3xl md:text-4xl animate-bounce" style={{ animationDelay: "0.3s" }}>😢</span>
+              <span className="absolute top-1/4 -left-10 text-3xl md:text-4xl animate-bounce" style={{ animationDelay: "0.6s" }}>😡</span>
+              <span className="absolute top-1/4 -right-10 text-3xl md:text-4xl animate-bounce" style={{ animationDelay: "0.9s" }}>😨</span>
+              <span className="absolute bottom-4 -left-8 text-3xl md:text-4xl animate-bounce" style={{ animationDelay: "1.2s" }}>😲</span>
+              <span className="absolute bottom-4 -right-8 text-3xl md:text-4xl animate-bounce" style={{ animationDelay: "1.5s" }}>🥰</span>
+            </div>
           </motion.div>
         </div>
       </header>
@@ -282,7 +288,7 @@ export default function Index() {
       </section>
 
       {/* TEAM */}
-      <section className="bg-moodoo-blue py-16">
+      <section id="team" className="bg-moodoo-blue py-16">
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-center text-3xl md:text-4xl font-display font-extrabold text-white uppercase tracking-widest mb-12">{tx.teamTitle}</h2>
           <div className="flex flex-wrap justify-center gap-8">

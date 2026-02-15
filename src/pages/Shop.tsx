@@ -18,7 +18,7 @@ const texts = {
     packCards: "🃏 BỘ PACK CARDS",
     packCardsSub: "Mỗi bộ gồm 3 thẻ: Tình huống - Giải pháp - Sưu tầm",
     combo: "🎁 COMBO",
-    demo: "✨ DEMO",
+    demo: "✨ DEMO MOODOO",
     addToCart: "THÊM VÀO GIỎ",
     perBook: "/cuốn",
     perSet: "/bộ",
@@ -26,6 +26,19 @@ const texts = {
     bookDesc2: "Tiếp nối hành trình, cuốn sách tiếp tục vào ba cảm xúc quan trọng: Giận - Sợ - Yêu thương. Giúp trẻ hiểu rõ hơn về cảm xúc phức tạp, biết cách kiểm soát và thể hiện tích cực.",
     added: "Đã thêm",
     toCart: "vào giỏ hàng! 🛒",
+    // Product name translations
+    "Vùng Đất Cảm Xúc I": "Vùng Đất Cảm Xúc I",
+    "Vùng Đất Cảm Xúc II": "Vùng Đất Cảm Xúc II",
+    "ĐÀO TẠO": "ĐÀO TẠO",
+    "HIỂU BIẾT CƠ BẢN": "HIỂU BIẾT CƠ BẢN",
+    "TỰ TIN": "TỰ TIN",
+    "TÔN TRỌNG SỰ KHÁC BIỆT": "TÔN TRỌNG SỰ KHÁC BIỆT",
+    "Vui vẻ - Buồn bã - Ngạc nhiên": "Vui vẻ - Buồn bã - Ngạc nhiên",
+    "Tức giận - Sợ hãi - Yêu thương": "Tức giận - Sợ hãi - Yêu thương",
+    "Trọn bộ 2 MOODOOBOOKs (1 & 2)": "Trọn bộ 2 MOODOOBOOKs (1 & 2)",
+    "1 MOODOOBOOK (Tặng kèm 1 Pack Cards + 1 Sổ tay)": "1 MOODOOBOOK (Tặng kèm 1 Pack Cards + 1 Sổ tay)",
+    "Bộ thẻ giúp bé tự tin hơn": "Bộ thẻ giúp bé tự tin hơn",
+    "Bộ thẻ giáo dục sự thấu hiểu": "Bộ thẻ giáo dục sự thấu hiểu",
   },
   en: {
     title: "MOODOO SHOP",
@@ -33,7 +46,7 @@ const texts = {
     packCards: "🃏 PACK CARDS",
     packCardsSub: "Each set includes 3 cards: Scenario - Solution - Collection",
     combo: "🎁 COMBOS",
-    demo: "✨ DEMO",
+    demo: "✨ MOODOO DEMO",
     addToCart: "ADD TO CART",
     perBook: "/book",
     perSet: "/set",
@@ -41,6 +54,19 @@ const texts = {
     bookDesc2: "Continuing the journey, this book explores three important emotions: Angry - Scared - Loving. Helping children better understand complex emotions, learn to control and express them positively.",
     added: "Added",
     toCart: "to cart! 🛒",
+    // Product name translations
+    "Vùng Đất Cảm Xúc I": "Emotion Land I",
+    "Vùng Đất Cảm Xúc II": "Emotion Land II",
+    "ĐÀO TẠO": "TRAINING",
+    "HIỂU BIẾT CƠ BẢN": "BASIC KNOWLEDGE",
+    "TỰ TIN": "CONFIDENCE",
+    "TÔN TRỌNG SỰ KHÁC BIỆT": "RESPECT DIFFERENCES",
+    "Vui vẻ - Buồn bã - Ngạc nhiên": "Happy - Sad - Surprised",
+    "Tức giận - Sợ hãi - Yêu thương": "Angry - Scared - Loving",
+    "Trọn bộ 2 MOODOOBOOKs (1 & 2)": "Complete set of 2 MOODOOBOOKs (1 & 2)",
+    "1 MOODOOBOOK (Tặng kèm 1 Pack Cards + 1 Sổ tay)": "1 MOODOOBOOK (Free 1 Pack Cards + 1 Notebook)",
+    "Bộ thẻ giúp bé tự tin hơn": "Card set to boost children's confidence",
+    "Bộ thẻ giáo dục sự thấu hiểu": "Card set for teaching empathy",
   },
 };
 
@@ -57,11 +83,13 @@ export default function Shop() {
   const { addToCart } = useCart();
   const { toast } = useToast();
   const { lang } = useLanguage();
-  const t = texts[lang];
+  const t = texts[lang] as Record<string, any>;
+
+  const tr = (key: string) => (t[key] as string) || key;
 
   const handleAddToCart = (product: typeof products[0]) => {
     addToCart({ id: product.id, name: product.name, price: product.price });
-    toast({ title: `${t.added} "${product.name}" ${t.toCart}` });
+    toast({ title: `${t.added} "${tr(product.name)}" ${t.toCart}` });
   };
 
   const books = products.filter((p) => p.category === "books");
@@ -91,11 +119,11 @@ export default function Shop() {
                 </div>
               )}
               <div className="rounded-2xl w-full md:w-64 h-56 flex-shrink-0 overflow-hidden">
-                <img src={bookImages[i]} alt={book.name} className="w-full h-full object-cover rounded-2xl" />
+                <img src={bookImages[i]} alt={tr(book.name)} className="w-full h-full object-cover rounded-2xl" />
               </div>
               <div className="flex-1">
-                <h3 className="font-display font-bold text-2xl mb-3 text-moodoo-orange">{book.name}</h3>
-                <p className="font-body text-muted-foreground mb-4 leading-relaxed">{book.description}</p>
+                <h3 className="font-display font-bold text-2xl mb-3 text-moodoo-orange">{tr(book.name)}</h3>
+                <p className="font-body text-muted-foreground mb-4 leading-relaxed">{tr(book.description)}</p>
                 <p className="font-body text-sm text-muted-foreground mb-4">
                   {i === 0 ? t.bookDesc1 : t.bookDesc2}
                 </p>
@@ -124,10 +152,10 @@ export default function Shop() {
                   initial="hidden" whileInView="visible" viewport={{ once: true }}
                   variants={{ ...fadeInUp, visible: { ...fadeInUp.visible, transition: { duration: 0.5, delay: i * 0.15 } } }}>
                   <div className="rounded-2xl h-40 flex items-center justify-center mb-4 overflow-hidden">
-                    <img src={cardImages[i]} alt={card.name} className="w-full h-full object-cover rounded-2xl" />
+                    <img src={cardImages[i]} alt={tr(card.name)} className="w-full h-full object-cover rounded-2xl" />
                   </div>
-                  <h3 className="font-display font-bold text-xl mb-2">{card.name}</h3>
-                  <p className="font-body text-sm text-muted-foreground mb-3">{card.description}</p>
+                  <h3 className="font-display font-bold text-xl mb-2">{tr(card.name)}</h3>
+                  <p className="font-body text-sm text-muted-foreground mb-3">{tr(card.description)}</p>
                   <p className="font-display font-bold text-lg text-moodoo-rose mb-4">{card.price.toLocaleString()}đ{t.perSet}</p>
                   <button onClick={() => handleAddToCart(card)}
                     className="px-6 py-2 bg-moodoo-sky text-white font-display font-bold rounded-full shadow-[0_3px_0_hsl(199,89%,38%)] active:translate-y-1 active:shadow-none transition-all hover:brightness-110">
@@ -148,10 +176,10 @@ export default function Shop() {
                   initial="hidden" whileInView="visible" viewport={{ once: true }}
                   variants={{ ...fadeInUp, visible: { ...fadeInUp.visible, transition: { duration: 0.5, delay: i * 0.15 } } }}>
                   <div className="rounded-2xl h-48 flex items-center justify-center mb-4 overflow-hidden">
-                    <img src={comboImages[i]} alt={combo.name} className="w-full h-full object-cover rounded-2xl" />
+                    <img src={comboImages[i]} alt={tr(combo.name)} className="w-full h-full object-cover rounded-2xl" />
                   </div>
-                  <h3 className="font-display font-bold text-xl mb-2">{combo.name}</h3>
-                  <p className="font-body text-sm text-muted-foreground mb-3">{combo.description}</p>
+                  <h3 className="font-display font-bold text-xl mb-2">{tr(combo.name)}</h3>
+                  <p className="font-body text-sm text-muted-foreground mb-3">{tr(combo.description)}</p>
                   <p className="font-display font-bold text-xl text-moodoo-rose mb-4">{combo.price.toLocaleString()}đ{t.perSet}</p>
                   <button onClick={() => handleAddToCart(combo)}
                     className="px-6 py-3 bg-moodoo-rose text-white font-display font-bold rounded-full shadow-[0_4px_0_hsl(340,82%,42%)] active:translate-y-1 active:shadow-none transition-all hover:brightness-110">
