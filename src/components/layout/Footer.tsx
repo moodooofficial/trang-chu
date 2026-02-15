@@ -1,59 +1,98 @@
-import { Link } from "react-router-dom";
 import MoodooLogo from "@/components/MoodooLogo";
+import { useLanguage } from "@/contexts/LanguageContext";
+
+const texts = {
+  vi: {
+    tagline: "Đồng hành cùng trẻ trong hành trình khám phá và nuôi dưỡng cảm xúc.",
+    products: "Sản phẩm",
+    book1: "Vùng Đất Cảm Xúc I",
+    book2: "Vùng Đất Cảm Xúc II",
+    cards: "Bộ Pack Cards",
+    combos: "Combo tiết kiệm",
+    aboutUs: "Về chúng mình",
+    intro: "Giới thiệu",
+    team: "Đội ngũ",
+    blog: "Blog",
+    app: "Ứng dụng",
+    contact: "Liên hệ",
+    address: "18 Lê Thúc Hoạch, P. Phú Thọ Hòa, TP.HCM",
+    copyright: "© 2026 Moodoo. Tất cả quyền được bảo lưu.",
+  },
+  en: {
+    tagline: "Accompanying children on the journey of exploring and nurturing emotions.",
+    products: "Products",
+    book1: "Emotion Land I",
+    book2: "Emotion Land II",
+    cards: "Pack Cards",
+    combos: "Value Combos",
+    aboutUs: "About Us",
+    intro: "Introduction",
+    team: "Our Team",
+    blog: "Blog",
+    app: "Application",
+    contact: "Contact",
+    address: "18 Lê Thúc Hoạch, Phú Thọ Hòa Ward, HCMC",
+    copyright: "© 2026 Moodoo. All rights reserved.",
+  },
+};
 
 export default function Footer() {
+  const { lang } = useLanguage();
+  const t = texts[lang];
+
   return (
-    <footer className="bg-moodoo-orange dark:bg-card text-white dark:text-foreground py-12 font-display relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-moodoo-rose via-moodoo-yellow to-moodoo-green" />
-
+    <footer className="bg-[hsl(160,30%,15%)] text-white/90 py-12 font-body">
       <div className="max-w-6xl mx-auto px-4">
-        {/* Center: Logo + Social */}
-        <div className="text-center mb-8">
-          <MoodooLogo size="md" className="justify-center mb-2" />
-          <p className="font-bold text-lg mb-4 opacity-90">TRUE EMOTIONS FOR YOU</p>
-
-          {/* Social Media - 3 only */}
-          <div className="flex justify-center gap-4 mb-4">
-            <a href="https://www.facebook.com/Facebook" target="_blank" rel="noopener noreferrer"
-              className="w-10 h-10 bg-white/20 dark:bg-white/10 rounded-full flex items-center justify-center hover:bg-white/40 hover:scale-110 transition-all text-xl">
-              📘
-            </a>
-            <a href="https://www.tiktok.com/@moodooofficial" target="_blank" rel="noopener noreferrer"
-              className="w-10 h-10 bg-white/20 dark:bg-white/10 rounded-full flex items-center justify-center hover:bg-white/40 hover:scale-110 transition-all text-xl">
-              🎵
-            </a>
-            <a href="https://youtube.com/@Moodoo-36" target="_blank" rel="noopener noreferrer"
-              className="w-10 h-10 bg-white/20 dark:bg-white/10 rounded-full flex items-center justify-center hover:bg-white/40 hover:scale-110 transition-all text-xl">
-              ▶️
-            </a>
-          </div>
-        </div>
-
-        <div className="border-t border-dashed border-white/40 dark:border-border pt-6 flex flex-col md:flex-row justify-between items-start gap-10">
-          {/* Left: Contact */}
-          <div className="font-body text-sm flex-shrink-0">
-            <p className="font-bold text-lg mb-3">📍 Liên hệ</p>
-            <p className="opacity-90">Bộ học liệu giáo dục cảm xúc hàng đầu tại Việt Nam</p>
-            <p className="mt-2 opacity-90">🏠 18 Lê Thúc Hoạch, P. Phú Thọ Hòa, TP.HCM</p>
-            <p className="opacity-90">✉️ moodoo.official.vn@gmail.com</p>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
+          {/* Logo + tagline */}
+          <div>
+            <MoodooLogo size="md" className="mb-3" />
+            <p className="text-sm leading-relaxed opacity-80">{t.tagline}</p>
           </div>
 
-          {/* Right: Quick Links */}
-          <div className="font-body md:text-right flex-1">
-            <p className="font-bold text-lg mb-3">🔗 Liên kết nhanh</p>
-            <div className="flex flex-col gap-2 text-sm md:items-end">
-              <Link to="/" className="hover:underline hover:translate-x-1 transition-transform inline-block opacity-90">🏠 Trang chủ</Link>
-              <Link to="/gioi-thieu" className="hover:underline hover:translate-x-1 transition-transform inline-block opacity-90">💡 Giới thiệu</Link>
-              <Link to="/thu-vien" className="hover:underline hover:translate-x-1 transition-transform inline-block opacity-90">📚 Thư viện</Link>
-              <Link to="/cua-tiem" className="hover:underline hover:translate-x-1 transition-transform inline-block opacity-90">🛍️ Cửa tiệm</Link>
-              <Link to="/hang-dong-nho" className="hover:underline hover:translate-x-1 transition-transform inline-block opacity-90">🕳️ Hang động nhỏ</Link>
-              <Link to="/blog" className="hover:underline hover:translate-x-1 transition-transform inline-block opacity-90">📝 Blog</Link>
-              <a href="https://moodoo-school.vercel.app/?zarsrc=410&utm_source=zalo&utm_medium=zalo&utm_campaign=zalo" target="_blank" rel="noopener noreferrer" className="hover:underline hover:translate-x-1 transition-transform inline-block opacity-90">📱 App</a>
+          {/* Products */}
+          <div>
+            <h3 className="font-display font-bold text-lg mb-4">{t.products}</h3>
+            <ul className="space-y-2 text-sm opacity-80">
+              <li><a href="/cua-tiem" className="hover:opacity-100 hover:underline transition-opacity">{t.book1}</a></li>
+              <li><a href="/cua-tiem" className="hover:opacity-100 hover:underline transition-opacity">{t.book2}</a></li>
+              <li><a href="/cua-tiem" className="hover:opacity-100 hover:underline transition-opacity">{t.cards}</a></li>
+              <li><a href="/cua-tiem" className="hover:opacity-100 hover:underline transition-opacity">{t.combos}</a></li>
+            </ul>
+          </div>
+
+          {/* About */}
+          <div>
+            <h3 className="font-display font-bold text-lg mb-4">{t.aboutUs}</h3>
+            <ul className="space-y-2 text-sm opacity-80">
+              <li><a href="/gioi-thieu" className="hover:opacity-100 hover:underline transition-opacity">{t.intro}</a></li>
+              <li><a href="/gioi-thieu" className="hover:opacity-100 hover:underline transition-opacity">{t.team}</a></li>
+              <li><a href="/blog" className="hover:opacity-100 hover:underline transition-opacity">{t.blog}</a></li>
+              <li><a href="https://moodoo-school.vercel.app/?zarsrc=410&utm_source=zalo&utm_medium=zalo&utm_campaign=zalo" target="_blank" rel="noopener noreferrer" className="hover:opacity-100 hover:underline transition-opacity">{t.app}</a></li>
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h3 className="font-display font-bold text-lg mb-4">{t.contact}</h3>
+            <ul className="space-y-2 text-sm opacity-80">
+              <li className="flex items-start gap-2">📍 {t.address}</li>
+              <li className="flex items-start gap-2">✉️ moodoo.official.vn@gmail.com</li>
+            </ul>
+            <div className="flex gap-3 mt-4">
+              <a href="https://www.facebook.com/Facebook" target="_blank" rel="noopener noreferrer"
+                className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/25 transition-all text-lg">📘</a>
+              <a href="https://www.tiktok.com/@moodooofficial" target="_blank" rel="noopener noreferrer"
+                className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/25 transition-all text-lg">🎵</a>
+              <a href="https://youtube.com/@Moodoo-36" target="_blank" rel="noopener noreferrer"
+                className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/25 transition-all text-lg">▶️</a>
             </div>
           </div>
         </div>
 
-        <p className="mt-8 text-sm opacity-60 font-body text-center">© 2026 Moodoo. All rights reserved. Made with 💖 for kids.</p>
+        <div className="border-t border-white/20 pt-6 text-center">
+          <p className="text-sm opacity-50">{t.copyright}</p>
+        </div>
       </div>
     </footer>
   );

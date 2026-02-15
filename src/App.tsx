@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { CartProvider } from "@/contexts/CartContext";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 import Layout from "@/components/layout/Layout";
 import Index from "./pages/Index";
 import About from "./pages/About";
@@ -23,24 +24,26 @@ const App = () => (
   <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <AuthProvider>
-          <CartProvider>
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<Layout><Index /></Layout>} />
-                <Route path="/gioi-thieu" element={<Layout><About /></Layout>} />
-                <Route path="/thu-vien" element={<Layout><Library /></Layout>} />
-                <Route path="/cua-tiem" element={<Layout><Shop /></Layout>} />
-                <Route path="/hang-dong-nho" element={<Layout><Cave /></Layout>} />
-                <Route path="/blog" element={<Layout><Blog /></Layout>} />
-                <Route path="/thanh-toan" element={<Checkout />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </BrowserRouter>
-          </CartProvider>
-        </AuthProvider>
+        <LanguageProvider>
+          <AuthProvider>
+            <CartProvider>
+              <Toaster />
+              <Sonner />
+              <BrowserRouter>
+                <Routes>
+                  <Route path="/" element={<Layout><Index /></Layout>} />
+                  <Route path="/gioi-thieu" element={<Layout><About /></Layout>} />
+                  <Route path="/thu-vien" element={<Layout><Library /></Layout>} />
+                  <Route path="/cua-tiem" element={<Layout><Shop /></Layout>} />
+                  <Route path="/hang-dong-nho" element={<Layout><Cave /></Layout>} />
+                  <Route path="/blog" element={<Layout><Blog /></Layout>} />
+                  <Route path="/thanh-toan" element={<Checkout />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </BrowserRouter>
+            </CartProvider>
+          </AuthProvider>
+        </LanguageProvider>
       </TooltipProvider>
     </QueryClientProvider>
   </GoogleOAuthProvider>

@@ -1,7 +1,33 @@
 import { motion } from "framer-motion";
 import GatedContent from "@/components/GatedContent";
 import { blogPosts } from "@/data/blog";
+import { useLanguage } from "@/contexts/LanguageContext";
 import FloatingEmojis from "@/components/FloatingEmojis";
+
+const texts = {
+  vi: {
+    title: "GÓC CHIA SẺ",
+    subtitle: "Nơi Moodoo và ba mẹ cùng nhau tâm tình, học hỏi và lớn khôn.",
+    gateTitle: "NỘI DUNG DÀNH RIÊNG CHO THÀNH VIÊN",
+    gateDesc: "Ba mẹ vui lòng Đăng nhập hoặc Đăng ký bằng Mã Sách để đọc các bài viết chia sẻ độc quyền từ chuyên gia và đội ngũ Moodoo nhé!",
+    gateBtn: "ĐĂNG NHẬP ĐỂ ĐỌC",
+    readMore: "ĐỌC TIẾP ➝",
+    details: "Xem chi tiết ➝",
+    comingSoon: "Tính năng đọc bài viết đang được cập nhật!",
+    comingSoonShort: "Sắp có nội dung nha!",
+  },
+  en: {
+    title: "SHARING CORNER",
+    subtitle: "Where Moodoo and parents share, learn, and grow together.",
+    gateTitle: "EXCLUSIVE CONTENT FOR MEMBERS",
+    gateDesc: "Please Sign In or Register with your Book Code to read exclusive articles from experts and the Moodoo team!",
+    gateBtn: "SIGN IN TO READ",
+    readMore: "READ MORE ➝",
+    details: "View details ➝",
+    comingSoon: "Article reading feature is being updated!",
+    comingSoonShort: "Content coming soon!",
+  },
+};
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -11,6 +37,8 @@ const fadeInUp = {
 const blogEmojis = ["📝", "📚", "💬", "🎯"];
 
 export default function Blog() {
+  const { lang } = useLanguage();
+  const t = texts[lang];
   const featured = blogPosts.find((p) => p.featured);
   const posts = blogPosts.filter((p) => !p.featured);
 
@@ -19,14 +47,12 @@ export default function Blog() {
       <div className="bg-moodoo-teal text-white py-12 text-center border-t-4 border-white relative overflow-hidden">
         <FloatingEmojis variant="blog" count={10} />
         <h1 className="text-4xl md:text-5xl font-display font-bold relative z-10" style={{ textShadow: "2px 2px 0 rgba(0,0,0,0.1)" }}>
-          GÓC CHIA SẺ
+          {t.title}
         </h1>
-        <p className="font-body text-lg mt-3 opacity-90 relative z-10">Nơi Moodoo và ba mẹ cùng nhau tâm tình, học hỏi và lớn khôn.</p>
+        <p className="font-body text-lg mt-3 opacity-90 relative z-10">{t.subtitle}</p>
       </div>
 
-      <GatedContent variant="blog" title="NỘI DUNG DÀNH RIÊNG CHO THÀNH VIÊN"
-        description="Ba mẹ vui lòng Đăng nhập hoặc Đăng ký bằng Mã Sách để đọc các bài viết chia sẻ độc quyền từ chuyên gia và đội ngũ Moodoo nhé!"
-        buttonText="ĐĂNG NHẬP ĐỂ ĐỌC" icon="🔒">
+      <GatedContent variant="blog" title={t.gateTitle} description={t.gateDesc} buttonText={t.gateBtn} icon="🔒">
         <section className="bg-teal-50 dark:bg-card py-16 relative overflow-hidden">
           <FloatingEmojis variant="blog" count={8} />
           <div className="max-w-6xl mx-auto px-4 relative z-10">
@@ -42,8 +68,8 @@ export default function Blog() {
                   )}
                   <h2 className="font-display font-bold text-2xl mb-4">{featured.title}</h2>
                   <p className="font-body text-muted-foreground leading-relaxed mb-6">{featured.excerpt}</p>
-                  <button onClick={() => alert("Tính năng đọc bài viết đang được cập nhật!")}
-                    className="font-display font-bold text-moodoo-teal flex items-center gap-2 hover:gap-4 transition-all">ĐỌC TIẾP ➝</button>
+                  <button onClick={() => alert(t.comingSoon)}
+                    className="font-display font-bold text-moodoo-teal flex items-center gap-2 hover:gap-4 transition-all">{t.readMore}</button>
                 </div>
               </motion.article>
             )}
@@ -61,8 +87,8 @@ export default function Blog() {
                     <p className="font-body text-sm text-muted-foreground mb-2">{post.date}</p>
                     <h3 className="font-display font-bold text-lg mb-3 flex-1">{post.title}</h3>
                     <p className="font-body text-muted-foreground text-sm leading-relaxed mb-4">{post.excerpt}</p>
-                    <button onClick={() => alert("Sắp có nội dung nha!")}
-                      className="font-display font-bold text-moodoo-teal text-sm flex items-center gap-2 hover:gap-4 transition-all">Xem chi tiết ➝</button>
+                    <button onClick={() => alert(t.comingSoonShort)}
+                      className="font-display font-bold text-moodoo-teal text-sm flex items-center gap-2 hover:gap-4 transition-all">{t.details}</button>
                   </div>
                 </motion.div>
               ))}

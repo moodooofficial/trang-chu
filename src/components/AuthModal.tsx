@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
@@ -14,25 +15,70 @@ interface GoogleJwtPayload {
 
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwLeJ1d4SvvdRUQoe38wntEbUde5pzG3pm0fBmH167jIttqcSxAgUZT_JyDSij2Jjw/exec";
 
+const texts = {
+  vi: {
+    login: "ĐĂNG NHẬP", register: "ĐĂNG KÝ", or: "hoặc",
+    emailPh: "Email...", passPh: "Mật khẩu...", codePh: "NHẬP MÃ SÁCH (VD: VIP001)",
+    loginBtn: "VÀO NGAY", registerBtn: "KÍCH HOẠT",
+    processing: "Đang xử lý...",
+    forgotPass: "Quên mật khẩu?",
+    forgotTitle: "Quên mật khẩu",
+    forgotDesc: "Nhập email của bạn, Moodoo sẽ kiểm tra và hỗ trợ cấp lại mật khẩu.",
+    forgotEmailPh: "Email đã đăng ký",
+    forgotBtn: "GỬI YÊU CẦU",
+    forgotBack: "Quay lại Đăng nhập",
+    googleHello: "Xin chào!",
+    googleCodePrompt: "Nhập mã sách để hoàn tất đăng ký",
+    googleBack: "← Quay lại",
+    loginSuccess: "Đăng nhập thành công! 🎉",
+    registerSuccess: "Kích hoạt thành công! 🎉",
+    forgotSuccess: "Yêu cầu đã được gửi! 🎉",
+    forgotSuccessDesc: "Vui lòng kiểm tra email.",
+    forgotFail: "Gửi yêu cầu thất bại",
+    error: "Lỗi",
+    googleError: "Đăng nhập Google thất bại",
+    googleWelcome: "Chào mừng",
+    googleCodeAsk: "Vui lòng nhập mã sách để đăng ký.",
+  },
+  en: {
+    login: "SIGN IN", register: "SIGN UP", or: "or",
+    emailPh: "Email...", passPh: "Password...", codePh: "ENTER BOOK CODE (e.g. VIP001)",
+    loginBtn: "SIGN IN", registerBtn: "ACTIVATE",
+    processing: "Processing...",
+    forgotPass: "Forgot password?",
+    forgotTitle: "Forgot Password",
+    forgotDesc: "Enter your email, Moodoo will check and help reset your password.",
+    forgotEmailPh: "Registered email",
+    forgotBtn: "SEND REQUEST",
+    forgotBack: "Back to Sign In",
+    googleHello: "Hello!",
+    googleCodePrompt: "Enter book code to complete registration",
+    googleBack: "← Back",
+    loginSuccess: "Login successful! 🎉",
+    registerSuccess: "Activation successful! 🎉",
+    forgotSuccess: "Request sent! 🎉",
+    forgotSuccessDesc: "Please check your email.",
+    forgotFail: "Request failed",
+    error: "Error",
+    googleError: "Google sign-in failed",
+    googleWelcome: "Welcome",
+    googleCodeAsk: "Please enter book code to register.",
+  },
+};
+
 export default function AuthModal() {
   const { isAuthModalOpen, closeAuthModal, authMode, setAuthMode, login, register } = useAuth();
   const { toast } = useToast();
+  const { lang } = useLanguage();
+  const t = texts[lang];
   const [loading, setLoading] = useState(false);
-
-  // Login fields
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPass, setLoginPass] = useState("");
-
-  // Register fields
   const [regCode, setRegCode] = useState("");
   const [regEmail, setRegEmail] = useState("");
   const [regPass, setRegPass] = useState("");
-
-  // Google sign-in state
   const [googleEmail, setGoogleEmail] = useState<string | null>(null);
   const [googleBookCode, setGoogleBookCode] = useState("");
-
-  // Forgot password state
   const [forgotMode, setForgotMode] = useState(false);
   const [forgotEmail, setForgotEmail] = useState("");
 
@@ -41,13 +87,11 @@ export default function AuthModal() {
     setLoading(true);
     try {
       await login(loginEmail, loginPass);
-      toast({ title: "Đăng nhập thành công! 🎉" });
+      toast({ title: t.loginSuccess });
       setLoginEmail(""); setLoginPass("");
     } catch (err: any) {
-      toast({ title: "Lỗi", description: err.message, variant: "destructive" });
-    } finally {
-      setLoading(false);
-    }
+      toast({ title: t.error, description: err.message, variant: "destructive" });
+    } finally { setLoading(false); }
   };
 
   const handleRegister = async (e: React.FormEvent) => {
@@ -55,30 +99,26 @@ export default function AuthModal() {
     setLoading(true);
     try {
       await register(regCode, regEmail, regPass);
-      toast({ title: "Kích hoạt thành công! 🎉" });
+      toast({ title: t.registerSuccess });
       setRegCode(""); setRegEmail(""); setRegPass("");
     } catch (err: any) {
-      toast({ title: "Lỗi", description: err.message, variant: "destructive" });
-    } finally {
-      setLoading(false);
-    }
+      toast({ title: t.error, description: err.message, variant: "destructive" });
+    } finally { setLoading(false); }
   };
 
   const handleGoogleSuccess = async (credentialResponse: any) => {
     try {
       const decoded = jwtDecode<GoogleJwtPayload>(credentialResponse.credential);
       const email = decoded.email;
-      // Try login first (existing account)
       try {
         await login(email, "google_" + email);
-        toast({ title: `Chào mừng ${decoded.name || email}! 🎉` });
+        toast({ title: `${t.googleWelcome} ${decoded.name || email}! 🎉` });
       } catch {
-        // Not registered yet, ask for book code
         setGoogleEmail(email);
-        toast({ title: `Xin chào ${decoded.name || email}! Vui lòng nhập mã sách để đăng ký.` });
+        toast({ title: `${t.googleWelcome} ${decoded.name || email}! ${t.googleCodeAsk}` });
       }
     } catch {
-      toast({ title: "Lỗi đăng nhập Google", variant: "destructive" });
+      toast({ title: t.googleError, variant: "destructive" });
     }
   };
 
@@ -88,14 +128,11 @@ export default function AuthModal() {
     setLoading(true);
     try {
       await register(googleBookCode, googleEmail, "google_" + googleEmail);
-      toast({ title: "Kích hoạt thành công! 🎉" });
-      setGoogleEmail(null);
-      setGoogleBookCode("");
+      toast({ title: t.registerSuccess });
+      setGoogleEmail(null); setGoogleBookCode("");
     } catch (err: any) {
-      toast({ title: "Lỗi", description: err.message, variant: "destructive" });
-    } finally {
-      setLoading(false);
-    }
+      toast({ title: t.error, description: err.message, variant: "destructive" });
+    } finally { setLoading(false); }
   };
 
   const handleForgotPassword = async (e: React.FormEvent) => {
@@ -104,25 +141,18 @@ export default function AuthModal() {
     try {
       const res = await fetch(SCRIPT_URL, {
         method: "POST",
-        body: JSON.stringify({
-          action: "forgotPassword",
-          email: forgotEmail,
-        }),
+        body: JSON.stringify({ action: "forgotPassword", email: forgotEmail }),
       });
       const data = await res.json();
       if (data.result === "success") {
-        toast({ title: "Yêu cầu đã được gửi! 🎉", description: data.message || "Vui lòng kiểm tra email." });
-        setForgotMode(false);
-        setForgotEmail("");
-        setAuthMode("login");
+        toast({ title: t.forgotSuccess, description: data.message || t.forgotSuccessDesc });
+        setForgotMode(false); setForgotEmail(""); setAuthMode("login");
       } else {
-        throw new Error(data.message || "Gửi yêu cầu thất bại");
+        throw new Error(data.message || t.forgotFail);
       }
     } catch (err: any) {
-      toast({ title: "Lỗi", description: err.message, variant: "destructive" });
-    } finally {
-      setLoading(false);
-    }
+      toast({ title: t.error, description: err.message, variant: "destructive" });
+    } finally { setLoading(false); }
   };
 
   return (
@@ -130,102 +160,95 @@ export default function AuthModal() {
       <DialogContent className="sm:max-w-[420px] rounded-3xl border-4 border-moodoo-yellow p-0 overflow-hidden">
         <div className="p-6">
           {googleEmail ? (
-            /* After Google sign-in (new user): show book code input */
             <div>
               <div className="text-center mb-4">
                 <p className="text-3xl mb-2">🎉</p>
-                <p className="font-display font-bold text-lg text-foreground">Xin chào!</p>
+                <p className="font-display font-bold text-lg text-foreground">{t.googleHello}</p>
                 <p className="font-body text-sm text-muted-foreground">{googleEmail}</p>
-                <p className="font-body text-xs text-muted-foreground mt-1">Nhập mã sách để hoàn tất đăng ký</p>
+                <p className="font-body text-xs text-muted-foreground mt-1">{t.googleCodePrompt}</p>
               </div>
               <form onSubmit={handleGoogleBookCode} className="space-y-3">
-                <Input type="text" placeholder="NHẬP MÃ SÁCH (VD: VIP001)" value={googleBookCode}
+                <Input type="text" placeholder={t.codePh} value={googleBookCode}
                   onChange={e => setGoogleBookCode(e.target.value)} required
                   className="rounded-xl border-2 border-moodoo-deep-orange bg-orange-50" />
                 <button type="submit" disabled={loading}
                   className="w-full py-3 bg-moodoo-deep-orange text-white font-display font-bold text-lg rounded-xl hover:bg-moodoo-orange transition-colors disabled:opacity-50">
-                  {loading ? "Đang xử lý..." : "KÍCH HOẠT"}
+                  {loading ? t.processing : t.registerBtn}
                 </button>
                 <button type="button" onClick={() => setGoogleEmail(null)}
-                  className="w-full py-2 text-muted-foreground font-body text-sm hover:underline">← Quay lại</button>
+                  className="w-full py-2 text-muted-foreground font-body text-sm hover:underline">{t.googleBack}</button>
               </form>
             </div>
           ) : forgotMode ? (
-            /* Forgot password form */
             <div>
               <div className="text-center mb-4">
                 <p className="text-3xl mb-2">🔑</p>
-                <p className="font-display font-bold text-lg text-foreground">Quên mật khẩu</p>
-                <p className="font-body text-xs text-muted-foreground">Nhập email của bạn, Moodoo sẽ kiểm tra và hỗ trợ cấp lại mật khẩu.</p>
+                <p className="font-display font-bold text-lg text-foreground">{t.forgotTitle}</p>
+                <p className="font-body text-xs text-muted-foreground">{t.forgotDesc}</p>
               </div>
               <form onSubmit={handleForgotPassword} className="space-y-3">
-                <Input type="email" placeholder="Email đã đăng ký" value={forgotEmail}
+                <Input type="email" placeholder={t.forgotEmailPh} value={forgotEmail}
                   onChange={e => setForgotEmail(e.target.value)} required className="rounded-xl" />
                 <button type="submit" disabled={loading}
                   className="w-full py-3 bg-muted-foreground text-white font-display font-bold text-lg rounded-xl hover:brightness-110 transition-colors disabled:opacity-50">
-                  {loading ? "Đang xử lý..." : "GỬI YÊU CẦU"}
+                  {loading ? t.processing : t.forgotBtn}
                 </button>
                 <button type="button" onClick={() => setForgotMode(false)}
-                  className="w-full py-2 text-primary font-body text-sm hover:underline">Quay lại Đăng nhập</button>
+                  className="w-full py-2 text-primary font-body text-sm hover:underline">{t.forgotBack}</button>
               </form>
             </div>
           ) : (
             <>
-              {/* Tabs */}
               <div className="flex justify-center mb-6 border-b-2 border-muted">
                 <button onClick={() => setAuthMode("login")}
                   className={`px-6 py-3 font-display font-bold text-lg transition-all ${authMode === "login" ? "text-moodoo-rose border-b-3 border-moodoo-rose" : "text-muted-foreground"}`}>
-                  ĐĂNG NHẬP
+                  {t.login}
                 </button>
                 <button onClick={() => setAuthMode("register")}
                   className={`px-6 py-3 font-display font-bold text-lg transition-all ${authMode === "register" ? "text-moodoo-rose border-b-3 border-moodoo-rose" : "text-muted-foreground"}`}>
-                  ĐĂNG KÝ
+                  {t.register}
                 </button>
               </div>
-
-              {/* Google Sign-In */}
               <div className="flex justify-center mb-4">
                 <GoogleLogin
                   onSuccess={handleGoogleSuccess}
-                  onError={() => toast({ title: "Đăng nhập Google thất bại", variant: "destructive" })}
+                  onError={() => toast({ title: t.googleError, variant: "destructive" })}
                   text="signin_with" shape="pill" width={300} />
               </div>
-
               <div className="flex items-center gap-3 mb-4">
                 <div className="flex-1 h-px bg-muted" />
-                <span className="font-body text-sm text-muted-foreground">hoặc</span>
+                <span className="font-body text-sm text-muted-foreground">{t.or}</span>
                 <div className="flex-1 h-px bg-muted" />
               </div>
-
               {authMode === "login" ? (
                 <div>
                   <form onSubmit={handleLogin} className="space-y-3">
-                    <Input type="email" placeholder="Email..." value={loginEmail}
+                    <Input type="email" placeholder={t.emailPh} value={loginEmail}
                       onChange={e => setLoginEmail(e.target.value)} required className="rounded-xl" />
-                    <Input type="password" placeholder="Mật khẩu..." value={loginPass}
+                    <Input type="password" placeholder={t.passPh} value={loginPass}
                       onChange={e => setLoginPass(e.target.value)} required className="rounded-xl" />
                     <button type="submit" disabled={loading}
                       className="w-full py-3 bg-moodoo-rose text-white font-display font-bold text-lg rounded-xl hover:bg-moodoo-pink transition-colors disabled:opacity-50">
-                      {loading ? "Đang xử lý..." : "VÀO NGAY"}
+                      {loading ? t.processing : t.loginBtn}
                     </button>
                   </form>
                   <button type="button" onClick={() => setForgotMode(true)}
                     className="w-full mt-3 py-2 text-moodoo-sky font-body text-sm hover:underline">
-                    Quên mật khẩu?
+                    {t.forgotPass}
                   </button>
                 </div>
               ) : (
                 <form onSubmit={handleRegister} className="space-y-3">
-                  <Input type="text" placeholder="NHẬP MÃ SÁCH (VD: VIP001)" value={regCode}
+                  <Input type="text" placeholder={t.codePh} value={regCode}
                     onChange={e => setRegCode(e.target.value)} required
                     className="rounded-xl border-2 border-moodoo-deep-orange bg-orange-50" />
-                  <Input type="email" placeholder="Email..." value={regEmail}
+                  <Input type="email" placeholder={t.emailPh} value={regEmail}
                     onChange={e => setRegEmail(e.target.value)} required className="rounded-xl" />
-                  <Input type="password" placeholder="Mật khẩu..." value={regPass}
+                  <Input type="password" placeholder={t.passPh} value={regPass}
                     onChange={e => setRegPass(e.target.value)} required className="rounded-xl" />
                   <button type="submit" disabled={loading}
                     className="w-full py-3 bg-moodoo-deep-orange text-white font-display font-bold text-lg rounded-xl hover:bg-moodoo-orange transition-colors disabled:opacity-50">
-                    {loading ? "Đang xử lý..." : "KÍCH HOẠT"}
+                    {loading ? t.processing : t.registerBtn}
                   </button>
                 </form>
               )}
