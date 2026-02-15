@@ -144,12 +144,12 @@
 }
 
 /* Colorful MOODOO letters */
-.moodoo-letter-m { color: hsl(345 90% 55%); }
-.moodoo-letter-o1 { color: hsl(28 100% 55%); }
-.moodoo-letter-o2 { color: hsl(45 100% 55%); }
-.moodoo-letter-d { color: hsl(145 70% 42%); }
+.moodoo-letter-m { color: hsl(0 80% 50%); }
+.moodoo-letter-o1 { color: hsl(210 90% 55%); }
+.moodoo-letter-o2 { color: hsl(45 100% 50%); }
+.moodoo-letter-d { color: hsl(160 70% 45%); }
 .moodoo-letter-o3 { color: hsl(210 80% 55%); }
-.moodoo-letter-o4 { color: hsl(270 70% 50%); }
+.moodoo-letter-o4 { color: hsl(330 80% 60%); }
 
 /* Wavy section divider */
 .wave-divider {

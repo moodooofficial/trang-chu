@@ -44,7 +44,7 @@ const t = {
       { name: "Cô Thu Trang", role: "Chuyên gia tâm lý trẻ em", avatar: "👩‍⚕️", quote: "MOODOO là bộ học liệu hiếm hoi ở Việt Nam tiếp cận giáo dục cảm xúc một cách bài bản, khoa học mà vẫn gần gũi với trẻ nhỏ." },
       { name: "Chị Mai Anh", role: "Phụ huynh bé Miu (4 tuổi)", avatar: "👩‍🎨", quote: "Hang Động Nhỏ là phần con mình thích nhất! Bé rất háo hức khi được nói chuyện với Moodoo AI. Sáng tạo và bổ ích!" },
     ],
-    teamTitle: "🎯 ĐỘI NGŨ",
+    teamTitle: "🎯 ĐỘI NGŨ CỦA CHÚNG MÌNH",
     ctaTitle: "Đến với",
     ctaDesc: "...Trẻ sẽ được khám phá và thấu hiểu cảm xúc của mình qua những câu chuyện sinh động và trò chơi tương tác. Hãy để Moodoo cùng con lớn lên mỗi ngày!",
     stats: [
@@ -164,7 +164,8 @@ export default function Index() {
           <motion.div initial={{ scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.8, delay: 0.2, type: "spring" }}>
             <MoodooLogo size="xl" className="justify-center mb-4" />
           </motion.div>
-          <motion.p className="text-xl md:text-2xl font-display font-bold text-moodoo-purple italic"
+          <motion.p className="text-xl md:text-2xl font-bold italic"
+            style={{ fontFamily: "'Baloo 2', cursive", color: "hsl(270 70% 40%)", textShadow: "1px 1px 0 rgba(255,255,255,0.3)" }}
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.6 }}>
             {tx.heroSlogan}
           </motion.p>
@@ -285,20 +286,30 @@ export default function Index() {
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-center text-3xl md:text-4xl font-display font-extrabold text-white uppercase tracking-widest mb-12">{tx.teamTitle}</h2>
           <div className="flex flex-wrap justify-center gap-8">
-            {teamMembers.map((member, i) => (
-              <motion.div key={i} className="text-center w-36" initial="hidden" whileInView="visible" viewport={{ once: true }}
-                variants={{ ...fadeInUp, visible: { ...fadeInUp.visible, transition: { duration: 0.5, delay: i * 0.1 } } }}>
-                <div className="w-28 h-28 rounded-full border-4 border-moodoo-yellow mx-auto mb-3 shadow-xl hover:scale-110 hover:rotate-6 transition-all duration-300 overflow-hidden">
-                  {member.image ? (
-                    <img src={member.image} alt={member.name} className="w-full h-full object-cover" />
-                  ) : (
-                    <div className="w-full h-full bg-white flex items-center justify-center text-4xl">{member.emoji}</div>
-                  )}
-                </div>
-                <p className="font-display font-bold text-white">{member.name}</p>
-                <p className="font-body text-sm text-white/80 font-bold">{member.role}</p>
-              </motion.div>
-            ))}
+            {teamMembers.map((member, i) => {
+              const roleMap: Record<string, string> = lang === "vi" ? {
+                "Co-Founder": "Đồng sáng lập",
+                "Head of Content": "Trưởng nội dung",
+                "Head of Design": "Trưởng thiết kế",
+                "Head of Marketing": "Trưởng marketing",
+                "Head of Digital": "Trưởng kỹ thuật số",
+              } : {};
+              const displayRole = roleMap[member.role] || member.role;
+              return (
+                <motion.div key={i} className="text-center w-36" initial="hidden" whileInView="visible" viewport={{ once: true }}
+                  variants={{ ...fadeInUp, visible: { ...fadeInUp.visible, transition: { duration: 0.5, delay: i * 0.1 } } }}>
+                  <div className="w-28 h-28 rounded-full border-4 border-moodoo-yellow mx-auto mb-3 shadow-xl hover:scale-110 hover:rotate-6 transition-all duration-300 overflow-hidden">
+                    {member.image ? (
+                      <img src={member.image} alt={member.name} className="w-full h-full object-cover" />
+                    ) : (
+                      <div className="w-full h-full bg-white flex items-center justify-center text-4xl">{member.emoji}</div>
+                    )}
+                  </div>
+                  <p className="font-display font-bold text-white">{member.name}</p>
+                  <p className="font-body text-sm text-white/80 font-bold">{displayRole}</p>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
