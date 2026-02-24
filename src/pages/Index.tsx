@@ -294,8 +294,8 @@ export default function Index() {
           <div className="flex flex-wrap justify-center gap-8">
             {teamMembers.map((member, i) => {
               const roleMap: Record<string, string> = lang === "vi" ? {
-                "Co-Founder": "Đồng sáng lập",
-                "Head of Content": "Trưởng nội dung",
+                "Founder": "Nhà sáng lập",
+                "Co-Founder - Head of Content": "Đồng sáng lập - Trưởng nội dung",
                 "Head of Design": "Trưởng thiết kế",
                 "Head of Marketing": "Trưởng marketing",
                 "Head of Digital": "Trưởng kỹ thuật số",
