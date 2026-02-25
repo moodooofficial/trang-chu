@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react"; // Thêm useState
 import GatedContent from "@/components/GatedContent";
 import { useAuth } from "@/contexts/AuthContext";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -14,6 +14,10 @@ const texts = {
     desc: "Chào mừng bé đã đến với góc nhỏ của Moodoo!",
     desc2: "Hôm nay bé cảm thấy thế nào? Hãy bấm vào biểu tượng <strong>tin nhắn ở góc dưới màn hình</strong> để kể cho Moodoo nghe nhé. Moodoo luôn ở đây lắng nghe bé!",
     connecting: "(Đang kết nối với Moodoo AI...)",
+    // Thêm nội dung overlay
+    consentTitle: "XÁC NHẬN GIÁM HỘ",
+    consentText: "Tôi là người giám hộ hợp pháp và đồng ý cho MOODOO lưu trữ dữ liệu cảm xúc của trẻ nhằm mục đích giáo dục.",
+    consentBtn: "ĐỒNG Ý VÀ TIẾP TỤC",
   },
   en: {
     gateTitle: "SECRET CAVE",
@@ -23,6 +27,10 @@ const texts = {
     desc: "Welcome to Moodoo's little corner!",
     desc2: "How are you feeling today? Tap the <strong>chat icon at the bottom of the screen</strong> to tell Moodoo. Moodoo is always here to listen!",
     connecting: "(Connecting to Moodoo AI...)",
+    // Thêm nội dung overlay tiếng Anh
+    consentTitle: "GUARDIAN CONSENT",
+    consentText: "I am the legal guardian and agree to let MOODOO store the child's emotional data for educational purposes.",
+    consentBtn: "AGREE AND CONTINUE",
   },
 };
 
@@ -30,9 +38,28 @@ export default function Cave() {
   const { isLoggedIn } = useAuth();
   const { lang } = useLanguage();
   const t = texts[lang];
+  
+  // Trạng thái đã đồng ý hay chưa
+  const [hasConsented, setHasConsented] = useState(false);
+
+  // Kiểm tra đã đồng ý trước đó chưa khi load trang
+  useEffect(() => {
+    const consent = localStorage.getItem("moodoo_cave_consent");
+    if (consent === "true") {
+      setHasConsented(true);
+    }
+  }, []);
+
+  // Hàm xử lý khi nhấn Đồng ý
+  const handleConsent = () => {
+    setHasConsented(true);
+    localStorage.setItem("moodoo_cave_consent", "true");
+  };
 
   useEffect(() => {
-    if (!isLoggedIn) return;
+    // Chỉ tải Chatbot khi đã đăng nhập VÀ đã đồng ý
+    if (!isLoggedIn || !hasConsented) return;
+    
     const loadChatbot = () => {
       if (document.getElementById("chatbase-script")) return;
       const script = document.createElement("script");
@@ -43,10 +70,31 @@ export default function Cave() {
       document.body.appendChild(script);
     };
     loadChatbot();
-  }, [isLoggedIn]);
+  }, [isLoggedIn, hasConsented]);
 
   return (
-    <div>
+    <div className="relative">
+      {/* Overlay xác nhận - Chỉ hiện khi đã đăng nhập nhưng chưa nhấn đồng ý */}
+      {isLoggedIn && !hasConsented && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/70 backdrop-blur-md">
+          <div className="bg-white dark:bg-slate-900 p-8 rounded-3xl max-w-md w-full shadow-2xl text-center border-4 border-moodoo-purple animate-in fade-in zoom-in duration-300">
+            <div className="text-5xl mb-4">🛡️</div>
+            <h3 className="text-2xl font-display font-bold mb-4 text-moodoo-purple uppercase">
+              {t.consentTitle}
+            </h3>
+            <p className="font-body text-foreground mb-8 leading-relaxed text-lg">
+              {t.consentText}
+            </p>
+            <button
+              onClick={handleConsent}
+              className="w-full bg-moodoo-purple hover:bg-purple-600 text-white font-display font-bold py-4 rounded-full transition-all transform hover:scale-105 shadow-lg active:scale-95"
+            >
+              {t.consentBtn}
+            </button>
+          </div>
+        </div>
+      )}
+
       <section className="min-h-[80vh] bg-moodoo-purple text-white py-20 relative overflow-hidden"
         style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/stardust.png')" }}>
         <FloatingEmojis variant="cave" count={15} />
