@@ -1,5 +1,5 @@
 
-# MOODOO - Hành Trình Cảm Xúc Giáo Dục Cùng Trẻ 🦔✨
+# MOODOO - Hành Trình Giáo Dục Cảm Xúc Cùng Trẻ 🦔✨
 
 ## Tổng quan
 Chuyển đổi toàn bộ 7 trang HTML tĩnh sang ứng dụng React SPA (Single Page Application) với thiết kế được nâng cấp hiện đại hơn, giữ nguyên phong cách vui tươi, đầy màu sắc phù hợp trẻ em. Tất cả các trang được liên kết qua thanh Navigation Bar chung.
