@@ -96,8 +96,8 @@ const bookSections = [
     borderColor: "border-moodoo-sky",
     bgColor: "bg-blue-50 dark:bg-blue-950/20",
     videos: [
-      { url: "https://www.youtube.com/embed/jfKfPfyJRdk" },
-      { url: "https://www.youtube.com/embed/36n93jvjkDs" },
+      { url: "https://www.youtube.com/embed/BtqKesUhIt8" },
+      { url: "https://www.youtube.com/embed/_i8X60hjnqs" },
     ],
     resources: [
       { url: "https://heyzine.com/flip-book/830bf01ca2.html" },
@@ -110,8 +110,8 @@ const bookSections = [
     borderColor: "border-moodoo-rose",
     bgColor: "bg-pink-50 dark:bg-pink-950/20",
     videos: [
-      { url: "https://www.youtube.com/embed/tgbNymZ7vqY" },
-      { url: "https://www.youtube.com/embed/jfKfPfyJRdk" },
+      { url: "https://www.youtube.com/embed/k3vnbzhYFWY" },
+      { url: "https://www.youtube.com/embed/dDvP3fGAp5Y" },
     ],
     resources: [
       { url: "https://heyzine.com/flip-book/c53727e68b.html" },
