@@ -27,7 +27,7 @@ const texts = {
       {
         title: "Vùng Đất Cảm Xúc 1",
         videos: [
-          { title: "Tức giận" },
+          { title: "Vui vẻ" },
           { title: "Buồn bã" },
         ],
         resources: [
