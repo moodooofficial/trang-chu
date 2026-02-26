@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"; // Thêm useState
+import { useEffect, useState } from "react";
 import GatedContent from "@/components/GatedContent";
 import { useAuth } from "@/contexts/AuthContext";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -11,12 +11,13 @@ const texts = {
     gateDesc: "Suỵt! Đây là nơi trú ẩn bí mật của Moodoo. Bé hãy Đăng nhập hoặc nhờ ba mẹ nhập Mã Sách để mở cửa hang và trò chuyện cùng Moodoo nhé!",
     gateBtn: "GÕ CỬA HANG",
     title: "✨ HANG ĐỘNG NHỎ ✨",
-    desc: "Chào mừng bé đã đến với góc nhỏ của Moodoo!",
+    desc: "Chào mừng bé đã đến with góc nhỏ của Moodoo!",
     desc2: "Hôm nay bé cảm thấy thế nào? Hãy bấm vào biểu tượng <strong>tin nhắn ở góc dưới màn hình</strong> để kể cho Moodoo nghe nhé. Moodoo luôn ở đây lắng nghe bé!",
     connecting: "(Đang kết nối với Moodoo AI...)",
-    // Thêm nội dung overlay
-    consentTitle: "XÁC NHẬN GIÁM HỘ",
-    consentText: "Tôi là người giám hộ hợp pháp và đồng ý cho MOODOO lưu trữ dữ liệu cảm xúc của trẻ nhằm mục đích giáo dục.",
+    // Nội dung mới cho 2 checkbox
+    consentTitle: "XÁC NHẬN TỪ PHỤ HUYNH",
+    consent1: "Tôi đồng ý với điều khoản sử dụng và chính sách quyền riêng tư của MOODOO.",
+    consent2: "Tôi đồng ý cho MOODOO sử dụng dữ liệu cảm xúc của trẻ nhằm mục đích giáo dục.",
     consentBtn: "ĐỒNG Ý VÀ TIẾP TỤC",
   },
   en: {
@@ -27,9 +28,10 @@ const texts = {
     desc: "Welcome to Moodoo's little corner!",
     desc2: "How are you feeling today? Tap the <strong>chat icon at the bottom of the screen</strong> to tell Moodoo. Moodoo is always here to listen!",
     connecting: "(Connecting to Moodoo AI...)",
-    // Thêm nội dung overlay tiếng Anh
-    consentTitle: "GUARDIAN CONSENT",
-    consentText: "I am the legal guardian and agree to let MOODOO store the child's emotional data for educational purposes.",
+    // English version
+    consentTitle: "PARENTAL CONSENT",
+    consent1: "I agree to the Terms of Use and Privacy Policy.",
+    consent2: "I agree to let MOODOO use the child's emotional data for educational purposes.",
     consentBtn: "AGREE AND CONTINUE",
   },
 };
@@ -39,10 +41,12 @@ export default function Cave() {
   const { lang } = useLanguage();
   const t = texts[lang];
   
-  // Trạng thái đã đồng ý hay chưa
   const [hasConsented, setHasConsented] = useState(false);
+  
+  // State cho 2 ô checkbox
+  const [check1, setCheck1] = useState(false);
+  const [check2, setCheck2] = useState(false);
 
-  // Kiểm tra đã đồng ý trước đó chưa khi load trang
   useEffect(() => {
     const consent = localStorage.getItem("moodoo_cave_consent");
     if (consent === "true") {
@@ -50,16 +54,15 @@ export default function Cave() {
     }
   }, []);
 
-  // Hàm xử lý khi nhấn Đồng ý
   const handleConsent = () => {
-    setHasConsented(true);
-    localStorage.setItem("moodoo_cave_consent", "true");
+    if (check1 && check2) {
+      setHasConsented(true);
+      localStorage.setItem("moodoo_cave_consent", "true");
+    }
   };
 
   useEffect(() => {
-    // Chỉ tải Chatbot khi đã đăng nhập VÀ đã đồng ý
     if (!isLoggedIn || !hasConsented) return;
-    
     const loadChatbot = () => {
       if (document.getElementById("chatbase-script")) return;
       const script = document.createElement("script");
@@ -74,20 +77,50 @@ export default function Cave() {
 
   return (
     <div className="relative">
-      {/* Overlay xác nhận - Chỉ hiện khi đã đăng nhập nhưng chưa nhấn đồng ý */}
+      {/* Overlay với 2 Checkbox */}
       {isLoggedIn && !hasConsented && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/70 backdrop-blur-md">
-          <div className="bg-white dark:bg-slate-900 p-8 rounded-3xl max-w-md w-full shadow-2xl text-center border-4 border-moodoo-purple animate-in fade-in zoom-in duration-300">
-            <div className="text-5xl mb-4">🛡️</div>
-            <h3 className="text-2xl font-display font-bold mb-4 text-moodoo-purple uppercase">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+          <div className="bg-white dark:bg-slate-900 p-8 rounded-3xl max-w-md w-full shadow-2xl border-4 border-moodoo-purple animate-in fade-in zoom-in duration-300">
+            <h3 className="text-2xl font-display font-bold mb-6 text-moodoo-purple text-center uppercase">
               {t.consentTitle}
             </h3>
-            <p className="font-body text-foreground mb-8 leading-relaxed text-lg">
-              {t.consentText}
-            </p>
+            
+            <div className="space-y-4 mb-8">
+              {/* Checkbox 1 */}
+              <label className="flex items-start gap-3 cursor-pointer group">
+                <input 
+                  type="checkbox" 
+                  className="mt-1 w-5 h-5 rounded border-gray-300 text-moodoo-purple focus:ring-moodoo-purple"
+                  checked={check1}
+                  onChange={(e) => setCheck1(e.target.checked)}
+                />
+                <span className="font-body text-sm md:text-base text-foreground group-hover:text-moodoo-purple transition-colors">
+                  {t.consent1}
+                </span>
+              </label>
+
+              {/* Checkbox 2 */}
+              <label className="flex items-start gap-3 cursor-pointer group">
+                <input 
+                  type="checkbox" 
+                  className="mt-1 w-5 h-5 rounded border-gray-300 text-moodoo-purple focus:ring-moodoo-purple"
+                  checked={check2}
+                  onChange={(e) => setCheck2(e.target.checked)}
+                />
+                <span className="font-body text-sm md:text-base text-foreground group-hover:text-moodoo-purple transition-colors">
+                  {t.consent2}
+                </span>
+              </label>
+            </div>
+
             <button
               onClick={handleConsent}
-              className="w-full bg-moodoo-purple hover:bg-purple-600 text-white font-display font-bold py-4 rounded-full transition-all transform hover:scale-105 shadow-lg active:scale-95"
+              disabled={!check1 || !check2}
+              className={`w-full font-display font-bold py-4 rounded-full transition-all transform shadow-lg ${
+                check1 && check2 
+                ? "bg-moodoo-purple hover:bg-purple-600 text-white hover:scale-105 active:scale-95" 
+                : "bg-gray-300 text-gray-500 cursor-not-allowed"
+              }`}
             >
               {t.consentBtn}
             </button>
@@ -95,6 +128,7 @@ export default function Cave() {
         </div>
       )}
 
+      {/* Phần nội dung chính của Cave giữ nguyên */}
       <section className="min-h-[80vh] bg-moodoo-purple text-white py-20 relative overflow-hidden"
         style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/stardust.png')" }}>
         <FloatingEmojis variant="cave" count={15} />
@@ -113,6 +147,7 @@ export default function Cave() {
             </div>
           </GatedContent>
         </div>
+        {/* Các ngôi sao decor */}
         <div className="absolute top-10 left-10 text-2xl animate-pulse">⭐</div>
         <div className="absolute top-20 right-20 text-lg animate-pulse delay-500">✨</div>
         <div className="absolute bottom-20 left-20 text-xl animate-pulse delay-1000">🌟</div>
