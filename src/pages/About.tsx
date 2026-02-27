@@ -43,7 +43,7 @@ const texts = {
   },
   en: {
     pageTitle: "ABOUT US",
-    quote: "✨ Understand emotions - Master behavior - Nurture a positive Vietnamese generation ✨",
+    quote: "✨ Understand Emotions - Master Behavior - Build a Positive Vietnamese Generation ✨",
     sections: [
       {
         title: "We are",
@@ -118,10 +118,11 @@ export default function About() {
         </section>
       ))}
 
-      <section className="bg-gradient-to-r from-moodoo-yellow via-moodoo-orange to-moodoo-rose py-12 relative overflow-hidden">
+      {/* Quote Section với kích thước font đã điều chỉnh nhỏ lại */}
+      <section className="bg-gradient-to-r from-moodoo-yellow via-moodoo-orange to-moodoo-rose py-14 relative overflow-hidden">
         <FloatingEmojis count={6} />
         <motion.div className="text-center relative z-10 px-4" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-          <p className="text-xl md:text-2xl lg:text-3xl font-display font-extrabold text-white max-w-5xl mx-auto" style={{ textShadow: "2px 2px 0 rgba(0,0,0,0.15)" }}>
+          <p className="text-xl md:text-3xl font-display font-extrabold text-white leading-snug" style={{ textShadow: "2px 2px 0 rgba(0,0,0,0.15)" }}>
             {t.quote}
           </p>
         </motion.div>
