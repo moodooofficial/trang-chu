@@ -13,7 +13,8 @@ const fadeInUp = {
 const texts = {
   vi: {
     pageTitle: "VỀ CHÚNG MÌNH",
-    quote: "✨ Hiểu cảm xúc - Làm chủ hành vi - Dựng xây thế hệ Việt tích cực ✨",
+    quotePrefix: "✨ Hiểu cảm xúc - Làm chủ hành vi - Dựng xây thế hệ Việt tích cực",
+    quoteSuffix: "✨",
     sections: [
       {
         title: "Chúng mình là",
@@ -43,7 +44,8 @@ const texts = {
   },
   en: {
     pageTitle: "ABOUT US",
-    quote: "✨ Understand Emotions - Master Behavior - Build a Positive Vietnamese Generation ✨",
+    quotePrefix: "✨ Understand Emotions - Master Behavior - Build a Positive Vietnamese Generation",
+    quoteSuffix: "✨",
     sections: [
       {
         title: "We are",
@@ -125,7 +127,7 @@ export default function About() {
           <p className={`font-display font-extrabold text-white leading-tight max-w-5xl mx-auto
             ${lang === 'en' ? 'text-lg md:text-2xl lg:text-3xl' : 'text-xl md:text-3xl'} 
           `} style={{ textShadow: "2px 2px 0 rgba(0,0,0,0.15)" }}>
-            {t.quote}
+            {t.quotePrefix} <span className="relative inline-block">{t.quoteSuffix}</span>
           </p>
         </motion.div>
       </section>
