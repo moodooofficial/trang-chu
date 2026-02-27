@@ -64,7 +64,7 @@ const texts = {
     "Vui vẻ - Buồn bã - Ngạc nhiên": "Happy - Sad - Surprised",
     "Tức giận - Sợ hãi - Yêu thương": "Angry - Scared - Loving",
     "Trọn bộ 2 MOODOOBOOKs (1 & 2)": "Complete set of 2 MOODOOBOOKs (1 & 2)",
-    "1 MOODOOBOOK (Tặng kèm 1 Pack Cards + 1 Sổ tay)": "1 MOODOOBOOK (Free 1 Pack Cards + 1 Notebook)",
+    "1 MOODOOBOOK (Tặng kèm 1 Pack Cards + 1 Sổ tay)": "1 MOODOOBOOK (Free 1 Pack Cards + 1 Handbook)",
     "Bộ thẻ giúp bé tự tin hơn": "Card set to boost children's confidence",
     "Bộ thẻ giáo dục sự thấu hiểu": "Card set for teaching empathy",
   },
