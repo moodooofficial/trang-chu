@@ -13,7 +13,7 @@ const fadeInUp = {
 const texts = {
   vi: {
     pageTitle: "VỀ CHÚNG MÌNH",
-    quote: "✨ Hiểu cảm xúc - Làm chủ hành vi - Sống tích cực ✨",
+    quote: "✨ Hiểu cảm xúc - Làm chủ hành vi - Dựng xây thế hệ Việt tích cực ✨",
     sections: [
       {
         title: "Chúng mình là",
@@ -43,7 +43,7 @@ const texts = {
   },
   en: {
     pageTitle: "ABOUT US",
-    quote: "✨ Understand Emotions - Master Behavior - Live Positively ✨",
+    quote: "✨ Understand emotions - Master behavior - Nurture a positive Vietnamese generation ✨",
     sections: [
       {
         title: "We are",
@@ -120,8 +120,8 @@ export default function About() {
 
       <section className="bg-gradient-to-r from-moodoo-yellow via-moodoo-orange to-moodoo-rose py-12 relative overflow-hidden">
         <FloatingEmojis count={6} />
-        <motion.div className="text-center relative z-10" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-          <p className="text-2xl md:text-4xl font-display font-extrabold text-white" style={{ textShadow: "2px 2px 0 rgba(0,0,0,0.15)" }}>
+        <motion.div className="text-center relative z-10 px-4" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+          <p className="text-xl md:text-2xl lg:text-3xl font-display font-extrabold text-white max-w-5xl mx-auto" style={{ textShadow: "2px 2px 0 rgba(0,0,0,0.15)" }}>
             {t.quote}
           </p>
         </motion.div>
