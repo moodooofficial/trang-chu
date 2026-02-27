@@ -190,36 +190,51 @@ export default function Shop() {
             </div>
           </div>
 
-{/* Demo Flipbook */}
-<section className="pb-16 relative z-10">
-  <div className="max-w-5xl mx-auto px-4">
+{/* Demo Flipbook Section */}
+<section className="bg-moodoo-cream/30 py-20 relative overflow-hidden border-t border-white/20">
+  <FloatingEmojis variant="shop" count={6} />
+  
+  <div className="max-w-5xl mx-auto px-4 relative z-10">
     <motion.div 
       initial="hidden" 
       whileInView="visible" 
       viewport={{ once: true }} 
       variants={fadeInUp}
-      className="bg-white dark:bg-card rounded-3xl p-6 md:p-10 shadow-xl border-2 border-moodoo-yellow/20"
+      className="text-center mb-10"
     >
-      <h2 className="text-center text-2xl md:text-3xl font-display font-bold text-moodoo-orange uppercase mb-8">
+      <h2 className="text-3xl md:text-4xl font-display font-bold text-moodoo-orange uppercase">
         {t.demo}
       </h2>
-      
-      <div className="rounded-2xl overflow-hidden shadow-inner bg-moodoo-cream/30">
+      <div className="w-24 h-1 bg-moodoo-orange/30 mx-auto mt-4 rounded-full" />
+    </motion.div>
+
+    <motion.div 
+      initial="hidden" 
+      whileInView="visible" 
+      viewport={{ once: true }} 
+      variants={fadeInUp}
+      className="bg-white dark:bg-card rounded-[2rem] p-2 shadow-2xl border-4 border-white overflow-hidden"
+    >
+      <div className="rounded-[1.5rem] overflow-hidden bg-white">
         <iframe 
           allowFullScreen 
           allow="clipboard-write" 
           scrolling="no" 
-          className="w-full h-[400px] md:h-[550px]"
+          className="w-full h-[450px] md:h-[600px]" 
           src="https://heyzine.com/flip-book/dbfefaa60f.html" 
           style={{ border: "none" }} 
         />
       </div>
-      
-      {/* Một chút trang trí nhỏ dưới khung demo cho sinh động */}
-      <p className="text-center font-body text-sm text-muted-foreground mt-4 italic">
-        Thử lật trang để khám phá thế giới của MOODOO nhé! ✨
-      </p>
     </motion.div>
+    
+    <motion.p 
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ delay: 0.5 }}
+      className="text-center font-body text-muted-foreground mt-8 italic"
+    >
+      Khám phá thử nội dung bên trong cuốn sách Moodoo nhé! ✨
+    </motion.p>
   </div>
 </section>
     </div>
