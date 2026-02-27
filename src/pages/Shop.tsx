@@ -1,4 +1,6 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Maximize2, X } from "lucide-react";
 import { products } from "@/data/products";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/hooks/use-toast";
@@ -64,7 +66,7 @@ const texts = {
     "Vui vẻ - Buồn bã - Ngạc nhiên": "Happy - Sad - Surprised",
     "Tức giận - Sợ hãi - Yêu thương": "Angry - Scared - Loving",
     "Trọn bộ 2 MOODOOBOOKs (1 & 2)": "Complete set of 2 MOODOOBOOKs (1 & 2)",
-    "1 MOODOOBOOK (Tặng kèm 1 Pack Cards + 1 Sổ tay)": "1 MOODOOBOOK (Free 1 Pack Cards + 1 Handbook)",
+    "1 MOODOOBOOK (Free 1 Pack Cards + 1 Handbook)": "1 MOODOOBOOK (Free 1 Pack Cards + 1 Handbook)",
     "Bộ thẻ giúp bé tự tin hơn": "Card set to boost children's confidence",
     "Bộ thẻ giáo dục sự thấu hiểu": "Card set for teaching empathy",
   },
@@ -84,6 +86,7 @@ export default function Shop() {
   const { toast } = useToast();
   const { lang } = useLanguage();
   const t = texts[lang] as Record<string, any>;
+  const [fullscreenUrl, setFullscreenUrl] = useState<string | null>(null);
 
   const tr = (key: string) => (t[key] as string) || key;
 
@@ -95,6 +98,8 @@ export default function Shop() {
   const books = products.filter((p) => p.category === "books");
   const combos = products.filter((p) => p.category === "combos");
   const cards = products.filter((p) => p.category === "cards");
+
+  const demoUrl = "/demo/index.html";
 
   return (
     <div>
@@ -190,7 +195,7 @@ export default function Shop() {
             </div>
           </div>
 
-{/* Demo Flipbook */}
+          {/* Demo Flipbook with Fullscreen Capability */}
           <div>
             <h2 className="text-center text-2xl md:text-3xl font-display font-bold text-moodoo-orange uppercase mb-8">
               {t.demo}
@@ -200,20 +205,51 @@ export default function Shop() {
               whileInView="visible" 
               viewport={{ once: true }} 
               variants={fadeInUp}
-              className="rounded-2xl overflow-hidden shadow-2xl border-4 border-white max-w-4xl mx-auto"
+              className="rounded-2xl overflow-hidden shadow-2xl border-4 border-white max-w-4xl mx-auto relative group bg-white"
             >
-              <iframe 
-                allowFullScreen 
-                allow="clipboard-write" 
-                scrolling="no" 
-                className="w-full h-[400px] md:h-[500px]" 
-                src="https://heyzine.com/flip-book/dbfefaa60f.html" 
-                style={{ border: "none" }} 
-              />
+              <div className="relative w-full h-[400px] md:h-[500px]">
+                <iframe 
+                  allowFullScreen 
+                  allow="clipboard-write" 
+                  scrolling="no" 
+                  className="w-full h-full" 
+                  src={demoUrl} 
+                  style={{ border: "none" }} 
+                />
+                <button 
+                  onClick={() => setFullscreenUrl(demoUrl)}
+                  className="absolute top-4 right-4 bg-white/90 p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white hover:scale-110 z-20"
+                >
+                  <Maximize2 className="w-5 h-5 text-moodoo-green" />
+                </button>
+              </div>
             </motion.div>
           </div>
         </div>
       </section>
+
+      {/* Fullscreen Modal */}
+      <AnimatePresence>
+        {fullscreenUrl && (
+          <motion.div 
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] bg-black/95 flex flex-col items-center justify-center p-4 md:p-8"
+          >
+            <button 
+              onClick={() => setFullscreenUrl(null)}
+              className="absolute top-4 right-4 md:top-8 md:right-8 bg-moodoo-rose text-white p-3 rounded-full hover:scale-110 transition-transform z-[110]"
+            >
+              <X className="w-6 h-6" />
+            </button>
+            <motion.div 
+              initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
+              className="w-full h-full bg-white rounded-2xl overflow-hidden shadow-2xl"
+            >
+              <iframe src={fullscreenUrl} className="w-full h-full border-none" allowFullScreen />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
