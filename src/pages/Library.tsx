@@ -26,13 +26,13 @@ const texts = {
       {
         title: "Vùng Đất Cảm Xúc 1",
         ebookLabel: "Ebook 1",
-        handbookLabel: "Sổ Tay 1",
+        handbookLabel: "Sổ Tay",
         videos: [{ title: "Vui vẻ" }, { title: "Buồn bã" }],
       },
       {
         title: "Vùng Đất Cảm Xúc 2",
         ebookLabel: "Ebook 2",
-        handbookLabel: "Sổ Tay 2",
+        handbookLabel: "Sổ Tay",
         videos: [{ title: "Sợ hãi" }, { title: "Yêu thương" }],
       },
     ],
@@ -53,13 +53,13 @@ const texts = {
       {
         title: "Emotion Land 1",
         ebookLabel: "Ebook 1",
-        handbookLabel: "Handbook 1",
+        handbookLabel: "Handbook",
         videos: [{ title: "Happiness" }, { title: "Sadness" }],
       },
       {
         title: "Emotion Land 2",
         ebookLabel: "Ebook 2",
-        handbookLabel: "Handbook 2",
+        handbookLabel: "Handbook",
         videos: [{ title: "Fear" }, { title: "Love" }],
       },
     ],
@@ -77,7 +77,7 @@ const bookSections = [
       { url: "https://www.youtube.com/embed/_i8X60hjnqs" },
     ],
     ebookUrl: "/ebook-moodoo-1/index.html",
-    handbookUrl: "/handbook-1/index.html", // Đảm bảo bạn có folder này trong public
+    handbookUrl: "/handbook/index.html", // Cả 2 đều dùng chung link này
   },
   {
     id: "VDCX2",
@@ -88,7 +88,7 @@ const bookSections = [
       { url: "https://www.youtube.com/embed/dDvP3fGAp5Y" },
     ],
     ebookUrl: "/ebook-moodoo-2/index.html",
-    handbookUrl: "/handbook-2/index.html", // Đảm bảo bạn có folder này trong public
+    handbookUrl: "/handbook/index.html", // Cả 2 đều dùng chung link này
   },
 ];
 
@@ -109,7 +109,8 @@ export default function Library() {
   const canAccessSection = (sectionId: string) => access === "ALL" || access === sectionId;
 
   return (
-    <div>
+    <div className="min-h-screen">
+      {/* Header */}
       <div className="bg-moodoo-green text-white py-12 text-center border-t-4 border-white relative overflow-hidden">
         <FloatingEmojis variant="library" count={10} />
         <h1 className="text-4xl md:text-5xl font-display font-bold relative z-10" style={{ textShadow: "2px 2px 0 rgba(0,0,0,0.1)" }}>
@@ -149,11 +150,11 @@ export default function Library() {
                       ))}
                     </div>
 
-                    {/* Ebooks & Handbooks Grid - Square Layout */}
+                    {/* Ebooks & Handbooks Grid - Optimized Proportion */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
-                      {/* Left Column: Ebook */}
+                      {/* Ebook */}
                       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="flex flex-col items-center">
-                        <div className="w-full aspect-square rounded-2xl overflow-hidden shadow-2xl border-4 border-white bg-white">
+                        <div className="w-full aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border-4 border-white bg-white">
                           <iframe 
                             allowFullScreen 
                             allow="clipboard-write" 
@@ -166,9 +167,9 @@ export default function Library() {
                         <p className={`mt-4 font-display font-bold text-xl ${section.color}`}>{sectionTexts.ebookLabel}</p>
                       </motion.div>
 
-                      {/* Right Column: Handbook */}
+                      {/* Handbook */}
                       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="flex flex-col items-center">
-                        <div className="w-full aspect-square rounded-2xl overflow-hidden shadow-2xl border-4 border-white bg-white">
+                        <div className="w-full aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border-4 border-white bg-white">
                           <iframe 
                             allowFullScreen 
                             allow="clipboard-write" 
