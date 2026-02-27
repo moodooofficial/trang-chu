@@ -47,12 +47,12 @@ const texts = {
     lockedDesc: "You need the corresponding book code to unlock",
     emotionsTitle: "6 BASIC EMOTIONS",
     emotionsSub: "Recognize emotions with Moodoo",
-    handbookTitle: "📒 HANDBOOK GUIDE",
-    handbookSub: "For parents and teachers",
+    handbookTitle: "📒 HANDBOOK",
+    handbookSub: "Family activities at home",
     sections: [
       {
         title: "Emotion Land 1",
-        videos: [{ title: "Anger" }, { title: "Sadness" }],
+        videos: [{ title: "Happiness" }, { title: "Sadness" }],
       },
       {
         title: "Emotion Land 2",
