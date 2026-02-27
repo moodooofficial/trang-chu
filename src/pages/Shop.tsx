@@ -190,16 +190,38 @@ export default function Shop() {
             </div>
           </div>
 
-          {/* Demo Flipbook */}
-          <div>
-            <h2 className="text-center text-2xl md:text-3xl font-display font-bold text-moodoo-orange uppercase mb-8">{t.demo}</h2>
-            <div className="rounded-2xl overflow-hidden shadow-lg border-2 border-moodoo-cream">
-              <iframe allowFullScreen allow="clipboard-write" scrolling="no" className="w-full h-[400px] md:h-[500px]"
-                src="https://heyzine.com/flip-book/dbfefaa60f.html" style={{ border: "1px solid #ddd" }} />
-            </div>
-          </div>
-        </div>
-      </section>
+{/* Demo Flipbook */}
+<section className="pb-16 relative z-10">
+  <div className="max-w-5xl mx-auto px-4">
+    <motion.div 
+      initial="hidden" 
+      whileInView="visible" 
+      viewport={{ once: true }} 
+      variants={fadeInUp}
+      className="bg-white dark:bg-card rounded-3xl p-6 md:p-10 shadow-xl border-2 border-moodoo-yellow/20"
+    >
+      <h2 className="text-center text-2xl md:text-3xl font-display font-bold text-moodoo-orange uppercase mb-8">
+        {t.demo}
+      </h2>
+      
+      <div className="rounded-2xl overflow-hidden shadow-inner bg-moodoo-cream/30">
+        <iframe 
+          allowFullScreen 
+          allow="clipboard-write" 
+          scrolling="no" 
+          className="w-full h-[400px] md:h-[550px]"
+          src="https://heyzine.com/flip-book/dbfefaa60f.html" 
+          style={{ border: "none" }} 
+        />
+      </div>
+      
+      {/* Một chút trang trí nhỏ dưới khung demo cho sinh động */}
+      <p className="text-center font-body text-sm text-muted-foreground mt-4 italic">
+        Thử lật trang để khám phá thế giới của MOODOO nhé! ✨
+      </p>
+    </motion.div>
+  </div>
+</section>
     </div>
   );
 }
