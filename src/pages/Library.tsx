@@ -109,11 +109,8 @@ export default function Library() {
   const t = texts[lang];
   const [fullscreenUrl, setFullscreenUrl] = useState<string | null>(null);
 
-  // Sửa logic check quyền để đảm bảo mở khóa đúng
-  const canAccessSection = (sectionId: string) => {
-    if (!access || access === "NONE") return false;
-    return access === "ALL" || access === sectionId;
-  };
+  // Logic phân quyền chính xác từ Library (2)
+  const canAccessSection = (sectionId: string) => access === "ALL" || access === sectionId;
 
   return (
     <div className="min-h-screen">
@@ -143,6 +140,7 @@ export default function Library() {
 
                 {unlocked ? (
                   <div className="space-y-16">
+                    {/* Videos Row */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                       {section.videos.map((v, i) => (
                         <motion.div key={i} className="bg-white dark:bg-card rounded-2xl p-4 shadow-lg"
@@ -155,8 +153,9 @@ export default function Library() {
                       ))}
                     </div>
 
+                    {/* Ebooks & Handbooks Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
-                      {/* Ebook Frame with Fullscreen */}
+                      {/* Ebook Frame */}
                       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="flex flex-col items-center group">
                         <div className="w-full aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border-4 border-white bg-white relative">
                           <iframe allowFullScreen allow="clipboard-write" scrolling="no" className="w-full h-full" src={section.ebookUrl} style={{ border: "none" }} />
@@ -170,7 +169,7 @@ export default function Library() {
                         <p className={`mt-4 font-display font-bold text-xl ${section.color}`}>{sectionTexts.ebookLabel}</p>
                       </motion.div>
 
-                      {/* Handbook Frame with Fullscreen */}
+                      {/* Handbook Frame */}
                       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="flex flex-col items-center group">
                         <div className="w-full aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border-4 border-white bg-white relative">
                           <iframe allowFullScreen allow="clipboard-write" scrolling="no" className="w-full h-full" src={section.handbookUrl} style={{ border: "none" }} />
@@ -219,7 +218,7 @@ export default function Library() {
         </section>
       </GatedContent>
 
-      {/* Fullscreen Modal */}
+      {/* Fullscreen Modal Overlay */}
       <AnimatePresence>
         {fullscreenUrl && (
           <motion.div 
