@@ -22,29 +22,16 @@ const texts = {
     lockedDesc: "Bạn cần mã sách tương ứng để mở khoá",
     emotionsTitle: "6 CẢM XÚC CƠ BẢN",
     emotionsSub: "Nhận diện cảm xúc cùng Moodoo",
-    demoTitle: "📖 DEMO MOODOO",
+    handbookTitle: "📒 SỔ TAY HƯỚNG DẪN",
+    handbookSub: "Dành cho ba mẹ và thầy cô",
     sections: [
       {
         title: "Vùng Đất Cảm Xúc 1",
-        videos: [
-          { title: "Vui vẻ" },
-          { title: "Buồn bã" },
-        ],
-        resources: [
-          { icon: "📘", title: "EBOOK 1", desc: "Vùng đất cảm xúc I" },
-          { icon: "📒", title: "SỔ TAY", desc: "Hướng dẫn cho ba mẹ" },
-        ],
+        videos: [{ title: "Vui vẻ" }, { title: "Buồn bã" }],
       },
       {
         title: "Vùng Đất Cảm Xúc 2",
-        videos: [
-          { title: "Sợ hãi" },
-          { title: "Yêu thương" },
-        ],
-        resources: [
-          { icon: "📙", title: "EBOOK 2", desc: "Vùng đất cảm xúc II" },
-          { icon: "📒", title: "SỔ TAY", desc: "Hướng dẫn cho ba mẹ" },
-        ],
+        videos: [{ title: "Sợ hãi" }, { title: "Yêu thương" }],
       },
     ],
     emotions: ["VUI VẺ", "BUỒN BÃ", "TỨC GIẬN", "SỢ HÃI", "NGẠC NHIÊN", "YÊU THƯƠNG"],
@@ -60,29 +47,16 @@ const texts = {
     lockedDesc: "You need the corresponding book code to unlock",
     emotionsTitle: "6 BASIC EMOTIONS",
     emotionsSub: "Recognize emotions with Moodoo",
-    demoTitle: "📖 MOODOO DEMO",
+    handbookTitle: "📒 HANDBOOK GUIDE",
+    handbookSub: "For parents and teachers",
     sections: [
       {
         title: "Emotion Land 1",
-        videos: [
-          { title: "Anger" },
-          { title: "Sadness" },
-        ],
-        resources: [
-          { icon: "📘", title: "EBOOK 1", desc: "Emotion Land I" },
-          { icon: "📒", title: "NOTEBOOK", desc: "Guide for parents" },
-        ],
+        videos: [{ title: "Anger" }, { title: "Sadness" }],
       },
       {
         title: "Emotion Land 2",
-        videos: [
-          { title: "Fear" },
-          { title: "Love" },
-        ],
-        resources: [
-          { icon: "📙", title: "EBOOK 2", desc: "Emotion Land II" },
-          { icon: "📒", title: "NOTEBOOK", desc: "Guide for parents" },
-        ],
+        videos: [{ title: "Fear" }, { title: "Love" }],
       },
     ],
     emotions: ["HAPPY", "SAD", "ANGRY", "SCARED", "SURPRISED", "LOVING"],
@@ -93,30 +67,22 @@ const bookSections = [
   {
     id: "VDCX1",
     color: "text-moodoo-sky",
-    borderColor: "border-moodoo-sky",
     bgColor: "bg-blue-50 dark:bg-blue-950/20",
     videos: [
       { url: "https://www.youtube.com/embed/BtqKesUhIt8" },
       { url: "https://www.youtube.com/embed/_i8X60hjnqs" },
     ],
-    resources: [
-      { url: "https://heyzine.com/flip-book/830bf01ca2.html" },
-      { url: "https://heyzine.com/flip-book/21a955ab12.html" },
-    ],
+    ebookUrl: "https://heyzine.com/flip-book/830bf01ca2.html",
   },
   {
     id: "VDCX2",
     color: "text-moodoo-rose",
-    borderColor: "border-moodoo-rose",
     bgColor: "bg-pink-50 dark:bg-pink-950/20",
     videos: [
       { url: "https://www.youtube.com/embed/k3vnbzhYFWY" },
       { url: "https://www.youtube.com/embed/dDvP3fGAp5Y" },
     ],
-    resources: [
-      { url: "https://heyzine.com/flip-book/c53727e68b.html" },
-      { url: "https://heyzine.com/flip-book/21a955ab12.html" },
-    ],
+    ebookUrl: "https://heyzine.com/flip-book/c53727e68b.html",
   },
 ];
 
@@ -146,12 +112,12 @@ export default function Library() {
       </div>
 
       <GatedContent title={t.gateTitle} description={t.gateDesc} buttonText={t.gateBtn}>
-        {/* Book Sections */}
+        {/* Book Sections 1 & 2 */}
         {bookSections.map((section, sIdx) => {
           const unlocked = canAccessSection(section.id);
           const sectionTexts = t.sections[sIdx];
           return (
-            <section key={sIdx} className={`${section.bgColor} py-16 relative overflow-hidden`}>
+            <section key={sIdx} className={`${section.bgColor} py-16 relative overflow-hidden border-b border-white/20`}>
               <FloatingEmojis variant="library" count={6} />
               <div className="max-w-6xl mx-auto px-4 relative z-10">
                 <div className="text-center mb-10">
@@ -164,12 +130,12 @@ export default function Library() {
                 </div>
 
                 {unlocked ? (
-                  <>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+                  <div className="space-y-12">
+                    {/* Videos Row */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                       {section.videos.map((v, i) => (
-                        <motion.div key={i} className="bg-white dark:bg-card rounded-2xl p-4 shadow-lg hover:-translate-y-1 transition-transform"
-                          initial="hidden" whileInView="visible" viewport={{ once: true }}
-                          variants={{ ...fadeInUp, visible: { ...fadeInUp.visible, transition: { duration: 0.5, delay: i * 0.1 } } }}>
+                        <motion.div key={i} className="bg-white dark:bg-card rounded-2xl p-4 shadow-lg"
+                          initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
                           <div className="relative pb-[56.25%] bg-foreground rounded-xl overflow-hidden">
                             <iframe src={v.url} allowFullScreen className="absolute inset-0 w-full h-full border-none" />
                           </div>
@@ -178,19 +144,21 @@ export default function Library() {
                       ))}
                     </div>
 
-                    <div className="flex flex-col md:flex-row justify-center gap-8">
-                      {section.resources.map((r, i) => (
-                        <a key={i} href={r.url} target="_blank" rel="noopener noreferrer"
-                          className={`block w-56 mx-auto bg-white dark:bg-card rounded-2xl p-8 border-4 ${section.borderColor} shadow-lg hover:translate-y-1 transition-all text-center hover:shadow-xl`}>
-                          <span className="text-5xl block mb-3">{sectionTexts.resources[i].icon}</span>
-                          <h3 className={`font-display font-black text-xl ${section.color}`}>{sectionTexts.resources[i].title}</h3>
-                          <p className="font-body text-sm text-muted-foreground mt-1">{sectionTexts.resources[i].desc}</p>
-                        </a>
-                      ))}
-                    </div>
-                  </>
+                    {/* Ebook Embed Row */}
+                    <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}
+                      className="rounded-2xl overflow-hidden shadow-2xl border-4 border-white max-w-4xl mx-auto">
+                      <iframe 
+                        allowFullScreen 
+                        allow="clipboard-write" 
+                        scrolling="no" 
+                        className="w-full h-[400px] md:h-[500px]" 
+                        src={section.ebookUrl} 
+                        style={{ border: "none" }} 
+                      />
+                    </motion.div>
+                  </div>
                 ) : (
-                  <div className="text-center py-10">
+                  <div className="text-center py-10 bg-white/50 rounded-3xl backdrop-blur-sm max-w-2xl mx-auto border-2 border-dashed border-gray-300">
                     <div className="text-6xl mb-4">🔐</div>
                     <p className="font-display font-bold text-lg text-foreground mb-2">{t.lockedTitle}</p>
                     <p className="font-body text-muted-foreground mb-4">{t.lockedDesc} {sectionTexts.title}</p>
@@ -201,7 +169,35 @@ export default function Library() {
           );
         })}
 
-        {/* Emotions */}
+        {/* Handbook Section (Sổ tay - Nằm dưới VDCX 2) */}
+        <section className="bg-moodoo-pink/10 py-16 relative overflow-hidden">
+          <div className="max-w-4xl mx-auto px-4 relative z-10">
+            <div className="text-center mb-10">
+              <h2 className="text-3xl font-display font-bold text-moodoo-rose uppercase">{t.handbookTitle}</h2>
+              <p className="font-body text-muted-foreground mt-2">{t.handbookSub}</p>
+            </div>
+            {/* Sổ tay này dùng chung mã khóa ALL hoặc một trong hai vùng đất (tùy bạn chỉnh) */}
+            {access !== "NONE" ? (
+               <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}
+               className="rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
+               <iframe 
+                 allowFullScreen 
+                 allow="clipboard-write" 
+                 scrolling="no" 
+                 className="w-full h-[400px] md:h-[500px]" 
+                 src="https://heyzine.com/flip-book/21a955ab12.html" 
+                 style={{ border: "none" }} 
+               />
+             </motion.div>
+            ) : (
+              <div className="text-center py-10 bg-white/30 rounded-3xl border-2 border-dashed border-moodoo-rose/30">
+                <p className="font-display font-bold text-moodoo-rose">Vui lòng mở khóa để xem Sổ Tay Hướng Dẫn</p>
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* Emotions Section */}
         <section className="bg-moodoo-cream py-16 relative overflow-hidden">
           <FloatingEmojis count={6} />
           <div className="max-w-5xl mx-auto px-4 relative z-10">
