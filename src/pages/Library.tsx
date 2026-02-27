@@ -72,7 +72,8 @@ const bookSections = [
       { url: "https://www.youtube.com/embed/BtqKesUhIt8" },
       { url: "https://www.youtube.com/embed/_i8X60hjnqs" },
     ],
-    ebookUrl: "https://heyzine.com/flip-book/830bf01ca2.html",
+    // Cập nhật đường dẫn ebook 1 nội bộ
+    ebookUrl: "/ebook-moodoo-1/index.html",
   },
   {
     id: "VDCX2",
@@ -82,7 +83,8 @@ const bookSections = [
       { url: "https://www.youtube.com/embed/k3vnbzhYFWY" },
       { url: "https://www.youtube.com/embed/dDvP3fGAp5Y" },
     ],
-    ebookUrl: "https://heyzine.com/flip-book/c53727e68b.html",
+    // Cập nhật đường dẫn ebook 2 nội bộ
+    ebookUrl: "/ebook-moodoo-2/index.html",
   },
 ];
 
@@ -176,7 +178,6 @@ export default function Library() {
               <h2 className="text-3xl font-display font-bold text-moodoo-rose uppercase">{t.handbookTitle}</h2>
               <p className="font-body text-muted-foreground mt-2">{t.handbookSub}</p>
             </div>
-            {/* Sổ tay này dùng chung mã khóa ALL hoặc một trong hai vùng đất (tùy bạn chỉnh) */}
             {access !== "NONE" ? (
                <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}
                className="rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
@@ -185,7 +186,8 @@ export default function Library() {
                  allow="clipboard-write" 
                  scrolling="no" 
                  className="w-full h-[400px] md:h-[500px]" 
-                 src="https://heyzine.com/flip-book/21a955ab12.html" 
+                 // Cập nhật đường dẫn sổ tay nội bộ
+                 src="/handbook/index.html" 
                  style={{ border: "none" }} 
                />
              </motion.div>
@@ -200,7 +202,7 @@ export default function Library() {
         {/* Emotions Section */}
         <section className="bg-moodoo-cream py-16 relative overflow-hidden">
           <FloatingEmojis count={6} />
-          <div className="max-w-5xl mx-auto px-4 relative z-10">
+          <div className="max-w-5_xl mx-auto px-4 relative z-10">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-display font-bold text-moodoo-rose">{t.emotionsTitle}</h2>
               <p className="font-body text-muted-foreground mt-2">{t.emotionsSub}</p>
