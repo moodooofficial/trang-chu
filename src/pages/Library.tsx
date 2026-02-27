@@ -22,15 +22,17 @@ const texts = {
     lockedDesc: "Bạn cần mã sách tương ứng để mở khoá",
     emotionsTitle: "6 CẢM XÚC CƠ BẢN",
     emotionsSub: "Nhận diện cảm xúc cùng Moodoo",
-    handbookTitle: "📒 SỔ TAY",
-    handbookSub: "Các hoạt động tại nhà cho gia đình",
     sections: [
       {
         title: "Vùng Đất Cảm Xúc 1",
+        ebookLabel: "Ebook 1",
+        handbookLabel: "Sổ Tay 1",
         videos: [{ title: "Vui vẻ" }, { title: "Buồn bã" }],
       },
       {
         title: "Vùng Đất Cảm Xúc 2",
+        ebookLabel: "Ebook 2",
+        handbookLabel: "Sổ Tay 2",
         videos: [{ title: "Sợ hãi" }, { title: "Yêu thương" }],
       },
     ],
@@ -47,15 +49,17 @@ const texts = {
     lockedDesc: "You need the corresponding book code to unlock",
     emotionsTitle: "6 BASIC EMOTIONS",
     emotionsSub: "Recognize emotions with Moodoo",
-    handbookTitle: "📒 HANDBOOK",
-    handbookSub: "Family activities at home",
     sections: [
       {
         title: "Emotion Land 1",
+        ebookLabel: "Ebook 1",
+        handbookLabel: "Handbook 1",
         videos: [{ title: "Happiness" }, { title: "Sadness" }],
       },
       {
         title: "Emotion Land 2",
+        ebookLabel: "Ebook 2",
+        handbookLabel: "Handbook 2",
         videos: [{ title: "Fear" }, { title: "Love" }],
       },
     ],
@@ -72,8 +76,8 @@ const bookSections = [
       { url: "https://www.youtube.com/embed/BtqKesUhIt8" },
       { url: "https://www.youtube.com/embed/_i8X60hjnqs" },
     ],
-    // Cập nhật đường dẫn ebook 1 nội bộ
     ebookUrl: "/ebook-moodoo-1/index.html",
+    handbookUrl: "/handbook-1/index.html", // Đảm bảo bạn có folder này trong public
   },
   {
     id: "VDCX2",
@@ -83,8 +87,8 @@ const bookSections = [
       { url: "https://www.youtube.com/embed/k3vnbzhYFWY" },
       { url: "https://www.youtube.com/embed/dDvP3fGAp5Y" },
     ],
-    // Cập nhật đường dẫn ebook 2 nội bộ
     ebookUrl: "/ebook-moodoo-2/index.html",
+    handbookUrl: "/handbook-2/index.html", // Đảm bảo bạn có folder này trong public
   },
 ];
 
@@ -114,7 +118,6 @@ export default function Library() {
       </div>
 
       <GatedContent title={t.gateTitle} description={t.gateDesc} buttonText={t.gateBtn}>
-        {/* Book Sections 1 & 2 */}
         {bookSections.map((section, sIdx) => {
           const unlocked = canAccessSection(section.id);
           const sectionTexts = t.sections[sIdx];
@@ -132,7 +135,7 @@ export default function Library() {
                 </div>
 
                 {unlocked ? (
-                  <div className="space-y-12">
+                  <div className="space-y-16">
                     {/* Videos Row */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                       {section.videos.map((v, i) => (
@@ -141,23 +144,43 @@ export default function Library() {
                           <div className="relative pb-[56.25%] bg-foreground rounded-xl overflow-hidden">
                             <iframe src={v.url} allowFullScreen className="absolute inset-0 w-full h-full border-none" />
                           </div>
-                          <p className="mt-4 text-center font-display font-bold">{sectionTexts.videos[i].title}</p>
+                          <p className="mt-4 text-center font-display font-bold uppercase tracking-wide">{sectionTexts.videos[i].title}</p>
                         </motion.div>
                       ))}
                     </div>
 
-                    {/* Ebook Embed Row */}
-                    <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}
-                      className="rounded-2xl overflow-hidden shadow-2xl border-4 border-white max-w-4xl mx-auto">
-                      <iframe 
-                        allowFullScreen 
-                        allow="clipboard-write" 
-                        scrolling="no" 
-                        className="w-full h-[400px] md:h-[500px]" 
-                        src={section.ebookUrl} 
-                        style={{ border: "none" }} 
-                      />
-                    </motion.div>
+                    {/* Ebooks & Handbooks Grid - Square Layout */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+                      {/* Left Column: Ebook */}
+                      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="flex flex-col items-center">
+                        <div className="w-full aspect-square rounded-2xl overflow-hidden shadow-2xl border-4 border-white bg-white">
+                          <iframe 
+                            allowFullScreen 
+                            allow="clipboard-write" 
+                            scrolling="no" 
+                            className="w-full h-full" 
+                            src={section.ebookUrl} 
+                            style={{ border: "none" }} 
+                          />
+                        </div>
+                        <p className={`mt-4 font-display font-bold text-xl ${section.color}`}>{sectionTexts.ebookLabel}</p>
+                      </motion.div>
+
+                      {/* Right Column: Handbook */}
+                      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="flex flex-col items-center">
+                        <div className="w-full aspect-square rounded-2xl overflow-hidden shadow-2xl border-4 border-white bg-white">
+                          <iframe 
+                            allowFullScreen 
+                            allow="clipboard-write" 
+                            scrolling="no" 
+                            className="w-full h-full" 
+                            src={section.handbookUrl} 
+                            style={{ border: "none" }} 
+                          />
+                        </div>
+                        <p className={`mt-4 font-display font-bold text-xl ${section.color}`}>{sectionTexts.handbookLabel}</p>
+                      </motion.div>
+                    </div>
                   </div>
                 ) : (
                   <div className="text-center py-10 bg-white/50 rounded-3xl backdrop-blur-sm max-w-2xl mx-auto border-2 border-dashed border-gray-300">
@@ -171,38 +194,10 @@ export default function Library() {
           );
         })}
 
-        {/* Handbook Section (Sổ tay - Nằm dưới VDCX 2) */}
-        <section className="bg-moodoo-pink/10 py-16 relative overflow-hidden">
-          <div className="max-w-4xl mx-auto px-4 relative z-10">
-            <div className="text-center mb-10">
-              <h2 className="text-3xl font-display font-bold text-moodoo-rose uppercase">{t.handbookTitle}</h2>
-              <p className="font-body text-muted-foreground mt-2">{t.handbookSub}</p>
-            </div>
-            {access !== "NONE" ? (
-               <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}
-               className="rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
-               <iframe 
-                 allowFullScreen 
-                 allow="clipboard-write" 
-                 scrolling="no" 
-                 className="w-full h-[400px] md:h-[500px]" 
-                 // Cập nhật đường dẫn sổ tay nội bộ
-                 src="/handbook/index.html" 
-                 style={{ border: "none" }} 
-               />
-             </motion.div>
-            ) : (
-              <div className="text-center py-10 bg-white/30 rounded-3xl border-2 border-dashed border-moodoo-rose/30">
-                <p className="font-display font-bold text-moodoo-rose">Vui lòng mở khóa để xem Sổ Tay Hướng Dẫn</p>
-              </div>
-            )}
-          </div>
-        </section>
-
         {/* Emotions Section */}
         <section className="bg-moodoo-cream py-16 relative overflow-hidden">
           <FloatingEmojis count={6} />
-          <div className="max-w-5_xl mx-auto px-4 relative z-10">
+          <div className="max-w-5xl mx-auto px-4 relative z-10">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-display font-bold text-moodoo-rose">{t.emotionsTitle}</h2>
               <p className="font-body text-muted-foreground mt-2">{t.emotionsSub}</p>
