@@ -46,8 +46,8 @@ const texts = {
   en: {
     pageTitle: "ABOUT US",
     quotePart1: "✨ Understand Emotions - Master Behavior - Build a",
-    quoteHighlight: "Positive",
-    quotePart2: "Vietnamese Generation ✨",
+    quoteHighlight: "Positive ✨",
+    quotePart2: "Vietnamese Generation",
     sections: [
       {
         title: "We are",
