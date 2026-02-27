@@ -22,8 +22,8 @@ const texts = {
     lockedDesc: "Bạn cần mã sách tương ứng để mở khoá",
     emotionsTitle: "6 CẢM XÚC CƠ BẢN",
     emotionsSub: "Nhận diện cảm xúc cùng Moodoo",
-    handbookTitle: "📒 SỔ TAY HƯỚNG DẪN",
-    handbookSub: "Dành cho ba mẹ và thầy cô",
+    handbookTitle: "📒 SỔ TAY",
+    handbookSub: "Các hoạt động tại nhà cho gia đình",
     sections: [
       {
         title: "Vùng Đất Cảm Xúc 1",
