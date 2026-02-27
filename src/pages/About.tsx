@@ -13,8 +13,9 @@ const fadeInUp = {
 const texts = {
   vi: {
     pageTitle: "VỀ CHÚNG MÌNH",
-    quotePrefix: "✨ Hiểu cảm xúc - Làm chủ hành vi - Dựng xây thế hệ Việt tích cực",
-    quoteSuffix: "✨",
+    quotePart1: "✨ Hiểu cảm xúc - Làm chủ hành vi - Dựng xây thế hệ Việt",
+    quoteHighlight: "tích cực",
+    quotePart2: "✨",
     sections: [
       {
         title: "Chúng mình là",
@@ -44,8 +45,9 @@ const texts = {
   },
   en: {
     pageTitle: "ABOUT US",
-    quotePrefix: "✨ Understand Emotions - Master Behavior - Build a Positive Vietnamese Generation",
-    quoteSuffix: "✨",
+    quotePart1: "✨ Understand Emotions - Master Behavior - Build a",
+    quoteHighlight: "Positive",
+    quotePart2: "Vietnamese Generation ✨",
     sections: [
       {
         title: "We are",
@@ -120,14 +122,21 @@ export default function About() {
         </section>
       ))}
 
-      {/* Quote Section - Font size has been adjusted to look better in English */}
+      {/* Quote Section - Biểu tượng ✨ đã được đưa lên góc trên bên phải của chữ "Positive" / "tích cực" */}
       <section className="bg-gradient-to-r from-moodoo-yellow via-moodoo-orange to-moodoo-rose py-14 relative overflow-hidden">
         <FloatingEmojis count={6} />
         <motion.div className="text-center relative z-10 px-6" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
           <p className={`font-display font-extrabold text-white leading-tight max-w-5xl mx-auto
             ${lang === 'en' ? 'text-lg md:text-2xl lg:text-3xl' : 'text-xl md:text-3xl'} 
           `} style={{ textShadow: "2px 2px 0 rgba(0,0,0,0.15)" }}>
-            {t.quotePrefix} <span className="relative inline-block">{t.quoteSuffix}</span>
+            {t.quotePart1}{" "}
+            <span className="relative inline-block">
+              {t.quoteHighlight}
+              <span className="absolute -top-2 -right-4 md:-top-3 md:-right-6 text-base md:text-xl lg:text-2xl animate-pulse">
+                ✨
+              </span>
+            </span>{" "}
+            {t.quotePart2}
           </p>
         </motion.div>
       </section>
