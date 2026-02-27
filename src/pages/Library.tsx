@@ -1,4 +1,6 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Maximize2, X } from "lucide-react";
 import GatedContent from "@/components/GatedContent";
 import FloatingEmojis from "@/components/FloatingEmojis";
 import { useAuth } from "@/contexts/AuthContext";
@@ -77,7 +79,7 @@ const bookSections = [
       { url: "https://www.youtube.com/embed/_i8X60hjnqs" },
     ],
     ebookUrl: "/ebook-moodoo-1/index.html",
-    handbookUrl: "/handbook/index.html", // Cả 2 đều dùng chung link này
+    handbookUrl: "/handbook/index.html",
   },
   {
     id: "VDCX2",
@@ -88,7 +90,7 @@ const bookSections = [
       { url: "https://www.youtube.com/embed/dDvP3fGAp5Y" },
     ],
     ebookUrl: "/ebook-moodoo-2/index.html",
-    handbookUrl: "/handbook/index.html", // Cả 2 đều dùng chung link này
+    handbookUrl: "/handbook/index.html",
   },
 ];
 
@@ -105,6 +107,7 @@ export default function Library() {
   const { access } = useAuth();
   const { lang } = useLanguage();
   const t = texts[lang];
+  const [fullscreenUrl, setFullscreenUrl] = useState<string | null>(null);
 
   const canAccessSection = (sectionId: string) => access === "ALL" || access === sectionId;
 
@@ -150,34 +153,34 @@ export default function Library() {
                       ))}
                     </div>
 
-                    {/* Ebooks & Handbooks Grid - Optimized Proportion */}
+                    {/* Ebooks & Handbooks Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
-                      {/* Ebook */}
-                      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="flex flex-col items-center">
-                        <div className="w-full aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border-4 border-white bg-white">
-                          <iframe 
-                            allowFullScreen 
-                            allow="clipboard-write" 
-                            scrolling="no" 
-                            className="w-full h-full" 
-                            src={section.ebookUrl} 
-                            style={{ border: "none" }} 
-                          />
+                      {/* Ebook Frame */}
+                      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="flex flex-col items-center group">
+                        <div className="w-full aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border-4 border-white bg-white relative">
+                          <iframe allowFullScreen allow="clipboard-write" scrolling="no" className="w-full h-full" src={section.ebookUrl} style={{ border: "none" }} />
+                          {/* Fullscreen Toggle Button */}
+                          <button 
+                            onClick={() => setFullscreenUrl(section.ebookUrl)}
+                            className="absolute top-4 right-4 bg-white/90 p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white hover:scale-110"
+                          >
+                            <Maximize2 className="w-5 h-5 text-moodoo-green" />
+                          </button>
                         </div>
                         <p className={`mt-4 font-display font-bold text-xl ${section.color}`}>{sectionTexts.ebookLabel}</p>
                       </motion.div>
 
-                      {/* Handbook */}
-                      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="flex flex-col items-center">
-                        <div className="w-full aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border-4 border-white bg-white">
-                          <iframe 
-                            allowFullScreen 
-                            allow="clipboard-write" 
-                            scrolling="no" 
-                            className="w-full h-full" 
-                            src={section.handbookUrl} 
-                            style={{ border: "none" }} 
-                          />
+                      {/* Handbook Frame */}
+                      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="flex flex-col items-center group">
+                        <div className="w-full aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border-4 border-white bg-white relative">
+                          <iframe allowFullScreen allow="clipboard-write" scrolling="no" className="w-full h-full" src={section.handbookUrl} style={{ border: "none" }} />
+                          {/* Fullscreen Toggle Button */}
+                          <button 
+                            onClick={() => setFullscreenUrl(section.handbookUrl)}
+                            className="absolute top-4 right-4 bg-white/90 p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white hover:scale-110"
+                          >
+                            <Maximize2 className="w-5 h-5 text-moodoo-green" />
+                          </button>
                         </div>
                         <p className={`mt-4 font-display font-bold text-xl ${section.color}`}>{sectionTexts.handbookLabel}</p>
                       </motion.div>
@@ -216,6 +219,39 @@ export default function Library() {
           </div>
         </section>
       </GatedContent>
+
+      {/* Fullscreen Modal Overlay */}
+      <AnimatePresence>
+        {fullscreenUrl && (
+          <motion.div 
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }} 
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] bg-black/90 flex flex-col items-center justify-center p-4 md:p-8"
+          >
+            <motion.button 
+              initial={{ scale: 0 }} 
+              animate={{ scale: 1 }}
+              onClick={() => setFullscreenUrl(null)}
+              className="absolute top-4 right-4 md:top-8 md:right-8 bg-moodoo-rose text-white p-3 rounded-full hover:bg-moodoo-rose/80 transition-colors z-10"
+            >
+              <X className="w-6 h-6" />
+            </motion.button>
+            <motion.div 
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              className="w-full h-full bg-white rounded-2xl overflow-hidden relative shadow-2xl"
+            >
+              <iframe 
+                src={fullscreenUrl} 
+                className="w-full h-full border-none"
+                allowFullScreen
+                allow="clipboard-write"
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
