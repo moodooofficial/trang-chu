@@ -190,29 +190,30 @@ export default function Shop() {
             </div>
           </div>
 
-{/* Demo Flipbook - Đã cập nhật theo style Library.tsx */}
-<div>
-  <h2 className="text-center text-2xl md:text-3xl font-display font-bold text-moodoo-orange uppercase mb-8">
-    {t.demo}
-  </h2>
-  
-  <motion.div 
-    initial="hidden" 
-    whileInView="visible" 
-    viewport={{ once: true }} 
-    variants={fadeInUp}
-    className="rounded-2xl overflow-hidden shadow-2xl border-4 border-white max-w-4xl mx-auto"
-  >
-    <iframe 
-      allowFullScreen 
-      allow="clipboard-write" 
-      scrolling="no" 
-      className="w-full h-[400px] md:h-[500px]" 
-      src="https://heyzine.com/flip-book/dbfefaa60f.html" 
-      style={{ border: "none" }} 
-    />
-  </motion.div>
-</div>
+{/* Demo Flipbook */}
+          <div>
+            <h2 className="text-center text-2xl md:text-3xl font-display font-bold text-moodoo-orange uppercase mb-8">
+              {t.demo}
+            </h2>
+            <motion.div 
+              initial="hidden" 
+              whileInView="visible" 
+              viewport={{ once: true }} 
+              variants={fadeInUp}
+              className="rounded-2xl overflow-hidden shadow-2xl border-4 border-white max-w-4xl mx-auto"
+            >
+              <iframe 
+                allowFullScreen 
+                allow="clipboard-write" 
+                scrolling="no" 
+                className="w-full h-[400px] md:h-[500px]" 
+                src="https://heyzine.com/flip-book/dbfefaa60f.html" 
+                style={{ border: "none" }} 
+              />
+            </motion.div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
